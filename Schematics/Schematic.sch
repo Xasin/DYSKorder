@@ -1,0 +1,246 @@
+EESchema Schematic File Version 4
+EELAYER 26 0
+EELAYER END
+$Descr A4 11693 8268
+encoding utf-8
+Sheet 1 1
+Title ""
+Date ""
+Rev ""
+Comp ""
+Comment1 ""
+Comment2 ""
+Comment3 ""
+Comment4 ""
+$EndDescr
+$Comp
+L Diode:BAV99 D?
+U 1 1 5C7BD3C9
+P 7550 2600
+F 0 "D?" V 7504 2678 50  0000 L CNN
+F 1 "BAV99" V 7595 2678 50  0000 L CNN
+F 2 "Package_TO_SOT_SMD:SOT-23" H 7550 2450 50  0001 C CNN
+F 3 "www.nxp.com/documents/data_sheet/BAV99_SER.pdf" H 7550 2700 50  0001 C CNN
+	1    7550 2600
+	0    1    1    0   
+$EndComp
+$Comp
+L Diode:BAV99 D?
+U 2 1 5C7BD4A3
+P 7550 2300
+F 0 "D?" V 7504 2378 50  0000 L CNN
+F 1 "BAV99" V 7595 2378 50  0000 L CNN
+F 2 "Package_TO_SOT_SMD:SOT-23" H 7550 2150 50  0001 C CNN
+F 3 "www.nxp.com/documents/data_sheet/BAV99_SER.pdf" H 7550 2400 50  0001 C CNN
+	2    7550 2300
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:Q_NPN_BEC Q?
+U 1 1 5C7BD751
+P 7150 2350
+F 0 "Q?" H 7025 2275 50  0000 C CNN
+F 1 "Q_NPN_BEC" H 7000 2175 50  0000 C CNN
+F 2 "Package_TO_SOT_SMD:SOT-23" H 7350 2450 50  0001 C CNN
+F 3 "~" H 7150 2350 50  0001 C CNN
+	1    7150 2350
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	7350 2450 7375 2450
+Connection ~ 7550 2450
+Wire Wire Line
+	7550 2450 7950 2450
+$Comp
+L Device:R_Small R?
+U 1 1 5C7BDA78
+P 8075 2450
+F 0 "R?" V 7879 2450 50  0000 C CNN
+F 1 "R_Small" V 7970 2450 50  0000 C CNN
+F 2 "Resistor_SMD:R_0805_2012Metric" H 8075 2450 50  0001 C CNN
+F 3 "~" H 8075 2450 50  0001 C CNN
+	1    8075 2450
+	0    1    1    0   
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 5C7BDB17
+P 7550 2750
+F 0 "#PWR?" H 7550 2500 50  0001 C CNN
+F 1 "GND" H 7555 2577 50  0000 C CNN
+F 2 "" H 7550 2750 50  0001 C CNN
+F 3 "" H 7550 2750 50  0001 C CNN
+	1    7550 2750
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	7550 2150 7550 2100
+Text Label 7550 2100 0    50   ~ 0
+OVF_Protec
+Text Label 8225 1250 0    50   ~ 0
+OVF_Protect
+$Comp
+L Device:D_Zener D?
+U 1 1 5C7BDC31
+P 8225 1400
+F 0 "D?" V 8179 1479 50  0000 L CNN
+F 1 "D_Zener" V 8270 1479 50  0000 L CNN
+F 2 "" H 8225 1400 50  0001 C CNN
+F 3 "~" H 8225 1400 50  0001 C CNN
+	1    8225 1400
+	0    1    1    0   
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 5C7BDD0E
+P 8225 1550
+F 0 "#PWR?" H 8225 1300 50  0001 C CNN
+F 1 "GND" H 8230 1377 50  0000 C CNN
+F 2 "" H 8225 1550 50  0001 C CNN
+F 3 "" H 8225 1550 50  0001 C CNN
+	1    8225 1550
+	1    0    0    -1  
+$EndComp
+$Comp
+L RF_Module:ESP32-WROOM-32D U?
+U 1 1 5C7BDED8
+P 4250 3800
+F 0 "U?" H 4250 5378 50  0000 C CNN
+F 1 "ESP32-WROOM-32D" H 4250 5287 50  0000 C CNN
+F 2 "RF_Module:ESP32-WROOM-32" H 4250 2300 50  0001 C CNN
+F 3 "https://www.espressif.com/sites/default/files/documentation/esp32-wroom-32d_esp32-wroom-32u_datasheet_en.pdf" H 3950 3850 50  0001 C CNN
+	1    4250 3800
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:D_Schottky D?
+U 1 1 5C7BE273
+P 7150 2625
+F 0 "D?" H 7150 2800 50  0000 C CNN
+F 1 "D_Schottky" H 7150 2725 50  0000 C CNN
+F 2 "" H 7150 2625 50  0001 C CNN
+F 3 "~" H 7150 2625 50  0001 C CNN
+	1    7150 2625
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	7300 2625 7375 2625
+Wire Wire Line
+	7375 2625 7375 2450
+Connection ~ 7375 2450
+Wire Wire Line
+	7375 2450 7550 2450
+Wire Wire Line
+	7000 2625 6950 2625
+Wire Wire Line
+	6950 2625 6950 2450
+$Comp
+L Device:C_Small C?
+U 1 1 5C7BE4FE
+P 7950 2600
+F 0 "C?" H 8042 2646 50  0000 L CNN
+F 1 "C_Small" H 8042 2555 50  0000 L CNN
+F 2 "Capacitor_SMD:C_0805_2012Metric" H 7950 2600 50  0001 C CNN
+F 3 "~" H 7950 2600 50  0001 C CNN
+	1    7950 2600
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	7950 2500 7950 2450
+Connection ~ 7950 2450
+Wire Wire Line
+	7950 2450 7975 2450
+$Comp
+L power:GND #PWR?
+U 1 1 5C7BE63B
+P 7950 2750
+F 0 "#PWR?" H 7950 2500 50  0001 C CNN
+F 1 "GND" H 7955 2577 50  0000 C CNN
+F 2 "" H 7950 2750 50  0001 C CNN
+F 3 "" H 7950 2750 50  0001 C CNN
+	1    7950 2750
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	7950 2750 7950 2700
+$Comp
+L Device:R_Small R?
+U 1 1 5C7BEBBA
+P 7150 2050
+F 0 "R?" H 7209 2096 50  0000 L CNN
+F 1 "R_Small" H 7209 2005 50  0000 L CNN
+F 2 "" H 7150 2050 50  0001 C CNN
+F 3 "~" H 7150 2050 50  0001 C CNN
+	1    7150 2050
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+3.3V #PWR?
+U 1 1 5C7BEC7B
+P 7150 1950
+F 0 "#PWR?" H 7150 1800 50  0001 C CNN
+F 1 "+3.3V" H 7165 2123 50  0000 C CNN
+F 2 "" H 7150 1950 50  0001 C CNN
+F 3 "" H 7150 1950 50  0001 C CNN
+	1    7150 1950
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	6950 2450 6600 2450
+Connection ~ 6950 2450
+$Comp
+L Analog_ADC:MAX11613 U?
+U 1 1 5C7BEDE7
+P 6800 4875
+F 0 "U?" H 6800 5453 50  0000 C CNN
+F 1 "MAX11613" H 6800 5362 50  0000 C CNN
+F 2 "Package_SO:MSOP-8_3x3mm_P0.65mm" H 7250 4525 50  0001 L CNN
+F 3 "https://datasheets.maximintegrated.com/en/ds/MAX11612-MAX11617.pdf" H 6900 5375 50  0001 C CNN
+	1    6800 4875
+	1    0    0    -1  
+$EndComp
+$Comp
+L Interface_Expansion:MCP23017_SO U?
+U 1 1 5C7BF3B7
+P 8075 4375
+F 0 "U?" H 8075 5653 50  0000 C CNN
+F 1 "MCP23017_SO" H 8075 5562 50  0000 C CNN
+F 2 "Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm" H 8275 3375 50  0001 L CNN
+F 3 "http://ww1.microchip.com/downloads/en/DeviceDoc/20001952C.pdf" H 8275 3275 50  0001 L CNN
+	1    8075 4375
+	1    0    0    -1  
+$EndComp
+$Comp
+L Reference_Voltage:LM4040DBZ-2.0 D?
+U 1 1 5C7BF733
+P 6050 5125
+F 0 "D?" V 6096 5037 50  0000 R CNN
+F 1 "LM4040DBZ-2.0" V 6005 5037 50  0000 R CNN
+F 2 "Package_TO_SOT_SMD:SOT-23" H 6050 4925 50  0001 C CIN
+F 3 "http://www.ti.com/lit/ds/symlink/lm4040-n.pdf" H 6050 5125 50  0001 C CIN
+	1    6050 5125
+	0    -1   -1   0   
+$EndComp
+$Comp
+L Interface_CAN_LIN:TCAN330 U?
+U 1 1 5C7C01F8
+P 6025 3700
+F 0 "U?" H 6025 4278 50  0000 C CNN
+F 1 "TCAN330" H 6025 4187 50  0000 C CNN
+F 2 "" H 6025 3200 50  0001 C CIN
+F 3 "http://www.ti.com/lit/ds/symlink/tcan337.pdf" H 6025 3700 50  0001 C CNN
+	1    6025 3700
+	1    0    0    -1  
+$EndComp
+$Comp
+L Audio:AK5720VT U?
+U 1 1 5C7C058D
+P 9600 4850
+F 0 "U?" H 9600 4064 50  0000 C CNN
+F 1 "AK5720VT" H 9600 3973 50  0000 C CNN
+F 2 "Package_SO:TSSOP-16_4.4x5mm_P0.65mm" H 9600 4850 50  0001 C CIN
+F 3 "https://www.akm.com/akm/en/file/datasheet/AK5720VT.pdf" H 10300 4700 50  0001 C CNN
+	1    9600 4850
+	1    0    0    -1  
+$EndComp
+$EndSCHEMATC
