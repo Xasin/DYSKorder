@@ -1,0 +1,3 @@
+(fp_lib_table
+  (lib (name XasParts)(type KiCad)(uri ${KIPRJMOD}/XasParts.pretty)(options "")(descr ""))
+)
