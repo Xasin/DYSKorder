@@ -16,6 +16,9 @@
 #include "NeoController.h"
 
 #include "MasterAction.h"
+#include "xasin/AS1115.h"
+
+auto segmentCTRL = Xasin::I2C::AS1115();
 
 uint8_t segments[8] = {};
 
@@ -52,14 +55,48 @@ void update_segments() {
 		for(uint8_t i=0; i<8; i++)
 			rawSegments[i] |= ((segments[seg]>>i) & 1) << seg;
 
-	auto i2cSend = XaI2C::MasterAction(0);
-	i2cSend.write(1, &rawSegments, sizeof(rawSegments));
-	i2cSend.execute();
+	for(uint8_t i=0; i<8; i++)
+		segmentCTRL.set_segment(i, rawSegments[i]);
+
+	segmentCTRL.update_segments();
 }
 
 esp_err_t event_handler(void *ctx, system_event_t *event)
 {
     return ESP_OK;
+}
+
+void init_gyro() {
+	auto i2c_cmd = XaI2C::MasterAction(0b1101011);
+
+	uint8_t CTRL1_XL = 0b01010000;
+	i2c_cmd.write(0x10, &CTRL1_XL, 1);
+
+	uint8_t CTRL2_G = 0b01010000;
+	i2c_cmd.write(0x11, &CTRL2_G, 1);
+
+	i2c_cmd.execute();
+}
+
+#pragma pack(1)
+struct accellerometer_data_t {
+	int16_t OUTG_X;
+	int16_t OUTG_Y;
+	int16_t OUTG_Z;
+	int16_t OUTXL_X;
+	int16_t OUTXL_Y;
+	int16_t OUTXL_Z;
+};
+
+accellerometer_data_t read_accell() {
+	accellerometer_data_t outData = {};
+
+	auto i2c_cmd = XaI2C::MasterAction(0b1101011);
+	i2c_cmd.read(0x22, &outData, sizeof(outData));
+
+	i2c_cmd.execute();
+
+	return outData;
 }
 
 extern "C" void app_main(void)
@@ -86,38 +123,41 @@ extern "C" void app_main(void)
     gpio_config(&pinCFG);
 
     auto RGBCore = Peripheral::NeoController(GPIO_NUM_23, RMT_CHANNEL_0, 3);
-    RGBCore.colors[0] = Material::RED;
-    RGBCore.nextColors[0] = Material::RED;
-    RGBCore.update();
 
     XaI2C::MasterAction::init(GPIO_NUM_4, GPIO_NUM_5);
 
-    auto testAction = XaI2C::MasterAction(0);
+    segmentCTRL.send_self_addressing();
+    segmentCTRL.init();
 
-    uint8_t dummy = 1;
-    testAction.write(0b1100, &dummy, 1);
+    init_gyro();
 
-    uint8_t dummyC = 0x07;
-    testAction.write(0x0B, &dummyC, 1);
 
-    uint8_t brightness = 0x0F;
-    testAction.write(0x0A, &brightness, 1);
-
-    uint8_t dummyB = 0b11111111;
-    for(uint8_t i=1; i<=8; i++)
-    	testAction.write(i, &dummyB, 1);
-
-    printf("ErrCode is: %d\n", testAction.execute());
-
-    uint32_t i = 0;
     while (true) {
-    	uint16_t iTemp = i;
-    	for(uint8_t j=0; j<4; j++) {
-    		set_number(j, iTemp%16);
-    		iTemp /= 16;
+        auto gyroData = read_accell();
+
+    	int16_t iTemp = gyroData.OUTXL_X/100;
+    	if(iTemp < 0) {
+    		segments[2] = 1<<6;
+    		iTemp *= -1;
+    	}
+    	else
+    		segments[2] = 0;
+    	for(uint8_t j=0; j<3; j++) {
+    		set_number(j, iTemp%10);
+    		iTemp /= 10;
     	}
 
-    	i++;
+    	iTemp = gyroData.OUTXL_Y/100;
+    	if(iTemp < 0) {
+    		segments[6] = 1<<6;
+    		iTemp *= -1;
+    	}
+    	else
+    		segments[6] = 0;
+    	for(uint8_t j=0; j<3; j++) {
+    	    set_number(j+4, iTemp%10);
+    	    iTemp /= 10;
+    	}
 
     	update_segments();
 
