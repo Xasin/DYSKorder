@@ -144,6 +144,8 @@ extern "C" void app_main(void)
     gpio_config(&pinCFG);
 
     auto RGBCore = Peripheral::NeoController(GPIO_NUM_23, RMT_CHANNEL_0, 3);
+    RGBCore.colors.fill(Material::GREEN);
+    RGBCore.nextColors.fill( Material::GREEN);
 
     XaI2C::MasterAction::init(GPIO_NUM_4, GPIO_NUM_5);
 
@@ -194,15 +196,26 @@ extern "C" void app_main(void)
     		else if(oldGyroReg.DIR & 0b001)
     			axis = 'Z';
 
+    		uint32_t outColor = 0;
+    		switch(axis) {
+    		case 'X': outColor = Material::ORANGE; break;
+    		case 'Y': outColor = Material::PINK;   break;
+    		case 'Z': outColor = Material::CYAN;   break;
+    		}
+    		RGBCore.colors[0] = outColor;
+
     		printf("Tap: TRIG:%1d D: %c%c DOUBLE:%1d\n",
     				oldGyroReg.TRG, oldGyroReg.DIR >= 8 ? '-' : '+', axis,
     				oldGyroReg.CNT);
     	}
     	oldGyroReg = tapData;
 
+    	printf("Buttons are: %4X\n", segmentCTRL.get_buttons());
+    	RGBCore.update();
+
     	update_segments();
 
-    	vTaskDelay(50 / portTICK_PERIOD_MS);
+    	vTaskDelay(100 / portTICK_PERIOD_MS);
     }
 }
 
