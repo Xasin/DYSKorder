@@ -66,17 +66,31 @@ esp_err_t event_handler(void *ctx, system_event_t *event)
     return ESP_OK;
 }
 
-void init_gyro() {
+void send_gyro_command(uint8_t cmd, uint32_t data, uint8_t len = 1) {
 	auto i2c_cmd = XaI2C::MasterAction(0b1101011);
-
-	uint8_t CTRL1_XL = 0b01010000;
-	i2c_cmd.write(0x10, &CTRL1_XL, 1);
-
-	uint8_t CTRL2_G = 0b01010000;
-	i2c_cmd.write(0x11, &CTRL2_G, 1);
-
+	i2c_cmd.write(cmd, &data, len);
 	i2c_cmd.execute();
 }
+
+void init_gyro() {
+	send_gyro_command(0x10, 0b01000001);
+	send_gyro_command(0x11, 0b01000000);
+
+	// Enable functions
+	send_gyro_command(0x19, 0b00101110);
+
+	// Setup tap detection
+	send_gyro_command(0x58, 0b00011110); // Detect enable
+	send_gyro_command(0x59, 0b00001111); // Threshold
+	send_gyro_command(0x5A, 0b00010100); // DTap duration
+	send_gyro_command(0x5B, 0b10000000); // DTap enable
+}
+
+struct tap_data_t {
+	uint8_t DIR:4;
+	uint8_t CNT:2;
+	uint8_t TRG:1;
+};
 
 #pragma pack(1)
 struct accellerometer_data_t {
@@ -86,15 +100,22 @@ struct accellerometer_data_t {
 	int16_t OUTXL_X;
 	int16_t OUTXL_Y;
 	int16_t OUTXL_Z;
+	union {
+		uint8_t reg;
+		tap_data_t bits;
+	} TAP_DTECT;
 };
 
 accellerometer_data_t read_accell() {
 	accellerometer_data_t outData = {};
 
 	auto i2c_cmd = XaI2C::MasterAction(0b1101011);
-	i2c_cmd.read(0x22, &outData, sizeof(outData));
-
+	i2c_cmd.read(0x22, &outData, 12);
 	i2c_cmd.execute();
+
+	auto i2c_cmd_b = XaI2C::MasterAction(0b1101011);
+	i2c_cmd_b.read(0x1C, &(outData.TAP_DTECT), 1);
+	i2c_cmd_b.execute();
 
 	return outData;
 }
@@ -132,6 +153,8 @@ extern "C" void app_main(void)
     init_gyro();
 
 
+    tap_data_t oldGyroReg = {};
+
     while (true) {
         auto gyroData = read_accell();
 
@@ -159,9 +182,27 @@ extern "C" void app_main(void)
     	    iTemp /= 10;
     	}
 
+
+
+    	auto tapData = gyroData.TAP_DTECT.bits;
+    	if(tapData.DIR != oldGyroReg.DIR && tapData.DIR == 0) {
+    		char axis = ' ';
+    		if(oldGyroReg.DIR & 0b100)
+    			axis = 'X';
+    		else if(oldGyroReg.DIR & 0b010)
+    			axis = 'Y';
+    		else if(oldGyroReg.DIR & 0b001)
+    			axis = 'Z';
+
+    		printf("Tap: TRIG:%1d D: %c%c DOUBLE:%1d\n",
+    				oldGyroReg.TRG, oldGyroReg.DIR >= 8 ? '-' : '+', axis,
+    				oldGyroReg.CNT);
+    	}
+    	oldGyroReg = tapData;
+
     	update_segments();
 
-    	vTaskDelay(10 / portTICK_PERIOD_MS);
+    	vTaskDelay(50 / portTICK_PERIOD_MS);
     }
 }
 
