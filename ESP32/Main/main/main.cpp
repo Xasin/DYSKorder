@@ -13,10 +13,8 @@
 
 #include <cstring>
 
-#include "NeoController.h"
-
-#include "MasterAction.h"
-#include "xasin/AS1115.h"
+#include "core/core.h"
+#include "core/pins.h"
 
 auto segmentCTRL = Xasin::I2C::AS1115();
 
@@ -79,6 +77,9 @@ void init_gyro() {
 	// Enable functions
 	send_gyro_command(0x19, 0b00101110);
 
+	// Setup INT1 as Active Low, OD
+	send_gyro_command(0x12, 0b00110100);
+
 	// Setup tap detection
 	send_gyro_command(0x58, 0b00011110); // Detect enable
 	send_gyro_command(0x59, 0b00001111); // Threshold
@@ -120,6 +121,58 @@ accellerometer_data_t read_accell() {
 	return outData;
 }
 
+tap_data_t oldGyroReg = {};
+void display_accell() {
+	 auto gyroData = read_accell();
+
+	int16_t iTemp = gyroData.OUTXL_X/100;
+	if(iTemp < 0) {
+		segments[2] = 1<<6;
+		iTemp *= -1;
+	}
+	else
+		segments[2] = 0;
+	for(uint8_t j=0; j<3; j++) {
+		set_number(j, iTemp%10);
+		iTemp /= 10;
+	}
+
+	iTemp = gyroData.OUTXL_Y/100;
+	if(iTemp < 0) {
+		segments[6] = 1<<6;
+		iTemp *= -1;
+	}
+	else
+		segments[6] = 0;
+	for(uint8_t j=0; j<3; j++) {
+		set_number(j+4, iTemp%10);
+		iTemp /= 10;
+	}
+
+	auto tapData = gyroData.TAP_DTECT.bits;
+	if(tapData.DIR != oldGyroReg.DIR && tapData.DIR == 0) {
+		char axis = ' ';
+		if(oldGyroReg.DIR & 0b100)
+			axis = 'X';
+		else if(oldGyroReg.DIR & 0b010)
+			axis = 'Y';
+		else if(oldGyroReg.DIR & 0b001)
+			axis = 'Z';
+
+		uint32_t outColor = 0;
+		switch(axis) {
+		case 'X': outColor = Material::ORANGE; break;
+		case 'Y': outColor = Material::PINK;   break;
+		case 'Z': outColor = Material::CYAN;   break;
+		}
+
+		printf("Tap: TRIG:%1d D: %c%c DOUBLE:%1d\n",
+				oldGyroReg.TRG, oldGyroReg.DIR >= 8 ? '-' : '+', axis,
+				oldGyroReg.CNT);
+	}
+	oldGyroReg = tapData;
+}
+
 extern "C" void app_main(void)
 {
     nvs_flash_init();
@@ -134,88 +187,15 @@ extern "C" void app_main(void)
 	power_config.light_sleep_enable = false;
     esp_pm_configure(&power_config);
 
-    gpio_config_t pinCFG = {
-    		1<<23,
-			GPIO_MODE_OUTPUT,
-			GPIO_PULLUP_DISABLE,
-			GPIO_PULLDOWN_DISABLE,
-			GPIO_INTR_DISABLE
-	};
-    gpio_config(&pinCFG);
-
-    auto RGBCore = Peripheral::NeoController(GPIO_NUM_23, RMT_CHANNEL_0, 3);
-    RGBCore.colors.fill(Material::GREEN);
-    RGBCore.nextColors.fill( Material::GREEN);
-
-    XaI2C::MasterAction::init(GPIO_NUM_4, GPIO_NUM_5);
-
-    segmentCTRL.send_self_addressing();
-    segmentCTRL.init();
-
+    DSKY::setup();
     init_gyro();
 
-
-    tap_data_t oldGyroReg = {};
-
     while (true) {
-        auto gyroData = read_accell();
-
-    	int16_t iTemp = gyroData.OUTXL_X/100;
-    	if(iTemp < 0) {
-    		segments[2] = 1<<6;
-    		iTemp *= -1;
-    	}
-    	else
-    		segments[2] = 0;
-    	for(uint8_t j=0; j<3; j++) {
-    		set_number(j, iTemp%10);
-    		iTemp /= 10;
-    	}
-
-    	iTemp = gyroData.OUTXL_Y/100;
-    	if(iTemp < 0) {
-    		segments[6] = 1<<6;
-    		iTemp *= -1;
-    	}
-    	else
-    		segments[6] = 0;
-    	for(uint8_t j=0; j<3; j++) {
-    	    set_number(j+4, iTemp%10);
-    	    iTemp /= 10;
-    	}
-
-
-
-    	auto tapData = gyroData.TAP_DTECT.bits;
-    	if(tapData.DIR != oldGyroReg.DIR && tapData.DIR == 0) {
-    		char axis = ' ';
-    		if(oldGyroReg.DIR & 0b100)
-    			axis = 'X';
-    		else if(oldGyroReg.DIR & 0b010)
-    			axis = 'Y';
-    		else if(oldGyroReg.DIR & 0b001)
-    			axis = 'Z';
-
-    		uint32_t outColor = 0;
-    		switch(axis) {
-    		case 'X': outColor = Material::ORANGE; break;
-    		case 'Y': outColor = Material::PINK;   break;
-    		case 'Z': outColor = Material::CYAN;   break;
-    		}
-    		RGBCore.colors[0] = outColor;
-
-    		printf("Tap: TRIG:%1d D: %c%c DOUBLE:%1d\n",
-    				oldGyroReg.TRG, oldGyroReg.DIR >= 8 ? '-' : '+', axis,
-    				oldGyroReg.CNT);
-    	}
-    	oldGyroReg = tapData;
-
-    	printf("Buttons are: %4X\n", segmentCTRL.get_buttons());
-    	RGBCore.update();
+    	display_accell();
 
     	update_segments();
 
-    	vTaskDelay(100 / portTICK_PERIOD_MS);
+    	vTaskDelay(30 / portTICK_PERIOD_MS);
     }
 }
 
