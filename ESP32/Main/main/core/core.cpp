@@ -67,6 +67,8 @@ void setup() {
     audio.start_thread(pinCFG);
     Xasin::Trek::init(audio);
 
+    Xasin::Trek::play(Xasin::Trek::PROG_DONE);
+
     BTN::setup();
 }
 

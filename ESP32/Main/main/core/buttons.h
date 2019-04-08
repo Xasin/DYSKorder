@@ -8,6 +8,7 @@
 #ifndef MAIN_CORE_BUTTONS_H_
 #define MAIN_CORE_BUTTONS_H_
 
+#include <functional>
 #include <string>
 
 namespace DSKY {

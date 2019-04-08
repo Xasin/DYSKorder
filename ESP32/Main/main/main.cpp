@@ -20,25 +20,6 @@ auto segmentCTRL = Xasin::I2C::AS1115();
 
 uint8_t segments[8] = {};
 
-const uint8_t numberTemplates[] = {
-		0b0111111,
-		0b0000110,
-		0b1011011,
-		0b1001111,
-		0b1100110,
-		0b1101101,
-		0b1111101,
-		0b0000111,
-		0b1111111,
-		0b1101111,
-		0b1110111,
-		0b1111100,
-		0b0111001,
-		0b1011110,
-		0b1111001,
-		0b1110001,
-};
-
 void set_number(uint8_t p, uint8_t val, bool dot = false) {
 	if(val < sizeof(numberTemplates))
 		segments[(p+7)&0b111] = numberTemplates[val];

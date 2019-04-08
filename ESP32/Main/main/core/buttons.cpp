@@ -60,10 +60,46 @@ bool valid_char(char c) {
 	return false;
 }
 
+void process_button(uint8_t btnNum) {
+	char currentChar = buttonMap[btnNum][get_mode_pins()];
+
+	printf("Button num %d is: %c (%s)\n",
+			btnNum, currentChar,
+			valid_char(currentChar) ? "OK" : "FALSE");
+
+	switch(currentChar) {
+	default:
+		if(valid_char(currentChar)) {
+			current_typing.push_back(currentChar);
+			Trek::play(Trek::KEYPRESS);
+		}
+		else
+			Trek::play(Trek::INPUT_BAD);
+	break;
+	case 26: break;
+	case 27:
+		puts("ESCAPE'd");
+		current_typing.clear();
+		Trek::play(Trek::PROG_DONE);
+	break;
+	case 8:
+		if(current_typing.length() > 0)
+			current_typing.pop_back();
+		Trek::play(Trek::KEYPRESS);
+	break;
+	case '\n':
+		printf("ENTER'd, you typed: %s\n", current_typing.data());
+		if(on_enter != nullptr)
+			on_enter(current_typing);
+
+		Trek::play(Trek::PROG_BUSY);
+		current_typing.clear();
+	break;
+	}
+}
+
 void btn_read_thread(void *_) {
 	while(true) {
-		xTaskNotifyWait(0, 0, nullptr, portMAX_DELAY);
-
 		uint16_t newButtons = segmentCTRL.get_buttons();
 		uint16_t buttonDiff = newButtons ^ current_buttons;
 
@@ -71,42 +107,15 @@ void btn_read_thread(void *_) {
 			if(((buttonDiff >> i) & 1) == 0)
 				continue;
 
-			if(((newButtons >> i) & 1) != 0)
+			if(((newButtons >> i) & 1) == 0)
 				continue;
 
 			uint8_t btnNum = btn_remap[i];
-			char currentChar = buttonMap[btnNum][get_mode_pins()];
-
-			printf("Button num %d is: %c (%s)\n",
-					btnNum, currentChar,
-					valid_char(currentChar) ? "OK" : "FALSE");
-
-			switch(currentChar) {
-			default:
-				if(valid_char(currentChar))
-					current_typing.push_back(currentChar);
-				else
-					Trek::play(Trek::INPUT_BAD);
-			break;
-			case 26: break;
-			case 27:
-				puts("ESCAPE'd");
-				current_typing.clear();
-			break;
-			case 8:
-				current_typing.pop_back();
-			break;
-			case '\n':
-				printf("ENTER'd, you typed: %s\n", current_typing.data());
-				if(on_enter != nullptr)
-					on_enter(current_typing);
-
-				current_typing.clear();
-			break;
-			}
+			process_button(btnNum);
 		}
 
 		current_buttons = newButtons;
+		xTaskNotifyWait(0, 0, nullptr, 500);
 	}
 }
 
