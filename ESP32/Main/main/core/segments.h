@@ -29,6 +29,7 @@ extern float seg_b_value;
 extern bool  seg_b_blink;
 
 void setup();
+void update();
 
 const uint8_t char_templates[] = {
 		0b0111111,	// 0
@@ -55,7 +56,8 @@ const uint8_t char_templates[] = {
 };
 
 const uint8_t signal_done[] = {13, 18, 17, 14};
-const uint8_t signal_idle[] = {0b1111001, 0b0111000, 0b1011110, 0b0000110};
+const uint8_t signal_idle[] = {20, 13, 19, 14};
+const uint8_t signal_load[] = {19, 18, 10, 13};
 const uint8_t signal_err[]  = {14, 16, 16};
 const uint8_t signal_nan[]  = {17, 10, 17};
 

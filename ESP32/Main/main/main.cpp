@@ -84,8 +84,8 @@ void display_accell() {
 	auto gyroData = read_accell();
 
 	DSKY::Seg::segment_mode = DSKY::Seg::FLOATS;
-	DSKY::Seg::seg_a_value = gyroData.OUTXL_X / 100.0;
-	DSKY::Seg::seg_b_value = gyroData.OUTG_X  / 100.0;
+	DSKY::Seg::seg_a_value = gyroData.OUTXL_X / 16384.0;
+	DSKY::Seg::seg_b_value = gyroData.OUTXL_Y / 16384.0;
 
 	auto tapData = gyroData.TAP_DTECT.bits;
 	if(tapData.DIR != oldGyroReg.DIR && tapData.DIR == 0) {
@@ -128,7 +128,13 @@ extern "C" void app_main(void)
     DSKY::setup();
     init_gyro();
 
-    vTaskDelay(300);
+    DSKY::RGBCTRL[0] = Material::GREEN;
+    DSKY::RGBCTRL.fadeTransition(500000);
+    for(uint8_t i=0; i<100; i++) {
+    	DSKY::Seg::seg_a_value = i;
+    	DSKY::Seg::update();
+    	vTaskDelay(3);
+    }
 
     while (true) {
     	display_accell();

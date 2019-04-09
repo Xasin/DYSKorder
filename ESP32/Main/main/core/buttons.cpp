@@ -22,7 +22,7 @@ namespace BTN {
 
 volatile unsigned int current_buttons = 0;
 std::string current_typing = "";
-btn_restrict_t button_restrict = HEX_ONLY;
+btn_restrict_t button_restrict = ALL;
 
 TaskHandle_t btn_thread_handle = nullptr;
 

@@ -20,7 +20,7 @@ namespace Seg {
 
 std::array<uint8_t, 8> current_segments = {};
 
-segment_modes_t segment_mode = IDLE;
+segment_modes_t segment_mode = LOADING;
 float seg_a_value = false;
 bool  seg_a_blink = false;
 float seg_b_value = false;
@@ -39,6 +39,24 @@ void update_segments() {
 		segmentCTRL.set_segment(i, rawSegments[i]);
 
 	segmentCTRL.update_segments();
+}
+
+void write_signal(uint8_t dNum, const uint8_t *start, uint8_t len) {
+	for(uint8_t i=0; i<len; i++)
+		current_segments[4*dNum + 3 - i] = char_templates[start[i]];
+}
+
+void write_number(uint8_t dNum, int16_t number, uint8_t base = 10, bool all=false) {
+	uint16_t printedNum = abs(number);
+
+	for(uint8_t i=0; i<4; i++) {
+		current_segments[i + dNum*4] = char_templates[printedNum % base];
+		printedNum /= base;
+		if(printedNum == 0 && !all)
+			break;
+	}
+	if(number < 0)
+		current_segments[3+dNum*4] = 1<<6;
 }
 
 void write_float(uint8_t dNum, float data) {
@@ -61,14 +79,7 @@ void write_float(uint8_t dNum, float data) {
 		}
 	}
 
-	uint16_t intPrintedVal = round(printedValue);
-	for(uint8_t i=0; i<4; i++) {
-		if(i == 3 && data < 0)
-			break;
-
-		current_segments[i + dNum*4] = char_templates[intPrintedVal % 10];
-		intPrintedVal /= 10;
-	}
+	write_number(dNum, round(printedValue), 10, true);
 	if(dotPos > 0)
 		current_segments[dotPos + dNum*4] |= 1<<7;
 }
@@ -79,27 +90,32 @@ void update_task(void *_) {
 
 		switch(segment_mode) {
 		case IDLE:
-			memcpy(current_segments.data(), signal_idle, 4);
+			write_signal(0, signal_idle, 4);
 			current_segments[3 - (xTaskGetTickCount()/80 & 0b11)] |= 1<<7;
+		break;
+
+		case LOADING:
+			write_signal(0, signal_load, 4);
+			for(uint8_t i=0; i<(xTaskGetTickCount()/40 & 0b11); i++)
+				current_segments[3-i] |= 1<<7;
+			write_number(1, seg_a_value);
 		break;
 
 		case FLOATS:
 			current_segments.fill(0);
-			write_float(0, seg_a_value);
-			write_float(1, seg_b_value);
+			if(!seg_a_blink || !flash_cycle)
+				write_float(0, seg_a_value);
+			if(!seg_b_blink || !flash_cycle)
+				write_float(1, seg_b_value);
 		break;
 
 		default: break;
 		}
 
 		update_segments();
-		vTaskDelay(10);
-		xTaskNotifyWait(0, 0, nullptr, 5);
+		vTaskDelay(5);
+		xTaskNotifyWait(0, 0, nullptr, 15);
 	}
-}
-
-void print_number(float num, uint8_t segment) {
-
 }
 
 void setup() {
@@ -107,6 +123,10 @@ void setup() {
     segmentCTRL.init();
 
 	xTaskCreate(update_task, "DSKY:Segments", 2048, nullptr, 20, &update_handle);
+}
+
+void update() {
+	xTaskNotify(update_handle, 0, eNoAction);
 }
 
 }
