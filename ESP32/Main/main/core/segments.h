@@ -16,17 +16,30 @@ namespace Seg {
 enum segment_modes_t {
 	IDLE,
 	LOADING,
+	RUNNING,
 	DONE,
 	ERROR,
 	FLOATS,
 	HEX
 };
 
+class display_param_c {
+public:
+	float value;
+
+	enum param_type_t {
+		NONE,
+		INT,
+		HEX,
+		FLOAT,
+	} param_type;
+
+	bool blink;
+
+	uint32_t
+};
+
 extern segment_modes_t segment_mode;
-extern float seg_a_value;
-extern bool  seg_a_blink;
-extern float seg_b_value;
-extern bool  seg_b_blink;
 
 void setup();
 void update();
@@ -53,11 +66,13 @@ const uint8_t char_templates[] = {
 		0b1011100,	// o (18)
 		0b0111000,	// L (19)
 		0b0110000,	// I (20)
+		0b0011100,	// u (21)
 };
 
 const uint8_t signal_done[] = {13, 18, 17, 14};
 const uint8_t signal_idle[] = {20, 13, 19, 14};
 const uint8_t signal_load[] = {19, 18, 10, 13};
+const uint8_t signal_run[]	= {16, 21, 17};
 const uint8_t signal_err[]  = {14, 16, 16};
 const uint8_t signal_nan[]  = {17, 10, 17};
 

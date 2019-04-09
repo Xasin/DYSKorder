@@ -65,7 +65,7 @@ void setup() {
 		I2S_PIN_NO_CHANGE
     };
     audio.start_thread(pinCFG);
-    Xasin::Trek::init(audio);
+    //Xasin::Trek::init(audio);
 
     Xasin::Trek::play(Xasin::Trek::PROG_DONE);
 

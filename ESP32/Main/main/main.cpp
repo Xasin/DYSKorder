@@ -83,7 +83,7 @@ tap_data_t oldGyroReg = {};
 void display_accell() {
 	auto gyroData = read_accell();
 
-	DSKY::Seg::segment_mode = DSKY::Seg::FLOATS;
+	DSKY::Seg::segment_mode = DSKY::Seg::RUNNING;
 	DSKY::Seg::seg_a_value = gyroData.OUTXL_X / 16384.0;
 	DSKY::Seg::seg_b_value = gyroData.OUTXL_Y / 16384.0;
 

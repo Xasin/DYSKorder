@@ -21,12 +21,11 @@ namespace Seg {
 std::array<uint8_t, 8> current_segments = {};
 
 segment_modes_t segment_mode = LOADING;
-float seg_a_value = false;
-bool  seg_a_blink = false;
-float seg_b_value = false;
-bool  seg_b_blink = false;
-
 TaskHandle_t update_handle = nullptr;
+
+void set_line(uint8_t lNum, uint32_t data) {
+	memcpy(current_segments.data()+lNum*4, &data, 4);
+}
 
 void update_segments() {
 	uint8_t rawSegments[8] = {};
@@ -88,6 +87,8 @@ void update_task(void *_) {
 	while(true) {
 		bool flash_cycle = (xTaskGetTickCount() & 63) < 20;
 
+		current_segments.fill(0);
+
 		switch(segment_mode) {
 		case IDLE:
 			write_signal(0, signal_idle, 4);
@@ -98,11 +99,18 @@ void update_task(void *_) {
 			write_signal(0, signal_load, 4);
 			for(uint8_t i=0; i<(xTaskGetTickCount()/40 & 0b11); i++)
 				current_segments[3-i] |= 1<<7;
-			write_number(1, seg_a_value);
+			if(!flash_cycle || !seg_a_blink)
+				write_number(1, seg_a_value);
+		break;
+
+		case RUNNING:
+			write_signal(0, signal_run, 3);
+			current_segments[0] = 1<<((xTaskGetTickCount()/20) % 6);
+			if(!flash_cycle || !seg_a_blink)
+				write_float(1, seg_a_value);
 		break;
 
 		case FLOATS:
-			current_segments.fill(0);
 			if(!seg_a_blink || !flash_cycle)
 				write_float(0, seg_a_value);
 			if(!seg_b_blink || !flash_cycle)
