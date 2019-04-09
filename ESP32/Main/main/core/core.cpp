@@ -8,6 +8,7 @@
 
 #include "core.h"
 #include "pins.h"
+#include "segments.h"
 
 #include "buttons.h"
 
@@ -55,8 +56,7 @@ void setup() {
 
 	XaI2C::MasterAction::init(PIN_I2C_SDA, PIN_I2C_SCL);
 
-    segmentCTRL.send_self_addressing();
-    segmentCTRL.init();
+	Seg::setup();
 
     i2s_pin_config_t pinCFG = {
     	PIN_AUDIO_BCK,

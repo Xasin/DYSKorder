@@ -15,30 +15,7 @@
 
 #include "core/core.h"
 #include "core/pins.h"
-
-auto segmentCTRL = Xasin::I2C::AS1115();
-
-uint8_t segments[8] = {};
-
-void set_number(uint8_t p, uint8_t val, bool dot = false) {
-	if(val < sizeof(numberTemplates))
-		segments[(p+7)&0b111] = numberTemplates[val];
-	if(dot)
-		segments[(p+7)&0b111] |= 1<<7;
-}
-
-void update_segments() {
-	uint8_t rawSegments[8] = {};
-
-	for(uint8_t seg=0; seg<8; seg++)
-		for(uint8_t i=0; i<8; i++)
-			rawSegments[i] |= ((segments[seg]>>i) & 1) << seg;
-
-	for(uint8_t i=0; i<8; i++)
-		segmentCTRL.set_segment(i, rawSegments[i]);
-
-	segmentCTRL.update_segments();
-}
+#include "core/segments.h"
 
 esp_err_t event_handler(void *ctx, system_event_t *event)
 {
@@ -104,31 +81,11 @@ accellerometer_data_t read_accell() {
 
 tap_data_t oldGyroReg = {};
 void display_accell() {
-	 auto gyroData = read_accell();
+	auto gyroData = read_accell();
 
-	int16_t iTemp = gyroData.OUTXL_X/100;
-	if(iTemp < 0) {
-		segments[2] = 1<<6;
-		iTemp *= -1;
-	}
-	else
-		segments[2] = 0;
-	for(uint8_t j=0; j<3; j++) {
-		set_number(j, iTemp%10);
-		iTemp /= 10;
-	}
-
-	iTemp = gyroData.OUTXL_Y/100;
-	if(iTemp < 0) {
-		segments[6] = 1<<6;
-		iTemp *= -1;
-	}
-	else
-		segments[6] = 0;
-	for(uint8_t j=0; j<3; j++) {
-		set_number(j+4, iTemp%10);
-		iTemp /= 10;
-	}
+	DSKY::Seg::segment_mode = DSKY::Seg::FLOATS;
+	DSKY::Seg::seg_a_value = gyroData.OUTXL_X / 100.0;
+	DSKY::Seg::seg_b_value = gyroData.OUTG_X  / 100.0;
 
 	auto tapData = gyroData.TAP_DTECT.bits;
 	if(tapData.DIR != oldGyroReg.DIR && tapData.DIR == 0) {
@@ -171,10 +128,10 @@ extern "C" void app_main(void)
     DSKY::setup();
     init_gyro();
 
+    vTaskDelay(300);
+
     while (true) {
     	display_accell();
-
-    	update_segments();
 
     	vTaskDelay(30 / portTICK_PERIOD_MS);
     }

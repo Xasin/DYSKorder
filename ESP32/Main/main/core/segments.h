@@ -13,6 +13,21 @@
 namespace DSKY {
 namespace Seg {
 
+enum segment_modes_t {
+	IDLE,
+	LOADING,
+	DONE,
+	ERROR,
+	FLOATS,
+	HEX
+};
+
+extern segment_modes_t segment_mode;
+extern float seg_a_value;
+extern bool  seg_a_blink;
+extern float seg_b_value;
+extern bool  seg_b_blink;
+
 void setup();
 
 const uint8_t char_templates[] = {
@@ -35,11 +50,14 @@ const uint8_t char_templates[] = {
 		0b1010000,	// r (16)
 		0b1010100,	// n (17)
 		0b1011100,	// o (18)
+		0b0111000,	// L (19)
+		0b0110000,	// I (20)
 };
 
-const uint8_t signal_done = {13, 18, 17, 14};
-const uint8_t signal_err  = {14, 16, 16};
-const uint8_t signal_nan  = {17, 10, 17};
+const uint8_t signal_done[] = {13, 18, 17, 14};
+const uint8_t signal_idle[] = {0b1111001, 0b0111000, 0b1011110, 0b0000110};
+const uint8_t signal_err[]  = {14, 16, 16};
+const uint8_t signal_nan[]  = {17, 10, 17};
 
 }
 }
