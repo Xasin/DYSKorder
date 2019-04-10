@@ -9,4 +9,4 @@
 
 CFLAGS += -std=c++14
 
-COMPONENT_SRCDIRS += core
+COMPONENT_SRCDIRS += core/

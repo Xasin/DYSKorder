@@ -20,7 +20,6 @@ namespace Seg {
 
 std::array<uint8_t, 8> current_segments = {};
 
-segment_modes_t segment_mode = LOADING;
 TaskHandle_t update_handle = nullptr;
 
 void set_line(uint8_t lNum, uint32_t data) {
