@@ -11,6 +11,7 @@
 #include "driver/gpio.h"
 #include "driver/rtc_io.h"
 
+#include <vector>
 #include <cstring>
 
 #include "core/core.h"
@@ -83,10 +84,6 @@ tap_data_t oldGyroReg = {};
 void display_accell() {
 	auto gyroData = read_accell();
 
-	DSKY::Seg::segment_mode = DSKY::Seg::RUNNING;
-	DSKY::Seg::seg_a_value = gyroData.OUTXL_X / 16384.0;
-	DSKY::Seg::seg_b_value = gyroData.OUTXL_Y / 16384.0;
-
 	auto tapData = gyroData.TAP_DTECT.bits;
 	if(tapData.DIR != oldGyroReg.DIR && tapData.DIR == 0) {
 		char axis = ' ';
@@ -111,6 +108,8 @@ void display_accell() {
 	oldGyroReg = tapData;
 }
 
+using namespace DSKY::Seg;
+
 extern "C" void app_main(void)
 {
     nvs_flash_init();
@@ -128,13 +127,22 @@ extern "C" void app_main(void)
     DSKY::setup();
     init_gyro();
 
+    const std::vector<DSKY::Seg::DisplayParam::param_type_t> pList = {
+    		DisplayParam::IDLE, DisplayParam::LOADING,
+			DisplayParam::RUNNING, DisplayParam::DONE
+    };
+
+    DSKY::Seg::seg_a.param_type = DSKY::Seg::DisplayParam::LOADING;
+    DSKY::Seg::seg_b.param_type = DSKY::Seg::DisplayParam::ERROR;
+    DSKY::Seg::seg_b.value = -0x50;
+
+    for(auto t : pList) {
+    	seg_a.param_type = t;
+    	vTaskDelay(1000);
+    }
+
     DSKY::RGBCTRL[0] = Material::GREEN;
     DSKY::RGBCTRL.fadeTransition(500000);
-    for(uint8_t i=0; i<100; i++) {
-    	DSKY::Seg::seg_a_value = i;
-    	DSKY::Seg::update();
-    	vTaskDelay(3);
-    }
 
     while (true) {
     	display_accell();

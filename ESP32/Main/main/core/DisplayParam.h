@@ -37,6 +37,7 @@ public:
 
 	void clear();
 
+	static uint32_t get_numeric_code(int  number, uint8_t base = 10, uint8_t minDigits = 0);
 	static uint32_t get_signal_code(const uint8_t *signal, uint8_t len);
 
 	uint32_t get_current_display();

@@ -8,10 +8,14 @@
 #ifndef MAIN_CORE_SEGMENTS_H_
 #define MAIN_CORE_SEGMENTS_H_
 
+#include "DisplayParam.h"
 #include <stdint.h>
 
 namespace DSKY {
 namespace Seg {
+
+extern DisplayParam seg_a;
+extern DisplayParam seg_b;
 
 void setup();
 void update();

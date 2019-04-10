@@ -8,6 +8,9 @@
 #include "DisplayParam.h"
 
 #include "freertos/FreeRTOS.h"
+#include "freertos/task.h"
+
+#include <cmath>
 
 namespace DSKY {
 namespace Seg {
@@ -24,6 +27,31 @@ void DisplayParam::clear() {
 	blinkInv = false;
 }
 
+uint32_t DisplayParam::get_numeric_code(int number, uint8_t base, uint8_t minDigits) {
+	uint32_t outBuffer = 0;
+
+	int printedNumber = abs(number);
+
+	uint8_t digitPos = 0;
+	for(digitPos=0; digitPos<4; digitPos++) {
+		outBuffer |= char_templates[printedNumber % base] << (8*digitPos);
+		printedNumber /= base;
+
+		if((printedNumber == 0) && (digitPos>minDigits)) {
+			digitPos += 2;
+			break;
+		}
+	}
+	digitPos--;
+
+	if(number < 0) {
+		outBuffer &= ~(0xFF<<(digitPos*8));
+		outBuffer |= 1<<(6 + digitPos*8);
+	}
+
+	return outBuffer;
+}
+
 uint32_t DisplayParam::get_signal_code(const uint8_t *signal, uint8_t len) {
 	uint32_t outBuffer = 0;
 
@@ -35,7 +63,7 @@ uint32_t DisplayParam::get_signal_code(const uint8_t *signal, uint8_t len) {
 
 uint32_t DisplayParam::get_current_display() {
 	if(blink)
-		if((0==(xTaskGetTickCount()/40 & 0b11)) ^ blinkInv)
+		if((0==(xTaskGetTickCount()/25 & 0b11)) ^ blinkInv)
 			return 0;
 
 	uint32_t outBuffer = 0;
@@ -45,20 +73,20 @@ uint32_t DisplayParam::get_current_display() {
 		return 0;
 	case IDLE:
 		outBuffer = get_signal_code(signal_idle, 4);
-		outBuffer |= 1<<(31 - 8*(xTaskGetTickCount()/80 & 0b11));
+		outBuffer |= 1<<(31 - 8*(xTaskGetTickCount()/100 & 0b11));
 		return outBuffer;
 	case LOADING:
 		outBuffer = get_signal_code(signal_load, 4);
-		for(uint8_t i=0; i<(xTaskGetTickCount()/40 & 0b11); i++)
+		for(uint8_t i=0; i<(xTaskGetTickCount()/50 & 0b11); i++)
 			outBuffer |= 1<<(31 - 8*i);
 		return outBuffer;
 	case RUNNING:
 		outBuffer = get_signal_code(signal_run, 3);
-		outBuffer |= 1<<(xTaskGetTickCount()/40 % 6);
+		outBuffer |= 1<<(xTaskGetTickCount()/50 % 6);
 		return outBuffer;
 	case DONE:
 		outBuffer = get_signal_code(signal_done, 4);
-		if(xTaskGetTickCount()/80 & 1) {
+		if(xTaskGetTickCount()/100 & 1) {
 			for(uint8_t i=7; i<32; i+=8)
 				outBuffer |= 1<<i;
 		}
@@ -67,10 +95,13 @@ uint32_t DisplayParam::get_current_display() {
 		if(xTaskGetTickCount()/50 & 1)
 			outBuffer = get_signal_code(signal_err, 3);
 		else
-			outBuffer = get_numeric_code(value); // FIXME
+			outBuffer = get_numeric_code(value, 16);
 		return outBuffer;
 	case INT:
+	break;
 
+	case HEX: break;
+	case FLOATS: break;
 	}
 
 	return 0;
