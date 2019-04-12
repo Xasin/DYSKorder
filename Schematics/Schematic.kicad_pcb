@@ -6476,6 +6476,11 @@
       (scale (xyz 1 1 1))
       (rotate (xyz 0 0 0))
     )
+    (model ${KISYS3DMOD}/Connector_USB.3dshapes/USB_Micro-B_Molex_47346-0001.step
+      (at (xyz 0 0 0))
+      (scale (xyz 1 1 1))
+      (rotate (xyz 0 0 0))
+    )
   )
 
   (module Inductor_SMD:L_6.3x6.3_H3 (layer B.Cu) (tedit 5990349C) (tstamp 5C7EC52E)
