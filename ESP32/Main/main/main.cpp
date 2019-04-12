@@ -13,10 +13,15 @@
 
 #include <vector>
 #include <cstring>
+#include <cmath>
 
 #include "core/core.h"
 #include "core/pins.h"
 #include "core/segments.h"
+
+#include "ValueBox.h"
+
+auto accel_x_box = Peripheral::OLED::StringPrimitive(64, 10, &DSKY::display);
 
 esp_err_t event_handler(void *ctx, system_event_t *event)
 {
@@ -80,6 +85,8 @@ accellerometer_data_t read_accell() {
 	return outData;
 }
 
+using namespace DSKY::Seg;
+
 tap_data_t oldGyroReg = {};
 void display_accell() {
 	auto gyroData = read_accell();
@@ -101,14 +108,24 @@ void display_accell() {
 		case 'Z': outColor = Material::CYAN;   break;
 		}
 
-		printf("Tap: TRIG:%1d D: %c%c DOUBLE:%1d\n",
+		DSKY::console.printf("Tap: TRIG:%1d D: %c%c DOUBLE:%1d\n",
 				oldGyroReg.TRG, oldGyroReg.DIR >= 8 ? '-' : '+', axis,
 				oldGyroReg.CNT);
+
+		DSKY::RGBCTRL.fill(Peripheral::Color(outColor, 90));
+		DSKY::RGBCTRL.fadeTransition(100000);
 	}
 	oldGyroReg = tapData;
-}
 
-using namespace DSKY::Seg;
+	seg_a.value = gyroData.OUTXL_X / 16384.0;
+	seg_a.blink = fabs(seg_a.value) > 0.5;
+	seg_b.value = gyroData.OUTXL_Y / 16384.0;
+	seg_b.blink = fabs(seg_b.value) > 0.5;
+
+	accel_x_box.printf("X: %fg", seg_a.value);
+
+	DSKY::Seg::update();
+}
 
 extern "C" void app_main(void)
 {
@@ -121,32 +138,41 @@ extern "C" void app_main(void)
     esp_pm_config_esp32_t power_config = {};
     power_config.max_freq_mhz = 80;
 	power_config.min_freq_mhz = 80;
-	power_config.light_sleep_enable = false;
+	power_config.light_sleep_enable = true;
     esp_pm_configure(&power_config);
 
     DSKY::setup();
     init_gyro();
 
-    const std::vector<DSKY::Seg::DisplayParam::param_type_t> pList = {
-    		DisplayParam::IDLE, DisplayParam::LOADING,
-			DisplayParam::RUNNING, DisplayParam::DONE
-    };
+    DSKY::RGBCTRL.nextColors.fill(0);
 
-    DSKY::Seg::seg_a.param_type = DSKY::Seg::DisplayParam::LOADING;
-    DSKY::Seg::seg_b.param_type = DSKY::Seg::DisplayParam::ERROR;
-    DSKY::Seg::seg_b.value = -0x50;
+    seg_a.param_type = DisplayParam::LOADING;
+    seg_b.param_type = DisplayParam::INT;
+    for(uint8_t i=0; i<100; i++) {
+    	seg_b.value = i;
+    	vTaskDelay(1);
 
-    for(auto t : pList) {
-    	seg_a.param_type = t;
-    	vTaskDelay(1000);
+    	DSKY::RGBCTRL.colors[14*i/100] = Peripheral::Color(Material::GREEN, 100);
+    	DSKY::RGBCTRL.update();
     }
 
-    DSKY::RGBCTRL[0] = Material::GREEN;
-    DSKY::RGBCTRL.fadeTransition(500000);
+    DSKY::RGBCTRL.nextColors.fill(0);
+    DSKY::RGBCTRL.fadeTransition(1000000);
+
+    seg_a.clear();
+    seg_b.clear();
+
+    seg_a.param_type = DisplayParam::INT;
+    seg_a.fixComma = 2;
+    seg_b.param_type = DisplayParam::INT;
+    seg_b.fixComma = 2;
 
     while (true) {
     	display_accell();
 
+    	DSKY::RGBCTRL.fill(Peripheral::Color::HSV(xTaskGetTickCount()));
+    	DSKY::RGBCTRL[xTaskGetTickCount()/50] = 0xFFFFFF;
+    	DSKY::RGBCTRL.apply(); DSKY::RGBCTRL.update();
     	vTaskDelay(30 / portTICK_PERIOD_MS);
     }
 }

@@ -24,11 +24,11 @@ public:
 		LOADING,
 		RUNNING,
 		DONE,
-		ERROR,
 		INT,
 		HEX,
-		FLOATS,
 	} param_type;
+
+	bool error;
 
 	bool blink;
 	bool blinkInv;

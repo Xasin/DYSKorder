@@ -42,51 +42,10 @@ void update_segments() {
 	segmentCTRL.update_segments();
 }
 
-void write_number(uint8_t dNum, int16_t number, uint8_t base = 10, bool all=false) {
-	uint16_t printedNum = abs(number);
-
-	for(uint8_t i=0; i<4; i++) {
-		//current_segments[i + dNum*4] = char_templates[printedNum % base];
-		printedNum /= base;
-		if(printedNum == 0 && !all)
-			break;
-	}
-	if(number < 0)
-		current_segments[3+dNum*4] = 1<<6;
-}
-
-void write_float(uint8_t dNum, float data) {
-	uint8_t dotPos = 0;
-	float printedValue = fabs(data);
-
-	while(printedValue < 1000) {
-		printedValue *= 10;
-		dotPos++;
-
-		if(dotPos >= 3)
-			break;
-	}
-
-	if((data < 0)) {
-		current_segments[dNum*4 + 3] = 1<<6;
-		if(dotPos > 0) {
-			dotPos--;
-			printedValue /= 10;
-		}
-	}
-
-	write_number(dNum, round(printedValue), 10, true);
-	if(dotPos > 0)
-		current_segments[dotPos + dNum*4] |= 1<<7;
-}
-
 void update_task(void *_) {
 	while(true) {
-		uint32_t outBuffer = seg_a.get_current_display();
-		memcpy(current_segments.data(), &outBuffer, 4);
-
-		outBuffer = seg_b.get_current_display();
-		memcpy(current_segments.data()+4, &outBuffer, 4);
+		set_line(0, seg_a.get_current_display());
+		set_line(1, seg_b.get_current_display());
 
 		update_segments();
 		vTaskDelay(5);

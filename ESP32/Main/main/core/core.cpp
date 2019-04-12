@@ -22,10 +22,12 @@ Xasin::Peripheral::AudioHandler audio(44100);
 Xasin::I2C::AS1115 			segmentCTRL = Xasin::I2C::AS1115();
 Peripheral::NeoController	RGBCTRL(PIN_WS2812, RMT_CHANNEL_0, 14);
 
+Peripheral::OLED::SSD1327	display = Peripheral::OLED::SSD1327();
+Peripheral::OLED::LittleConsole console = Peripheral::OLED::LittleConsole(display);
+
 void pin_setup() {
 	// OUTPUT CONFIGURATION
     gpio_config_t pinCFG = {
-    		1<<PIN_WS2812 |
 			1<<PIN_AUDIO_DATA | 1<<PIN_AUDIO_LRCK | 1<<PIN_AUDIO_BCK,
 			GPIO_MODE_OUTPUT,
 			GPIO_PULLUP_DISABLE,
@@ -65,7 +67,9 @@ void setup() {
 		I2S_PIN_NO_CHANGE
     };
     audio.start_thread(pinCFG);
-    //Xasin::Trek::init(audio);
+    Xasin::Trek::init(audio);
+
+    display.initialize();
 
     Xasin::Trek::play(Xasin::Trek::PROG_DONE);
 
