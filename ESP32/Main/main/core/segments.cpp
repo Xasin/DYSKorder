@@ -48,8 +48,8 @@ void update_task(void *_) {
 		set_line(1, seg_b.get_current_display());
 
 		update_segments();
-		vTaskDelay(5);
-		xTaskNotifyWait(0, 0, nullptr, 20);
+		vTaskDelay(50);
+		xTaskNotifyWait(0, 0, nullptr, 70);
 	}
 }
 

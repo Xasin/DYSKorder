@@ -33,6 +33,9 @@ extern Peripheral::OLED::LittleConsole console;
 
 void setup();
 
+int get_flashcycle_ticks();
+int get_flashcycle_count();
+
 }
 
 #endif /* MAIN_CORE_CORE_H_ */

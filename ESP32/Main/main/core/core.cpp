@@ -76,4 +76,11 @@ void setup() {
     BTN::setup();
 }
 
+int get_flashcycle_ticks() {
+	return xTaskGetTickCount()/100;
+}
+int get_flashcycle_count() {
+	return get_flashcycle_ticks()/8;
+}
+
 }

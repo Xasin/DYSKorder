@@ -138,7 +138,7 @@ extern "C" void app_main(void)
     esp_pm_config_esp32_t power_config = {};
     power_config.max_freq_mhz = 80;
 	power_config.min_freq_mhz = 80;
-	power_config.light_sleep_enable = true;
+	power_config.light_sleep_enable = false;
     esp_pm_configure(&power_config);
 
     DSKY::setup();
@@ -150,7 +150,7 @@ extern "C" void app_main(void)
     seg_b.param_type = DisplayParam::INT;
     for(uint8_t i=0; i<100; i++) {
     	seg_b.value = i;
-    	vTaskDelay(1);
+    	vTaskDelay(20);
 
     	DSKY::RGBCTRL.colors[14*i/100] = Peripheral::Color(Material::GREEN, 100);
     	DSKY::RGBCTRL.update();
@@ -170,9 +170,10 @@ extern "C" void app_main(void)
     while (true) {
     	display_accell();
 
-    	DSKY::RGBCTRL.fill(Peripheral::Color::HSV(xTaskGetTickCount()));
-    	DSKY::RGBCTRL[xTaskGetTickCount()/50] = 0xFFFFFF;
+    	DSKY::RGBCTRL.fill(Peripheral::Color::HSV(xTaskGetTickCount()/10, 255, 60));
+    	DSKY::RGBCTRL[xTaskGetTickCount()/100] = 0;
     	DSKY::RGBCTRL.apply(); DSKY::RGBCTRL.update();
+
     	vTaskDelay(30 / portTICK_PERIOD_MS);
     }
 }

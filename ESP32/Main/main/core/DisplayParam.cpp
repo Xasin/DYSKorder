@@ -7,8 +7,7 @@
 
 #include "DisplayParam.h"
 
-#include "freertos/FreeRTOS.h"
-#include "freertos/task.h"
+#include "core.h"
 
 #include <cmath>
 
@@ -66,11 +65,11 @@ uint32_t DisplayParam::get_signal_code(const uint8_t *signal, uint8_t len) {
 
 uint32_t DisplayParam::get_current_display() {
 	if(error) {
-		if(xTaskGetTickCount()/50 & 1)
+		if(get_flashcycle_ticks()/4 & 1)
 			return get_signal_code(signal_err, 3);
 	}
 	else if(blink)
-		if((0==(xTaskGetTickCount()/25 & 3)) ^ blinkInv)
+		if((0==(get_flashcycle_ticks()/2 & 3)) ^ blinkInv)
 			return 0;
 
 	uint32_t outBuffer = 0;
@@ -80,20 +79,20 @@ uint32_t DisplayParam::get_current_display() {
 		return 0;
 	case IDLE:
 		outBuffer = get_signal_code(signal_idle, 4);
-		outBuffer |= 1<<(31 - 8*(xTaskGetTickCount()/100 & 0b11));
+		outBuffer |= 1<<(31 - 8*(get_flashcycle_count() & 0b11));
 		return outBuffer;
 	case LOADING:
 		outBuffer = get_signal_code(signal_load, 4);
-		for(uint8_t i=0; i<=(xTaskGetTickCount()/50 & 0b11); i++)
+		for(uint8_t i=0; i<=(get_flashcycle_ticks()/4 & 0b11); i++)
 			outBuffer |= 1<<(31 - 8*i);
 		return outBuffer;
 	case RUNNING:
 		outBuffer = get_signal_code(signal_run, 3);
-		outBuffer |= 1<<(xTaskGetTickCount()/50 % 6);
+		outBuffer |= 1<<(get_flashcycle_ticks()/4 % 6);
 		return outBuffer;
 	case DONE:
 		outBuffer = get_signal_code(signal_done, 4);
-		if(xTaskGetTickCount()/100 & 1) {
+		if(get_flashcycle_count() & 1) {
 			for(uint8_t i=7; i<32; i+=8)
 				outBuffer |= 1<<i;
 		}
