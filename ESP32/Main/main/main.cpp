@@ -21,6 +21,8 @@
 
 #include "ValueBox.h"
 
+#include "core/IndicatorBulb.h"
+
 auto accel_x_box = Peripheral::OLED::StringPrimitive(64, 10, &DSKY::display);
 
 esp_err_t event_handler(void *ctx, system_event_t *event)
@@ -136,7 +138,7 @@ extern "C" void app_main(void)
     esp_timer_init();
 
     esp_pm_config_esp32_t power_config = {};
-    power_config.max_freq_mhz = 80;
+    power_config.max_freq_mhz = 160;
 	power_config.min_freq_mhz = 80;
 	power_config.light_sleep_enable = false;
     esp_pm_configure(&power_config);
@@ -167,11 +169,18 @@ extern "C" void app_main(void)
     seg_b.param_type = DisplayParam::INT;
     seg_b.fixComma = 2;
 
+    auto testBulb = DSKY::Seg::IndicatorBulb();
+    testBulb.mode = DSKY::Seg::FLASH;
+    testBulb.target = Material::ORANGE;
+
     while (true) {
     	display_accell();
 
     	DSKY::RGBCTRL.fill(Peripheral::Color::HSV(xTaskGetTickCount()/10, 255, 60));
     	DSKY::RGBCTRL[xTaskGetTickCount()/100] = 0;
+
+    	DSKY::RGBCTRL[0] = testBulb.tick();
+
     	DSKY::RGBCTRL.apply(); DSKY::RGBCTRL.update();
 
     	vTaskDelay(30 / portTICK_PERIOD_MS);
