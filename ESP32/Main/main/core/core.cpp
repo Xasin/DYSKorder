@@ -77,7 +77,7 @@ void setup() {
 }
 
 int get_flashcycle_ticks() {
-	return xTaskGetTickCount()/100;
+	return xTaskGetTickCount()/125;
 }
 int get_flashcycle_count() {
 	return get_flashcycle_ticks()/8;

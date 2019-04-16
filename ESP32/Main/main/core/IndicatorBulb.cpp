@@ -12,41 +12,58 @@ namespace DSKY {
 namespace Seg {
 
 IndicatorBulb::IndicatorBulb() : current(),
-		target(), mode(OFF), flash_fill(125) {
+		target(), mode(OFF), flash_fill(4) {
 }
 
 Peripheral::Color IndicatorBulb::tick() {
+
+	auto bufferedTarget = target;
+	bool onBuffer = false;
+
 	switch(mode) {
 	case OFF: current = Peripheral::Color(); break;
 
 	case IDLE:
 		current.merge_overlay(
-				Peripheral::Color(target).bMod(70 + (get_flashcycle_count()&1) ? 20 : 0)
-				, 3);
+				bufferedTarget.bMod((get_flashcycle_count()&1) ? 140 : 80)
+				, 10);
+	break;
+
+	case HFLASH:
+		onBuffer = ((get_flashcycle_ticks()&0b1111) < flash_fill*2);
+
+		current.merge_overlay(
+				bufferedTarget.bMod(onBuffer ? 150 : 100)
+				, onBuffer ? 110 : 85);
 	break;
 
 	case FLASH:
+		onBuffer = ((get_flashcycle_ticks()&0b111) < flash_fill);
 		current.merge_overlay(
-				Peripheral::Color(target).bMod(70 + (get_flashcycle_ticks()&0b111) < flash_fill ? 20 : 0)
-				, 15);
+				bufferedTarget.bMod(onBuffer ? 180 : 0)
+				, onBuffer ? 120 : 90);
 	break;
 
 	case DFLASH:
+		onBuffer = ((get_flashcycle_ticks()&0b11) < flash_fill/2);
 		current.merge_overlay(
-				Peripheral::Color(target).bMod(70 + (get_flashcycle_ticks()&0b11) < flash_fill/2 ? 20 : 0)
-				, 15);
+				bufferedTarget.bMod(onBuffer ? 200 : 0)
+				, onBuffer ? 180 : 130);
 	break;
 
 	case VAL_RISING:
-		current.merge_overlay(Peripheral::Color(target).bMod(90), 1);
+
 		if((get_flashcycle_ticks()&0b111) == 0)
-			current.merge_overlay(0, 20);
+			current.merge_overlay(bufferedTarget.bMod(60), 100);
+		else
+			current.merge_overlay(bufferedTarget.bMod(130), 10);
 	break;
 
 	case VAL_FALLING:
-		current.merge_overlay(0, 1);
 		if((get_flashcycle_ticks()&0b111) == 0)
-			current.merge_overlay(Peripheral::Color(target).bMod(90), 20);
+			current.merge_overlay(bufferedTarget.bMod(130), 100);
+		else
+			current.merge_overlay(bufferedTarget.bMod(60), 10);
 	break;
 	}
 

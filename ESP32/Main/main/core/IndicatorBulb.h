@@ -16,6 +16,7 @@ namespace Seg {
 enum bulb_mode_t {
 	OFF,
 	IDLE,
+	HFLASH,
 	FLASH,
 	DFLASH,
 	VAL_RISING,

@@ -129,6 +129,21 @@ void display_accell() {
 	DSKY::Seg::update();
 }
 
+DSKY::Seg::IndicatorBulb testBulbs[14] = {};
+void test_update_task(void *args) {
+	while(true) {
+		vTaskDelay(40);
+
+    	for(uint8_t i=0; i<14; i++) {
+    		DSKY::RGBCTRL[i] = testBulbs[i].tick();
+
+    	}
+
+    	DSKY::RGBCTRL.apply();
+    	DSKY::RGBCTRL.update();
+	}
+}
+
 extern "C" void app_main(void)
 {
     nvs_flash_init();
@@ -146,20 +161,30 @@ extern "C" void app_main(void)
     DSKY::setup();
     init_gyro();
 
-    DSKY::RGBCTRL.nextColors.fill(0);
+    xTaskCreate(test_update_task, "DSKY::Bulbs", 2048, nullptr, 30, nullptr);
+
+    testBulbs[12].mode = DFLASH;
+    testBulbs[12].target = Material::RED;
+    testBulbs[13].mode = VAL_RISING;
+    testBulbs[13].target = Material::GREEN;
 
     seg_a.param_type = DisplayParam::LOADING;
     seg_b.param_type = DisplayParam::INT;
     for(uint8_t i=0; i<100; i++) {
     	seg_b.value = i;
-    	vTaskDelay(20);
+    	vTaskDelay(13);
 
-    	DSKY::RGBCTRL.colors[14*i/100] = Peripheral::Color(Material::GREEN, 100);
-    	DSKY::RGBCTRL.update();
     }
 
-    DSKY::RGBCTRL.nextColors.fill(0);
-    DSKY::RGBCTRL.fadeTransition(1000000);
+    testBulbs[12].mode = IDLE;
+    testBulbs[12].target = Peripheral::Color(Material::LIME, 100);
+    testBulbs[13].mode = IDLE;
+
+    testBulbs[7].mode = FLASH;
+    testBulbs[6].mode = HFLASH;
+
+    testBulbs[7].target = Material::AMBER;
+    testBulbs[6].target = Material::INDIGO;
 
     seg_a.clear();
     seg_b.clear();
@@ -169,19 +194,8 @@ extern "C" void app_main(void)
     seg_b.param_type = DisplayParam::INT;
     seg_b.fixComma = 2;
 
-    auto testBulb = DSKY::Seg::IndicatorBulb();
-    testBulb.mode = DSKY::Seg::FLASH;
-    testBulb.target = Material::ORANGE;
-
     while (true) {
     	display_accell();
-
-    	DSKY::RGBCTRL.fill(Peripheral::Color::HSV(xTaskGetTickCount()/10, 255, 60));
-    	DSKY::RGBCTRL[xTaskGetTickCount()/100] = 0;
-
-    	DSKY::RGBCTRL[0] = testBulb.tick();
-
-    	DSKY::RGBCTRL.apply(); DSKY::RGBCTRL.update();
 
     	vTaskDelay(30 / portTICK_PERIOD_MS);
     }

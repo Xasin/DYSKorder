@@ -69,7 +69,7 @@ uint32_t DisplayParam::get_current_display() {
 			return get_signal_code(signal_err, 3);
 	}
 	else if(blink)
-		if((0==(get_flashcycle_ticks()/2 & 3)) ^ blinkInv)
+		if((3==(get_flashcycle_ticks()/2 & 3)) ^ blinkInv)
 			return 0;
 
 	uint32_t outBuffer = 0;
