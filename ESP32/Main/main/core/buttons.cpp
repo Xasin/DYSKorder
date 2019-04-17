@@ -26,7 +26,7 @@ btn_restrict_t button_restrict = ALL;
 
 TaskHandle_t btn_thread_handle = nullptr;
 
-std::function<void (const std::string &input)> on_enter = nullptr;
+std::function<void (const btn_event_t)> on_event = nullptr;
 
 void btn_isr_handler(void *_) {
 	xTaskNotify(btn_thread_handle, 0, eNoAction);
@@ -67,10 +67,18 @@ void process_button(uint8_t btnNum) {
 			btnNum, currentChar,
 			valid_char(currentChar) ? "OK" : "FALSE");
 
+	btn_event_t outEvent = {};
+	outEvent.btn_pressed_no = btnNum;
+	outEvent.typed_char = currentChar;
+
+	outEvent.typed = current_typing;
+
 	switch(currentChar) {
 	default:
 		if(valid_char(currentChar)) {
 			current_typing.push_back(currentChar);
+			outEvent.typed = current_typing;
+
 			Trek::play(Trek::KEYPRESS);
 		}
 		else
@@ -79,23 +87,29 @@ void process_button(uint8_t btnNum) {
 	case 26: break;
 	case 27:
 		puts("ESCAPE'd");
+		outEvent.escape = true;
+
 		current_typing.clear();
 		Trek::play(Trek::PROG_DONE);
 	break;
 	case 8:
 		if(current_typing.length() > 0)
 			current_typing.pop_back();
+
+		outEvent.typed = current_typing;
 		Trek::play(Trek::KEYPRESS);
 	break;
 	case '\n':
 		printf("ENTER'd, you typed: %s\n", current_typing.data());
-		if(on_enter != nullptr)
-			on_enter(current_typing);
+		outEvent.enter = true;
 
 		Trek::play(Trek::PROG_BUSY);
 		current_typing.clear();
 	break;
 	}
+
+	if(on_event != nullptr)
+		on_event(outEvent);
 }
 
 void btn_read_thread(void *_) {
@@ -107,10 +121,16 @@ void btn_read_thread(void *_) {
 			if(((buttonDiff >> i) & 1) == 0)
 				continue;
 
-			if(((newButtons >> i) & 1) == 0)
-				continue;
-
 			uint8_t btnNum = btn_remap[i];
+
+			if(((newButtons >> i) & 1) == 0) {
+				btn_event_t outEvent = {};
+
+				outEvent.btn_released_no = i+1;
+				outEvent.mode_btns = get_mode_pins();
+				continue;
+			}
+
 			process_button(btnNum);
 		}
 

@@ -20,12 +20,22 @@ enum btn_restrict_t {
 	HEX_ONLY,
 };
 
+struct btn_event_t {
+	bool enter;
+	bool escape;
+	std::string typed;
+	char typed_char;
+	uint8_t  btn_pressed_no;
+	uint8_t  btn_released_no;
+	uint8_t mode_btns;
+};
+
 extern volatile unsigned int current_buttons;
 extern std::string current_typing;
 
 extern btn_restrict_t button_restrict;
 
-extern std::function<void (const std::string &input)> on_enter;
+extern std::function<void (const btn_event_t)> on_event;
 
 void setup();
 

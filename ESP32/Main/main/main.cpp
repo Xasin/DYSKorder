@@ -22,6 +22,7 @@
 #include "ValueBox.h"
 
 #include "core/IndicatorBulb.h"
+#include "core/buttons.h"
 
 auto accel_x_box = Peripheral::OLED::StringPrimitive(64, 10, &DSKY::display);
 
@@ -123,8 +124,6 @@ void display_accell() {
 	seg_a.blink = fabs(seg_a.value) > 0.5;
 	seg_b.value = gyroData.OUTXL_Y / 16384.0;
 	seg_b.blink = fabs(seg_b.value) > 0.5;
-
-	accel_x_box.printf("X: %fg", seg_a.value);
 }
 
 extern "C" void app_main(void)
@@ -157,6 +156,10 @@ extern "C" void app_main(void)
     	vTaskDelay(13);
 
     }
+
+    DSKY::BTN::on_event = [&accel_x_box](DSKY::BTN::btn_event_t event) {
+    	accel_x_box.set(DSKY::BTN::current_typing);
+    };
 
     bulbs[12].mode = IDLE;
     bulbs[12].target = Peripheral::Color(Material::LIME, 160);
