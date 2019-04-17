@@ -22,6 +22,8 @@ std::array<uint8_t, 8> current_segments = {};
 
 TaskHandle_t update_handle = nullptr;
 
+std::array<IndicatorBulb, 14> bulbs = {};
+
 DisplayParam seg_a;
 DisplayParam seg_b;
 
@@ -47,9 +49,14 @@ void update_task(void *_) {
 		set_line(0, seg_a.get_current_display());
 		set_line(1, seg_b.get_current_display());
 
+		for(uint8_t i=0; i<bulbs.size(); i++)
+			RGBCTRL[i] = bulbs[i].tick();
+
 		update_segments();
-		vTaskDelay(50);
-		xTaskNotifyWait(0, 0, nullptr, 70);
+		RGBCTRL.apply();
+		RGBCTRL.update();
+
+		vTaskDelay(40);
 	}
 }
 
@@ -58,10 +65,6 @@ void setup() {
     segmentCTRL.init();
 
 	xTaskCreate(update_task, "DSKY:Segments", 2048, nullptr, 20, &update_handle);
-}
-
-void update() {
-	xTaskNotify(update_handle, 0, eNoAction);
 }
 
 }

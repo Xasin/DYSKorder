@@ -8,17 +8,21 @@
 #ifndef MAIN_CORE_SEGMENTS_H_
 #define MAIN_CORE_SEGMENTS_H_
 
+#include "IndicatorBulb.h"
 #include "DisplayParam.h"
+
 #include <stdint.h>
+#include <array>
 
 namespace DSKY {
 namespace Seg {
+
+extern std::array<IndicatorBulb, 14> bulbs;
 
 extern DisplayParam seg_a;
 extern DisplayParam seg_b;
 
 void setup();
-void update();
 
 }
 }

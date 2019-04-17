@@ -125,23 +125,6 @@ void display_accell() {
 	seg_b.blink = fabs(seg_b.value) > 0.5;
 
 	accel_x_box.printf("X: %fg", seg_a.value);
-
-	DSKY::Seg::update();
-}
-
-DSKY::Seg::IndicatorBulb testBulbs[14] = {};
-void test_update_task(void *args) {
-	while(true) {
-		vTaskDelay(40);
-
-    	for(uint8_t i=0; i<14; i++) {
-    		DSKY::RGBCTRL[i] = testBulbs[i].tick();
-
-    	}
-
-    	DSKY::RGBCTRL.apply();
-    	DSKY::RGBCTRL.update();
-	}
 }
 
 extern "C" void app_main(void)
@@ -161,17 +144,11 @@ extern "C" void app_main(void)
     DSKY::setup();
     init_gyro();
 
-    power_config.max_freq_mhz = 80;
-	power_config.min_freq_mhz = 80;
-	power_config.light_sleep_enable = true;
-    esp_pm_configure(&power_config);
-
-    xTaskCreate(test_update_task, "DSKY::Bulbs", 2048, nullptr, 30, nullptr);
-
-    testBulbs[12].mode = DFLASH;
-    testBulbs[12].target = Material::RED;
-    testBulbs[13].mode = VAL_RISING;
-    testBulbs[13].target = Material::GREEN;
+    bulbs[12].mode = DFLASH;
+    bulbs[12].target = Material::RED;
+    bulbs[12].flash_fill = 2;
+    bulbs[13].mode = VAL_RISING;
+    bulbs[13].target = Material::GREEN;
 
     seg_a.param_type = DisplayParam::LOADING;
     seg_b.param_type = DisplayParam::INT;
@@ -181,15 +158,16 @@ extern "C" void app_main(void)
 
     }
 
-    testBulbs[12].mode = IDLE;
-    testBulbs[12].target = Peripheral::Color(Material::LIME, 160);
-    testBulbs[13].mode = IDLE;
+    bulbs[12].mode = IDLE;
+    bulbs[12].target = Peripheral::Color(Material::LIME, 160);
+    bulbs[13].mode = IDLE;
 
-    testBulbs[7].mode = FLASH;
-    testBulbs[6].mode = HFLASH;
+    bulbs[7].mode = FLASH;
+    bulbs[7].flash_fill = 6;
+    bulbs[6].mode = HFLASH;
 
-    testBulbs[7].target = Material::AMBER;
-    testBulbs[6].target = Material::INDIGO;
+    bulbs[7].target = Material::AMBER;
+    bulbs[6].target = Material::INDIGO;
 
     seg_a.clear();
     seg_b.clear();
