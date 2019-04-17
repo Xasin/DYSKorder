@@ -161,6 +161,11 @@ extern "C" void app_main(void)
     DSKY::setup();
     init_gyro();
 
+    power_config.max_freq_mhz = 80;
+	power_config.min_freq_mhz = 80;
+	power_config.light_sleep_enable = true;
+    esp_pm_configure(&power_config);
+
     xTaskCreate(test_update_task, "DSKY::Bulbs", 2048, nullptr, 30, nullptr);
 
     testBulbs[12].mode = DFLASH;
@@ -177,7 +182,7 @@ extern "C" void app_main(void)
     }
 
     testBulbs[12].mode = IDLE;
-    testBulbs[12].target = Peripheral::Color(Material::LIME, 100);
+    testBulbs[12].target = Peripheral::Color(Material::LIME, 160);
     testBulbs[13].mode = IDLE;
 
     testBulbs[7].mode = FLASH;

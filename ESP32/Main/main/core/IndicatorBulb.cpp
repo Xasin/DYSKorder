@@ -25,8 +25,8 @@ Peripheral::Color IndicatorBulb::tick() {
 
 	case IDLE:
 		current.merge_overlay(
-				bufferedTarget.bMod((get_flashcycle_count()&1) ? 140 : 80)
-				, 10);
+				bufferedTarget.bMod((get_flashcycle_count()&1) ? 87 : 100)
+				, 14);
 	break;
 
 	case HFLASH:
@@ -47,7 +47,7 @@ Peripheral::Color IndicatorBulb::tick() {
 	case DFLASH:
 		onBuffer = ((get_flashcycle_ticks()&0b11) < flash_fill/2);
 		current.merge_overlay(
-				bufferedTarget.bMod(onBuffer ? 200 : 0)
+				bufferedTarget.bMod(onBuffer ? 255 : 0)
 				, onBuffer ? 180 : 130);
 	break;
 
