@@ -24,7 +24,7 @@
 #include "core/IndicatorBulb.h"
 #include "core/buttons.h"
 
-auto accel_x_box = Peripheral::OLED::StringPrimitive(64, 10, &DSKY::display);
+auto accel_x_box = Peripheral::OLED::StringPrimitive(128, 10, &DSKY::display);
 
 esp_err_t event_handler(void *ctx, system_event_t *event)
 {
@@ -126,6 +126,9 @@ void display_accell() {
 	seg_b.blink = fabs(seg_b.value) > 0.5;
 }
 
+DSKY::BTN::btn_event_t lastButtonPress = {};
+TaskHandle_t main_thread = nullptr;
+
 extern "C" void app_main(void)
 {
     nvs_flash_init();
@@ -157,33 +160,82 @@ extern "C" void app_main(void)
 
     }
 
-    DSKY::BTN::on_event = [&accel_x_box](DSKY::BTN::btn_event_t event) {
-    	accel_x_box.set(DSKY::BTN::current_typing);
+    main_thread = xTaskGetCurrentTaskHandle();
+    DSKY::BTN::on_event = [main_thread](DSKY::BTN::btn_event_t event) {
+    	lastButtonPress = event;
+    	xTaskNotify(main_thread, 1, eNoAction);
     };
 
     bulbs[12].mode = IDLE;
     bulbs[12].target = Peripheral::Color(Material::LIME, 160);
     bulbs[13].mode = IDLE;
 
-    bulbs[7].mode = FLASH;
-    bulbs[7].flash_fill = 6;
-    bulbs[6].mode = HFLASH;
-
-    bulbs[7].target = Material::AMBER;
-    bulbs[6].target = Material::INDIGO;
-
-    seg_a.clear();
-    seg_b.clear();
-
-    seg_a.param_type = DisplayParam::INT;
-    seg_a.fixComma = 2;
-    seg_b.param_type = DisplayParam::INT;
-    seg_b.fixComma = 2;
-
     while (true) {
-    	display_accell();
 
-    	vTaskDelay(30 / portTICK_PERIOD_MS);
+    	lastButtonPress = {};
+    	seg_a.clear();
+    	seg_b.clear();
+    	seg_a.param_type = DisplayParam::IDLE;
+    	seg_b.param_type = DisplayParam::NONE;
+    	while(!lastButtonPress.enter) {
+			std::string outString = ">" + DSKY::BTN::current_typing;
+
+			outString += (DSKY::get_flashcycle_count() & 1) ? ' ' : 179;
+
+			std::string realOutString = outString;
+
+			auto lWidth = accel_x_box.get_line_width() -2;
+
+			if(outString.size() > lWidth) {
+				realOutString = "";
+				realOutString += 174;
+				realOutString += outString.substr(outString.size()-lWidth+1);
+			}
+
+			accel_x_box.set(realOutString);
+
+			xTaskNotifyWait(0, 0, nullptr, 100);
+    	}
+
+    	accel_x_box.set("Running...");
+    	seg_a.param_type = DisplayParam::RUNNING;
+
+    	if(lastButtonPress.typed == "gyro") {
+    	    seg_a.param_type = DisplayParam::INT;
+    	    seg_a.fixComma = 2;
+    	    seg_b.param_type = DisplayParam::INT;
+    	    seg_b.fixComma = 2;
+
+    		while(!lastButtonPress.escape) {
+    	    	display_accell();
+    	    	vTaskDelay(30 / portTICK_PERIOD_MS);
+    		}
+    	}
+    	else if(lastButtonPress.typed == "cute") {
+    		accel_x_box.set("Reading cuteness...");
+    		bulbs[12].mode = DFLASH;
+    		bulbs[12].target = Material::PURPLE;
+
+    		seg_b.param_type = DisplayParam::INT;
+
+    		for(uint8_t i = 0; i<100; i++) {
+    			vTaskDelay(50);
+    			seg_b.value = i;
+    		}
+
+    		bulbs[12].target = 0;
+
+    		bulbs[7].mode = FLASH;
+    		bulbs[7].flash_fill = 6;
+    		bulbs[6].mode = HFLASH;
+    		bulbs[7].target = Material::AMBER;
+    		bulbs[6].target = Material::GREEN;
+
+    		seg_a.param_type = DisplayParam::DONE;
+
+    		while(!lastButtonPress.escape)
+    			xTaskNotifyWait(0, 0, nullptr, portMAX_DELAY);
+    	}
     }
 }
 
