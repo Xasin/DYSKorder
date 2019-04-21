@@ -24,6 +24,8 @@
 #include "core/IndicatorBulb.h"
 #include "core/buttons.h"
 
+#include "program/CommandChunk.h"
+
 auto accel_x_box = Peripheral::OLED::StringPrimitive(128, 10, &DSKY::display);
 
 esp_err_t event_handler(void *ctx, system_event_t *event)
@@ -62,12 +64,17 @@ struct tap_data_t {
 
 #pragma pack(1)
 struct accellerometer_data_t {
-	int16_t OUTG_X;
-	int16_t OUTG_Y;
-	int16_t OUTG_Z;
-	int16_t OUTXL_X;
-	int16_t OUTXL_Y;
-	int16_t OUTXL_Z;
+	union {
+		struct {
+			int16_t OUTG_X;
+			int16_t OUTG_Y;
+			int16_t OUTG_Z;
+			int16_t OUTXL_X;
+			int16_t OUTXL_Y;
+			int16_t OUTXL_Z;
+		};
+		int16_t axis[6];
+	};
 	union {
 		uint8_t reg;
 		tap_data_t bits;
@@ -91,7 +98,7 @@ accellerometer_data_t read_accell() {
 using namespace DSKY::Seg;
 
 tap_data_t oldGyroReg = {};
-void display_accell() {
+void display_accell(int axisA, int axisB) {
 	auto gyroData = read_accell();
 
 	auto tapData = gyroData.TAP_DTECT.bits;
@@ -115,19 +122,31 @@ void display_accell() {
 				oldGyroReg.TRG, oldGyroReg.DIR >= 8 ? '-' : '+', axis,
 				oldGyroReg.CNT);
 
-		DSKY::RGBCTRL.fill(Peripheral::Color(outColor, 90));
-		DSKY::RGBCTRL.fadeTransition(100000);
+		bulbs[0].mode = oldGyroReg.DIR >= 8 ? VAL_RISING : VAL_FALLING;
+		bulbs[0].target = outColor;
 	}
 	oldGyroReg = tapData;
 
-	seg_a.value = gyroData.OUTXL_X / 16384.0;
+	seg_a.value = gyroData.axis[axisA] / 16384.0;
 	seg_a.blink = fabs(seg_a.value) > 0.5;
-	seg_b.value = gyroData.OUTXL_Y / 16384.0;
+	seg_b.value = gyroData.axis[axisB] / 16384.0;
 	seg_b.blink = fabs(seg_b.value) > 0.5;
 }
 
 DSKY::BTN::btn_event_t lastButtonPress = {};
 TaskHandle_t main_thread = nullptr;
+
+void reset_interfaces() {
+	lastButtonPress = {};
+	seg_a.clear();
+	seg_b.clear();
+	seg_a.param_type = DisplayParam::IDLE;
+	seg_b.param_type = DisplayParam::NONE;
+
+	for(uint8_t i=0; i<10; i++) {
+		bulbs[i].mode = OFF;
+	}
+}
 
 extern "C" void app_main(void)
 {
@@ -171,12 +190,7 @@ extern "C" void app_main(void)
     bulbs[13].mode = IDLE;
 
     while (true) {
-
-    	lastButtonPress = {};
-    	seg_a.clear();
-    	seg_b.clear();
-    	seg_a.param_type = DisplayParam::IDLE;
-    	seg_b.param_type = DisplayParam::NONE;
+    	reset_interfaces();
     	while(!lastButtonPress.enter) {
 			std::string outString = ">" + DSKY::BTN::current_typing;
 
@@ -197,17 +211,21 @@ extern "C" void app_main(void)
 			xTaskNotifyWait(0, 0, nullptr, 100);
     	}
 
+    	auto chunk = DSKY::Prog::CommandChunk(lastButtonPress.typed);
+
     	accel_x_box.set("Running...");
     	seg_a.param_type = DisplayParam::RUNNING;
 
-    	if(lastButtonPress.typed == "gyro") {
+    	if(chunk.get_cmd() == "gyro") {
     	    seg_a.param_type = DisplayParam::INT;
     	    seg_a.fixComma = 2;
     	    seg_b.param_type = DisplayParam::INT;
     	    seg_b.fixComma = 2;
 
+    	    printf("Axes are %f %f\n", chunk.get_arg_flt(0, 0), chunk.get_arg_flt(1, 1));
+
     		while(!lastButtonPress.escape) {
-    	    	display_accell();
+    	    	display_accell(chunk.get_arg_flt(0, 0), chunk.get_arg_flt(1, 1));
     	    	vTaskDelay(30 / portTICK_PERIOD_MS);
     		}
     	}
@@ -233,9 +251,33 @@ extern "C" void app_main(void)
 
     		seg_a.param_type = DisplayParam::DONE;
 
-    		while(!lastButtonPress.escape)
-    			xTaskNotifyWait(0, 0, nullptr, portMAX_DELAY);
+    		accel_x_box.set("Hugs needed!");
+    		while(!lastButtonPress.escape) {
+    			accel_x_box.set_invert((DSKY::get_flashcycle_ticks() & 7) < 4);
+
+    			xTaskNotifyWait(0, 0, nullptr, 40);
+    		}
     	}
+    	else if(lastButtonPress.typed == "adc") {
+    		while(!lastButtonPress.escape) {
+    			DSKY::adc.update();
+    			accel_x_box.printf("Reads: %1.3f %1.3f",
+    					DSKY::adc.get_reading(2), DSKY::adc.get_reading(3));
+
+    			xTaskNotifyWait(0, 0, nullptr, 500);
+    		}
+    	}
+    	else if(lastButtonPress.typed == "whos a good boi") {
+    		accel_x_box.printf("Duh: Yubutt >~<");
+
+    		while(!lastButtonPress.escape) {
+    			accel_x_box.set_invert((DSKY::get_flashcycle_ticks() & 7) < 4);
+
+    			xTaskNotifyWait(0, 0, nullptr, 40);
+    		}
+    	}
+
+    	Xasin::Trek::play(Xasin::Trek::PROG_DONE);
     }
 }
 
