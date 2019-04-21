@@ -92,7 +92,7 @@ uint32_t DisplayParam::get_current_display() {
 		return outBuffer;
 	case DONE:
 		outBuffer = get_signal_code(signal_done, 4);
-		if(get_flashcycle_count() & 1) {
+		if(!(get_flashcycle_count() & 1)) {
 			for(uint8_t i=7; i<32; i+=8)
 				outBuffer |= 1<<i;
 		}

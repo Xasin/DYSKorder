@@ -19,6 +19,9 @@
 #include "SSD1327.h"
 #include "LittleConsole.h"
 
+#include "xasin/MAX11613.h"
+#include "BatteryManager.h"
+
 #include <functional>
 
 namespace DSKY {
@@ -30,6 +33,16 @@ extern Peripheral::NeoController	RGBCTRL;
 
 extern Peripheral::OLED::SSD1327	display;
 extern Peripheral::OLED::LittleConsole console;
+
+extern Xasin::I2C::MAX11613			adc;
+extern Housekeeping::BatteryManager battery;
+
+namespace ADC {
+	void setup();
+
+	void tick();
+	float get_averaged_adc(uint8_t channel);
+}
 
 void setup();
 

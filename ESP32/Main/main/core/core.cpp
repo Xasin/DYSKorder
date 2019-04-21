@@ -25,6 +25,17 @@ Peripheral::NeoController	RGBCTRL(PIN_WS2812, RMT_CHANNEL_0, 14);
 Peripheral::OLED::SSD1327	display = Peripheral::OLED::SSD1327();
 Peripheral::OLED::LittleConsole console = Peripheral::OLED::LittleConsole(display);
 
+Xasin::I2C::MAX11613 adc = Xasin::I2C::MAX11613();
+Housekeeping::BatteryManager battery = Housekeeping::BatteryManager();
+
+void housekeep_thread(void *_) {
+	while(true) {
+		ADC::tick();
+
+		vTaskDelay(100);
+	}
+}
+
 void pin_setup() {
 	// OUTPUT CONFIGURATION
     gpio_config_t pinCFG = {
@@ -60,6 +71,9 @@ void setup() {
 
 	Seg::setup();
 
+    adc.init();
+    ADC::setup();
+
     i2s_pin_config_t pinCFG = {
     	PIN_AUDIO_BCK,
 		PIN_AUDIO_LRCK,
@@ -70,6 +84,8 @@ void setup() {
     Xasin::Trek::init(audio);
 
     display.initialize();
+
+    xTaskCreate(housekeep_thread, "DSKY::House", 2048, nullptr, 10, nullptr);
 
     Xasin::Trek::play(Xasin::Trek::PROG_DONE);
 
