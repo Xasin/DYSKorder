@@ -32,6 +32,7 @@ struct btn_event_t {
 
 extern volatile unsigned int current_buttons;
 extern std::string current_typing;
+extern btn_event_t last_btn_event;
 
 extern btn_restrict_t button_restrict;
 
@@ -58,7 +59,7 @@ const char buttonMap[][8] = {
 	BTN_NUMCHAR('5', '*', 's', 'h'),
 	BTN_NUMCHAR('6', '/', 'd', 'j'),
 	{'0', 'k', ' ', 'K', 'f', 'p', 'F', 'P'},
-	BTN_NUMCHAR('7', '/', 'y', 'b'),
+	BTN_NUMCHAR('7', '=', 'y', 'b'),
 	BTN_NUMCHAR('8', '(', 'x', 'n'),
 	BTN_NUMCHAR('9', ')', 'c', 'm'),
 	{'.', ' ', ':', ',', 'v', 'l', 'V', 'L'}

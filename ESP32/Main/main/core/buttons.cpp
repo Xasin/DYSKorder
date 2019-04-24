@@ -22,6 +22,8 @@ namespace BTN {
 
 volatile unsigned int current_buttons = 0;
 std::string current_typing = "";
+btn_event_t last_btn_event = {};
+
 btn_restrict_t button_restrict = ALL;
 
 TaskHandle_t btn_thread_handle = nullptr;
@@ -63,21 +65,17 @@ bool valid_char(char c) {
 void process_button(uint8_t btnNum) {
 	char currentChar = buttonMap[btnNum][get_mode_pins()];
 
-	printf("Button num %d is: %c (%s)\n",
-			btnNum, currentChar,
-			valid_char(currentChar) ? "OK" : "FALSE");
+	last_btn_event = {};
+	last_btn_event.btn_pressed_no = btnNum;
+	last_btn_event.typed_char = currentChar;
 
-	btn_event_t outEvent = {};
-	outEvent.btn_pressed_no = btnNum;
-	outEvent.typed_char = currentChar;
-
-	outEvent.typed = current_typing;
+	last_btn_event.typed = current_typing;
 
 	switch(currentChar) {
 	default:
 		if(valid_char(currentChar)) {
 			current_typing.push_back(currentChar);
-			outEvent.typed = current_typing;
+			last_btn_event.typed = current_typing;
 
 			Trek::play(Trek::KEYPRESS);
 		}
@@ -86,8 +84,7 @@ void process_button(uint8_t btnNum) {
 	break;
 	case 26: break;
 	case 27:
-		puts("ESCAPE'd");
-		outEvent.escape = true;
+		last_btn_event.escape = true;
 
 		current_typing.clear();
 		Trek::play(Trek::PROG_DONE);
@@ -96,12 +93,12 @@ void process_button(uint8_t btnNum) {
 		if(current_typing.length() > 0)
 			current_typing.pop_back();
 
-		outEvent.typed = current_typing;
+		last_btn_event.typed = current_typing;
 		Trek::play(Trek::KEYPRESS);
 	break;
 	case '\n':
 		printf("ENTER'd, you typed: %s\n", current_typing.data());
-		outEvent.enter = true;
+		last_btn_event.enter = true;
 
 		Trek::play(Trek::PROG_BUSY);
 		current_typing.clear();
@@ -109,7 +106,7 @@ void process_button(uint8_t btnNum) {
 	}
 
 	if(on_event != nullptr)
-		on_event(outEvent);
+		on_event(last_btn_event);
 }
 
 void btn_read_thread(void *_) {
@@ -124,10 +121,11 @@ void btn_read_thread(void *_) {
 			uint8_t btnNum = btn_remap[i];
 
 			if(((newButtons >> i) & 1) == 0) {
-				btn_event_t outEvent = {};
+				last_btn_event = {};
 
-				outEvent.btn_released_no = i+1;
-				outEvent.mode_btns = get_mode_pins();
+				last_btn_event.btn_released_no = i+1;
+				last_btn_event.mode_btns = get_mode_pins();
+				on_event(last_btn_event);
 				continue;
 			}
 

@@ -37,19 +37,16 @@ CommandChunk::CommandChunk(std::string command)
 			args.emplace_back(argStr);
 		}
 		else {
-			int keyEnd = command.find(" ", lastPos);
+			unsigned int keyEnd = command.find("=", lastPos);
+			unsigned int keyArgEnd = command.find(" ", lastPos);
 
-			int keyArgStart = keyEnd;
-			while(command.at(keyArgStart) == ' ')
-				keyArgStart++;
+			if(keyEnd > keyArgEnd)
+				keyEnd = keyArgEnd;
 
-			int keyArgEnd = command.find(" ", keyArgStart);
-
-			if(keyArgStart >= command.length())
-				break;
-
-			auto keyStr = command.substr(lastPos, keyEnd-lastPos);
-			auto valStr = command.substr(keyArgStart, keyArgEnd-keyArgStart);
+			auto keyStr = command.substr(lastPos+1, keyEnd-lastPos-1);
+			std::string valStr = "";
+			if(keyArgEnd > keyEnd)
+				valStr = command.substr(keyEnd+1, keyArgEnd - keyEnd - 1);
 
 			keys.emplace(keyStr, valStr);
 
