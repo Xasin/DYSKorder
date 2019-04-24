@@ -24,7 +24,7 @@
 #include "core/IndicatorBulb.h"
 #include "core/buttons.h"
 
-#include "program/CommandChunk.h"
+#include "program/Program.h"
 
 auto accel_x_box = Peripheral::OLED::StringPrimitive(128, 10, &DSKY::display);
 
@@ -148,6 +148,35 @@ void reset_interfaces() {
 	}
 }
 
+auto gyroProg = DSKY::Prog::Program("gyro", [](const DSKY::Prog::CommandChunk &cmd) {
+	seg_a.param_type = DisplayParam::INT;
+	seg_a.fixComma = 2;
+	seg_b.param_type = DisplayParam::INT;
+	seg_b.fixComma = 2;
+
+	if(cmd.get_arg_str(0) == "spin") {
+
+		float rotCount = 0;
+		while(!lastButtonPress.escape) {
+			auto gyroData = read_accell();
+			rotCount += 0.02 * gyroData.OUTG_Z / 32767.0 * 200 / 360.0;
+
+			seg_a.value = rotCount;
+
+			vTaskDelay(20);
+		}
+
+		return DSKY::Prog::OK;
+	}
+
+	while(!lastButtonPress.escape) {
+		display_accell(cmd.get_arg_flt(0, 0), cmd.get_arg_flt(1, 1));
+		vTaskDelay(30 / portTICK_PERIOD_MS);
+	}
+
+	return DSKY::Prog::OK;
+});
+
 extern "C" void app_main(void)
 {
     nvs_flash_init();
@@ -157,7 +186,7 @@ extern "C" void app_main(void)
     esp_timer_init();
 
     esp_pm_config_esp32_t power_config = {};
-    power_config.max_freq_mhz = 160;
+    power_config.max_freq_mhz = 80;
 	power_config.min_freq_mhz = 80;
 	power_config.light_sleep_enable = false;
     esp_pm_configure(&power_config);
@@ -180,7 +209,7 @@ extern "C" void app_main(void)
     }
 
     main_thread = xTaskGetCurrentTaskHandle();
-    DSKY::BTN::on_event = [main_thread](DSKY::BTN::btn_event_t event) {
+    DSKY::BTN::on_event = [](DSKY::BTN::btn_event_t event) {
     	lastButtonPress = event;
     	xTaskNotify(main_thread, 1, eNoAction);
     };
@@ -216,20 +245,19 @@ extern "C" void app_main(void)
     	accel_x_box.set("Running...");
     	seg_a.param_type = DisplayParam::RUNNING;
 
-    	if(chunk.get_cmd() == "gyro") {
-    	    seg_a.param_type = DisplayParam::INT;
-    	    seg_a.fixComma = 2;
-    	    seg_b.param_type = DisplayParam::INT;
-    	    seg_b.fixComma = 2;
-
-    	    printf("Axes are %f %f\n", chunk.get_arg_flt(0, 0), chunk.get_arg_flt(1, 1));
-
-    		while(!lastButtonPress.escape) {
-    	    	display_accell(chunk.get_arg_flt(0, 0), chunk.get_arg_flt(1, 1));
-    	    	vTaskDelay(30 / portTICK_PERIOD_MS);
-    		}
+    	auto nextProg = DSKY::Prog::Program::find(chunk);
+    	if(nextProg == nullptr) {
+    		Xasin::Trek::play(Xasin::Trek::INPUT_BAD);
     	}
-    	else if(lastButtonPress.typed == "cute") {
+    	else {
+    		auto progRes = nextProg->run(chunk);
+    		if(progRes == DSKY::Prog::OK)
+    			Xasin::Trek::play(Xasin::Trek::PROG_DONE);
+    		else
+    			Xasin::Trek::play(Xasin::Trek::PROG_FAILED);
+    	}
+
+    	if(lastButtonPress.typed == "cute") {
     		accel_x_box.set("Reading cuteness...");
     		bulbs[12].mode = DFLASH;
     		bulbs[12].target = Material::PURPLE;
