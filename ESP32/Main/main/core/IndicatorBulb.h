@@ -34,6 +34,7 @@ public:
 	uint8_t flash_fill;
 
 	IndicatorBulb();
+	IndicatorBulb& operator=(const IndicatorBulb &other);
 
 	Peripheral::Color tick();
 	Peripheral::Color get_color();

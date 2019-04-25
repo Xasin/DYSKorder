@@ -87,7 +87,6 @@ void process_button(uint8_t btnNum) {
 		last_btn_event.escape = true;
 
 		current_typing.clear();
-		Trek::play(Trek::PROG_DONE);
 	break;
 	case 8:
 		if(current_typing.length() > 0)
@@ -100,7 +99,6 @@ void process_button(uint8_t btnNum) {
 		printf("ENTER'd, you typed: %s\n", current_typing.data());
 		last_btn_event.enter = true;
 
-		Trek::play(Trek::PROG_BUSY);
 		current_typing.clear();
 	break;
 	}

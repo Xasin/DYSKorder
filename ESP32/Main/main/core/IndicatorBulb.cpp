@@ -15,6 +15,14 @@ IndicatorBulb::IndicatorBulb() : current(),
 		target(), mode(OFF), flash_fill(4) {
 }
 
+IndicatorBulb& IndicatorBulb::operator =(const IndicatorBulb &top) {
+	this->target = top.target;
+	this->mode	 = top.mode;
+	this->flash_fill = top.flash_fill;
+
+	return *this;
+}
+
 Peripheral::Color IndicatorBulb::tick() {
 
 	auto bufferedTarget = target;
@@ -26,7 +34,7 @@ Peripheral::Color IndicatorBulb::tick() {
 	case IDLE:
 		current.merge_overlay(
 				bufferedTarget.bMod((get_flashcycle_count()&1) ? 110 : 120)
-				, 8);
+				, 30);
 	break;
 
 	case HFLASH:
