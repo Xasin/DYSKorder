@@ -26,8 +26,6 @@
 
 #include "program/Program.h"
 
-auto accel_x_box = Peripheral::OLED::StringPrimitive(128, 10, &DSKY::display);
-
 esp_err_t event_handler(void *ctx, system_event_t *event)
 {
     return ESP_OK;
@@ -178,7 +176,7 @@ auto gyroProg = DSKY::Prog::Program("gyro", [](const DSKY::Prog::CommandChunk &c
 });
 
 auto cuteProg = DSKY::Prog::Program("cute", [](const DSKY::Prog::CommandChunk &cmd) {
-	accel_x_box.set("Reading cuteness...");
+	DSKY::inputArea.set("Reading cuteness...");
 	bulbs[12].mode = DFLASH;
 	bulbs[12].target = Material::PURPLE;
 
@@ -201,9 +199,9 @@ auto cuteProg = DSKY::Prog::Program("cute", [](const DSKY::Prog::CommandChunk &c
 
 	Xasin::Trek::play(Xasin::Trek::INPUT_REQ);
 
-	accel_x_box.set("Hugs needed!");
+	DSKY::inputArea.set("Hugs needed!");
 	while(!lastButtonPress.escape) {
-		accel_x_box.set_invert((DSKY::get_flashcycle_ticks() & 7) < 4);
+		DSKY::inputArea.set_invert((DSKY::get_flashcycle_ticks() & 7) < 4);
 
 		xTaskNotifyWait(0, 0, nullptr, 40);
 	}
@@ -245,14 +243,14 @@ extern "C" void app_main(void)
     main_thread = xTaskGetCurrentTaskHandle();
     DSKY::BTN::on_event = [](DSKY::BTN::btn_event_t event) {
     	lastButtonPress = event;
-    	xTaskNotify(main_thread, 1, eNoAction);
+    	xTaskNotify(main_thread, 1, eSetBits);
     };
 
     bulbs[12].mode = IDLE;
     bulbs[12].target = Peripheral::Color(Material::LIME, 160);
     bulbs[13].mode = IDLE;
 
-    DSKY::Prog::Program::inputPrimitive = &accel_x_box;
+    DSKY::Prog::Program::inputPrimitive = &DSKY::inputArea;
     DSKY::Prog::Program::statusBulb 	= &bulbs[10];
 
     while (true) {
@@ -262,14 +260,11 @@ extern "C" void app_main(void)
     	auto nextProg = DSKY::Prog::Program::find(chunk);
     	if(nextProg == nullptr) {
     		Xasin::Trek::play(Xasin::Trek::INPUT_BAD);
-    		bulbs[10].mode = DFLASH;
-    		bulbs[10].target = Material::RED;
-    		bulbs[10].flash_fill = 1;
 
-    		vTaskDelay(2000);
+    		bulbs[10].set(Material::RED, DFLASH, 8, 2000);
     	}
     	else {
-        	accel_x_box.set("Running...");
+        	DSKY::inputArea.set("Running...");
         	seg_a.param_type = DisplayParam::RUNNING;
 
     		auto progRes = nextProg->run(chunk);
@@ -281,23 +276,23 @@ extern "C" void app_main(void)
     		seg_b.param_type = DisplayParam::INT;
     		seg_b.value 	 = progRes;
 
-    		DSKY::Prog::Program::wait_for_button();
+    		DSKY::Prog::Program::wait_for_enter();
     	}
 
     	if(lastButtonPress.typed == "adc") {
     		while(!lastButtonPress.escape) {
     			DSKY::adc.update();
-    			accel_x_box.printf("Reads: %1.3f %1.3f",
+    			DSKY::inputArea.printf("Reads: %1.3f %1.3f",
     					DSKY::adc.get_reading(2), DSKY::adc.get_reading(3));
 
     			xTaskNotifyWait(0, 0, nullptr, 500);
     		}
     	}
     	else if(lastButtonPress.typed == "whos a good boi") {
-    		accel_x_box.printf("Duh: Yubutt >~<");
+    		DSKY::inputArea.printf("Duh: Yubutt >~<");
 
     		while(!lastButtonPress.escape) {
-    			accel_x_box.set_invert((DSKY::get_flashcycle_ticks() & 7) < 4);
+    			DSKY::inputArea.set_invert((DSKY::get_flashcycle_ticks() & 7) < 4);
 
     			xTaskNotifyWait(0, 0, nullptr, 40);
     		}

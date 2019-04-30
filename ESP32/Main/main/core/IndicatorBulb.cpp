@@ -11,8 +11,9 @@
 namespace DSKY {
 namespace Seg {
 
-IndicatorBulb::IndicatorBulb() : current(),
-		target(), mode(OFF), flash_fill(4) {
+IndicatorBulb::IndicatorBulb() :
+		current(), deactivateAfter(0),
+		target(), mode(OFF), flash_fill(8) {
 }
 
 IndicatorBulb& IndicatorBulb::operator =(const IndicatorBulb &top) {
@@ -20,10 +21,28 @@ IndicatorBulb& IndicatorBulb::operator =(const IndicatorBulb &top) {
 	this->mode	 = top.mode;
 	this->flash_fill = top.flash_fill;
 
+	if(top.deactivateAfter != 0)
+		this->deactivateAfter = xTaskGetTickCount() + top.deactivateAfter;
+	else
+		this->deactivateAfter = 0;
+
 	return *this;
 }
 
+void IndicatorBulb::set(Peripheral::Color target, bulb_mode_t mode, uint8_t fill, TickType_t deactivateTicks) {
+	this->target = target;
+	this->mode = mode;
+	this->flash_fill = fill;
+
+	deactivate_after(deactivateTicks);
+}
+
 Peripheral::Color IndicatorBulb::tick() {
+
+	if((deactivateAfter != 0) && (deactivateAfter < xTaskGetTickCount())) {
+		mode = OFF;
+		deactivateAfter = 0;
+	}
 
 	auto bufferedTarget = target;
 	bool onBuffer = false;
@@ -46,14 +65,14 @@ Peripheral::Color IndicatorBulb::tick() {
 	break;
 
 	case FLASH:
-		onBuffer = ((get_flashcycle_ticks()&0b111) < flash_fill);
+		onBuffer = ((get_flashcycle_ticks()&0b111) < flash_fill/2);
 		current.merge_overlay(
 				bufferedTarget.bMod(onBuffer ? 180 : 0)
 				, onBuffer ? 120 : 90);
 	break;
 
 	case DFLASH:
-		onBuffer = ((get_flashcycle_ticks()&0b11) < flash_fill);
+		onBuffer = ((get_flashcycle_ticks()&0b11) < flash_fill/4);
 		current.merge_overlay(
 				bufferedTarget.bMod(onBuffer ? 200 : 0)
 				, onBuffer ? 180 : 130);
@@ -77,6 +96,17 @@ Peripheral::Color IndicatorBulb::tick() {
 
 
 	return current;
+}
+
+Peripheral::Color IndicatorBulb::get_color() {
+	return current;
+}
+
+void IndicatorBulb::deactivate_after(TickType_t ticks) {
+	if(ticks <= 0)
+		return;
+
+	this->deactivateAfter = ticks + xTaskGetTickCount();
 }
 
 } /* namespace Seg */

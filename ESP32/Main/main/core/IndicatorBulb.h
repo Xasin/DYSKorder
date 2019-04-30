@@ -24,8 +24,9 @@ enum bulb_mode_t {
 };
 
 class IndicatorBulb {
-private:
+protected:
 	Peripheral::Color current;
+	TickType_t deactivateAfter;
 
 public:
 	Peripheral::Color target;
@@ -36,8 +37,12 @@ public:
 	IndicatorBulb();
 	IndicatorBulb& operator=(const IndicatorBulb &other);
 
+	void set(Peripheral::Color target, bulb_mode_t mode, uint8_t fill = 8, TickType_t deactivateTicks = 0);
+
 	Peripheral::Color tick();
 	Peripheral::Color get_color();
+
+	void deactivate_after(TickType_t ticks);
 };
 
 } /* namespace Seg */

@@ -52,7 +52,6 @@ program_exit_t Program::run(const CommandChunk &cmd) {
 
 		if(statusBulb != nullptr) {
 			statusBulb->mode = Seg::IDLE;
-			statusBulb->flash_fill = 13;
 			statusBulb->target = Material::GREEN;
 		}
 
@@ -70,7 +69,7 @@ program_exit_t Program::run(const CommandChunk &cmd) {
 			if(statusBulb) {
 				statusBulb->target = Material::RED;
 				statusBulb->mode   = Seg::DFLASH;
-				statusBulb->flash_fill = 2;
+				statusBulb->flash_fill = 12;
 			}
 		}
 		else {
@@ -79,7 +78,7 @@ program_exit_t Program::run(const CommandChunk &cmd) {
 			if(statusBulb) {
 				statusBulb->target = Material::AMBER;
 				statusBulb->mode   = Seg::FLASH;
-				statusBulb->flash_fill = 6;
+				statusBulb->flash_fill = 10;
 			}
 		}
 
@@ -91,11 +90,22 @@ program_exit_t Program::run(const CommandChunk &cmd) {
 }
 
 void Program::wait_for_button(TickType_t timeout) {
-	xTaskNotifyWait(0, 0, nullptr, timeout);
+	uint32_t notifyVal = 0;
+
+	TickType_t endTime = timeout;
+	if(endTime != portMAX_DELAY)
+		endTime += xTaskGetTickCount();
+
+	while((1 & notifyVal) == 0 && (xTaskGetTickCount() < endTime))
+		xTaskNotifyWait(1, 1, &notifyVal, endTime - xTaskGetTickCount());
 }
 
 void Program::wait_for_esc() {
 	while(!DSKY::BTN::last_btn_event.escape)
+		wait_for_button();
+}
+void Program::wait_for_enter() {
+	while(!DSKY::BTN::last_btn_event.enter)
 		wait_for_button();
 }
 
@@ -130,6 +140,8 @@ std::string Program::get_input(std::string marker, BTN::btn_restrict_t restricti
 			wait_for_button();
 	}
 
+
+	DSKY::console.printf(">%s", BTN::last_btn_event.typed.data());
 	return BTN::last_btn_event.typed;
 }
 

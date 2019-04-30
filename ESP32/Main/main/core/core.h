@@ -33,6 +33,7 @@ extern Peripheral::NeoController	RGBCTRL;
 
 extern Peripheral::OLED::SSD1327	display;
 extern Peripheral::OLED::LittleConsole console;
+extern Peripheral::OLED::StringPrimitive inputArea;
 
 extern Xasin::I2C::MAX11613			adc;
 extern Housekeeping::BatteryManager battery;
@@ -42,6 +43,10 @@ namespace ADC {
 
 	void tick();
 	float get_averaged_adc(uint8_t channel);
+}
+
+namespace Graphics {
+	void setup();
 }
 
 void setup();

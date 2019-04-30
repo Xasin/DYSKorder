@@ -55,6 +55,7 @@ public:
 
 	static void wait_for_button(TickType_t timeout = portMAX_DELAY);
 	static void wait_for_esc();
+	static void wait_for_enter();
 
 	static std::string get_input(std::string marker, BTN::btn_restrict_t restriction = BTN::ALL);
 	static std::string request_input(std::string marker, BTN::btn_restrict_t restriction = BTN::ALL);
