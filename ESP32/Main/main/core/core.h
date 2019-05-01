@@ -16,11 +16,14 @@
 #include "MasterAction.h"
 #include "xasin/AS1115.h"
 
+#include "xasin/mqtt/Handler.h"
+
 #include "SSD1327.h"
 #include "LittleConsole.h"
 
 #include "xasin/MAX11613.h"
 #include "BatteryManager.h"
+#include "xasin/LSM6DS3.h"
 
 #include <functional>
 
@@ -31,12 +34,16 @@ extern Xasin::Peripheral::AudioHandler audio;
 extern Xasin::I2C::AS1115 			segmentCTRL;
 extern Peripheral::NeoController	RGBCTRL;
 
+extern Xasin::I2C::MAX11613			adc;
+extern Housekeeping::BatteryManager battery;
+
+extern Xasin::I2C::LSM6DS3			gyro;
+
+extern Xasin::MQTT::Handler			mqtt;
+
 extern Peripheral::OLED::SSD1327	display;
 extern Peripheral::OLED::LittleConsole console;
 extern Peripheral::OLED::StringPrimitive inputArea;
-
-extern Xasin::I2C::MAX11613			adc;
-extern Housekeeping::BatteryManager battery;
 
 namespace ADC {
 	void setup();

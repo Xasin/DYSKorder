@@ -60,11 +60,15 @@ program_exit_t Program::run(const CommandChunk &cmd) {
 		if(execCode == OK) {
 			Trek::play(Trek::PROG_DONE);
 
+			DSKY::console.printf("Prog. completed\n");
+
 			if(statusBulb)
 				statusBulb->target = Seg::OFF;
 		}
 		else if(execCode == MAJOR_FAIL) {
 			Trek::play(Trek::ERROR_MAJOR);
+
+			DSKY::console.printf("MAJOR ERROR\n");
 
 			if(statusBulb) {
 				statusBulb->target = Material::RED;
@@ -74,6 +78,8 @@ program_exit_t Program::run(const CommandChunk &cmd) {
 		}
 		else {
 			Trek::play(Trek::PROG_FAILED);
+
+			DSKY::console.printf("Prog failed: %d\n", execCode);
 
 			if(statusBulb) {
 				statusBulb->target = Material::AMBER;
@@ -141,7 +147,7 @@ std::string Program::get_input(std::string marker, BTN::btn_restrict_t restricti
 	}
 
 
-	DSKY::console.printf(">%s", BTN::last_btn_event.typed.data());
+	DSKY::console.printf("%s%s\n", marker.data(), BTN::last_btn_event.typed.data());
 	return BTN::last_btn_event.typed;
 }
 

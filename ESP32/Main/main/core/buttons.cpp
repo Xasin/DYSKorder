@@ -123,7 +123,8 @@ void btn_read_thread(void *_) {
 
 				last_btn_event.btn_released_no = i+1;
 				last_btn_event.mode_btns = get_mode_pins();
-				on_event(last_btn_event);
+				if(on_event != nullptr)
+					on_event(last_btn_event);
 				continue;
 			}
 

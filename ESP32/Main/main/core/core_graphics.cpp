@@ -26,12 +26,14 @@ void setup() {
 
 	borderDrawer.onRedraw = []() {
 		borderDrawer.draw_line(0, 8, 127, 0);
-		borderDrawer.draw_line(0, 117, 127, 0);
+		borderDrawer.draw_line(0, 116, 127, 0);
+
+		borderDrawer.write_string(36, 0, "DSKorder");
 	};
 
     inputArea.offsetY = 119;
 
-    consoleArea.offsetY = 6;
+    consoleArea.offsetY = 11;
 
     display.initialize();
 }

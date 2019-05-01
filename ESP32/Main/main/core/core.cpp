@@ -22,8 +22,12 @@ Xasin::Peripheral::AudioHandler audio(44100);
 Xasin::I2C::AS1115 			segmentCTRL = Xasin::I2C::AS1115();
 Peripheral::NeoController	RGBCTRL(PIN_WS2812, RMT_CHANNEL_0, 14);
 
-Xasin::I2C::MAX11613 adc = Xasin::I2C::MAX11613();
+Xasin::I2C::MAX11613	adc = Xasin::I2C::MAX11613();
 Housekeeping::BatteryManager battery = Housekeeping::BatteryManager();
+
+Xasin::I2C::LSM6DS3		gyro = Xasin::I2C::LSM6DS3();
+
+Xasin::MQTT::Handler mqtt = Xasin::MQTT::Handler();
 
 void housekeep_thread(void *_) {
 	while(true) {
@@ -69,6 +73,8 @@ void setup() {
 
     adc.init();
     ADC::setup();
+
+    gyro.init();
 
     Graphics::setup();
 

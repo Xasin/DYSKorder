@@ -28,106 +28,20 @@
 
 esp_err_t event_handler(void *ctx, system_event_t *event)
 {
+	Xasin::MQTT::Handler::try_wifi_reconnect(event);
+	DSKY::mqtt.wifi_handler(event);
+
     return ESP_OK;
-}
-
-void send_gyro_command(uint8_t cmd, uint32_t data, uint8_t len = 1) {
-	auto i2c_cmd = XaI2C::MasterAction(0b1101011);
-	i2c_cmd.write(cmd, &data, len);
-	i2c_cmd.execute();
-}
-
-void init_gyro() {
-	send_gyro_command(0x10, 0b01000001);
-	send_gyro_command(0x11, 0b01000000);
-
-	// Enable functions
-	send_gyro_command(0x19, 0b00101110);
-
-	// Setup INT1 as Active Low, OD
-	send_gyro_command(0x12, 0b00110100);
-
-	// Setup tap detection
-	send_gyro_command(0x58, 0b00011110); // Detect enable
-	send_gyro_command(0x59, 0b00001111); // Threshold
-	send_gyro_command(0x5A, 0b00010100); // DTap duration
-	send_gyro_command(0x5B, 0b10000000); // DTap enable
-}
-
-struct tap_data_t {
-	uint8_t DIR:4;
-	uint8_t CNT:2;
-	uint8_t TRG:1;
-};
-
-#pragma pack(1)
-struct accellerometer_data_t {
-	union {
-		struct {
-			int16_t OUTG_X;
-			int16_t OUTG_Y;
-			int16_t OUTG_Z;
-			int16_t OUTXL_X;
-			int16_t OUTXL_Y;
-			int16_t OUTXL_Z;
-		};
-		int16_t axis[6];
-	};
-	union {
-		uint8_t reg;
-		tap_data_t bits;
-	} TAP_DTECT;
-};
-
-accellerometer_data_t read_accell() {
-	accellerometer_data_t outData = {};
-
-	auto i2c_cmd = XaI2C::MasterAction(0b1101011);
-	i2c_cmd.read(0x22, &outData, 12);
-	i2c_cmd.execute();
-
-	auto i2c_cmd_b = XaI2C::MasterAction(0b1101011);
-	i2c_cmd_b.read(0x1C, &(outData.TAP_DTECT), 1);
-	i2c_cmd_b.execute();
-
-	return outData;
 }
 
 using namespace DSKY::Seg;
 
-tap_data_t oldGyroReg = {};
 void display_accell(int axisA, int axisB) {
-	auto gyroData = read_accell();
+	DSKY::gyro.update();
 
-	auto tapData = gyroData.TAP_DTECT.bits;
-	if(tapData.DIR != oldGyroReg.DIR && tapData.DIR == 0) {
-		char axis = ' ';
-		if(oldGyroReg.DIR & 0b100)
-			axis = 'X';
-		else if(oldGyroReg.DIR & 0b010)
-			axis = 'Y';
-		else if(oldGyroReg.DIR & 0b001)
-			axis = 'Z';
-
-		uint32_t outColor = 0;
-		switch(axis) {
-		case 'X': outColor = Material::ORANGE; break;
-		case 'Y': outColor = Material::PINK;   break;
-		case 'Z': outColor = Material::CYAN;   break;
-		}
-
-		DSKY::console.printf("Tap: TRIG:%1d D: %c%c DOUBLE:%1d\n",
-				oldGyroReg.TRG, oldGyroReg.DIR >= 8 ? '-' : '+', axis,
-				oldGyroReg.CNT);
-
-		bulbs[0].mode = oldGyroReg.DIR >= 8 ? VAL_RISING : VAL_FALLING;
-		bulbs[0].target = outColor;
-	}
-	oldGyroReg = tapData;
-
-	seg_a.value = gyroData.axis[axisA] / 16384.0;
+	seg_a.value = DSKY::gyro[axisA];
 	seg_a.blink = fabs(seg_a.value) > 0.5;
-	seg_b.value = gyroData.axis[axisB] / 16384.0;
+	seg_b.value = DSKY::gyro[axisB];
 	seg_b.blink = fabs(seg_b.value) > 0.5;
 }
 
@@ -154,10 +68,12 @@ auto gyroProg = DSKY::Prog::Program("gyro", [](const DSKY::Prog::CommandChunk &c
 
 	if(cmd.get_arg_str(0) == "spin") {
 
+		seg_a.fixComma = 0;
+
 		float rotCount = 0;
 		while(!lastButtonPress.escape) {
-			auto gyroData = read_accell();
-			rotCount += 0.02 * gyroData.OUTG_Z / 32767.0 * 200 / 360.0;
+			DSKY::gyro.update();
+			rotCount += DSKY::gyro[3] * 0.02;
 
 			seg_a.value = rotCount;
 
@@ -224,7 +140,6 @@ extern "C" void app_main(void)
     esp_pm_configure(&power_config);
 
     DSKY::setup();
-    init_gyro();
 
     bulbs[12].mode = DFLASH;
     bulbs[12].target = Material::RED;
