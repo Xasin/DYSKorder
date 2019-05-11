@@ -138,7 +138,7 @@ void btn_read_thread(void *_) {
 
 void setup() {
 	gpio_isr_handler_add(PIN_BTN_IRQ, btn_isr_handler, nullptr);
-	xTaskCreate(btn_read_thread, "BTN Updater", 2048, nullptr, 20, &btn_thread_handle);
+	xTaskCreatePinnedToCore(btn_read_thread, "BTN Updater", 2048, nullptr, 20, &btn_thread_handle,1);
 }
 
 }

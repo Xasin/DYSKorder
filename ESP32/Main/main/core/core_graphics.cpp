@@ -6,6 +6,7 @@
  */
 
 #include "core.h"
+#include "segments.h"
 
 namespace DSKY {
 
@@ -36,6 +37,31 @@ void setup() {
     consoleArea.offsetY = 11;
 
     display.initialize();
+}
+
+void tick() {
+	auto &connBulb = Seg::bulbs[12];
+
+	switch(mqtt.is_disconnected()) {
+	default:
+		connBulb.mode = Seg::IDLE;
+		connBulb.target = Material::GREEN;
+	break;
+
+	case 255:
+		connBulb.mode = Seg::OFF;
+	break;
+
+	case 1:
+		connBulb.mode = Seg::HFLASH;
+		connBulb.target = Material::AMBER;
+	break;
+
+	case 2:
+		connBulb.mode = Seg::HFLASH;
+		connBulb.target = Material::RED;
+	break;
+	}
 }
 
 }

@@ -15,6 +15,8 @@
 #include <cstring>
 #include <cmath>
 
+#include "xasin/mqtt/Subscription.h"
+
 #include "core/core.h"
 #include "core/pins.h"
 #include "core/segments.h"
@@ -25,6 +27,7 @@
 #include "core/buttons.h"
 
 #include "program/Program.h"
+#include "programs/programs.h"
 
 esp_err_t event_handler(void *ctx, system_event_t *event)
 {
@@ -125,6 +128,25 @@ auto cuteProg = DSKY::Prog::Program("cute", [](const DSKY::Prog::CommandChunk &c
 	return DSKY::Prog::MAJOR_FAIL;
 });
 
+auto flauschProg = DSKY::Prog::Program("greet", [](const DSKY::Prog::CommandChunk &cmd) {
+	DSKY::console.printf_style("New person found...\n");
+	vTaskDelay(300);
+
+	DSKY::console.printf_style("Assessing... ");
+	seg_b.param_type = DisplayParam::INT;
+	for(uint8_t i=0; i<=100; i++) {
+		seg_b.value = i;
+		vTaskDelay(30);
+	}
+	seg_a.param_type = DisplayParam::DONE;
+
+	DSKY::console.printf_style("Done!\n");
+	DSKY::console.printf_style("Output: \n");
+	DSKY::console.printf_style("Hewoooo!!!\n");
+
+	return DSKY::Prog::OK;
+}, false);
+
 extern "C" void app_main(void)
 {
     nvs_flash_init();
@@ -141,9 +163,11 @@ extern "C" void app_main(void)
 
     DSKY::setup();
 
-    bulbs[12].mode = DFLASH;
-    bulbs[12].target = Material::RED;
-    bulbs[12].flash_fill = 2;
+    DSKY::audio.volumeMod = 130;
+
+    bulbs[11].mode = DFLASH;
+    bulbs[11].target = Material::RED;
+    bulbs[11].flash_fill = 8;
     bulbs[13].mode = VAL_RISING;
     bulbs[13].target = Material::GREEN;
 
@@ -154,6 +178,9 @@ extern "C" void app_main(void)
     	vTaskDelay(13);
 
     }
+
+    Programs::lzr_init();
+    Programs::util_init();
 
     main_thread = xTaskGetCurrentTaskHandle();
     DSKY::BTN::on_event = [](DSKY::BTN::btn_event_t event) {
@@ -167,6 +194,17 @@ extern "C" void app_main(void)
 
     DSKY::Prog::Program::inputPrimitive = &DSKY::inputArea;
     DSKY::Prog::Program::statusBulb 	= &bulbs[10];
+
+    while(true) {
+    	break;
+
+    	vTaskDelay(2000);
+
+    	do {
+    		auto testBox = Peripheral::OLED::ValueBox(64, 12, &DSKY::display);
+    		vTaskDelay(2000);
+    	} while(false);
+    }
 
     while (true) {
     	reset_interfaces();

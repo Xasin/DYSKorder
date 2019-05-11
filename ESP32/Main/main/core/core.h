@@ -16,7 +16,7 @@
 #include "MasterAction.h"
 #include "xasin/AS1115.h"
 
-#include "xasin/mqtt/Handler.h"
+#include "xasin/mqtt/Subscription.h"
 
 #include "SSD1327.h"
 #include "LittleConsole.h"
@@ -54,6 +54,8 @@ namespace ADC {
 
 namespace Graphics {
 	void setup();
+
+	void tick();
 }
 
 void setup();

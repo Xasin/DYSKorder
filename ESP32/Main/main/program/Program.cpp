@@ -26,6 +26,8 @@ Program::Program(std::string name, program_function_t prog, bool longRunning)
 	  progName(name), longRunning(longRunning) {
 
 	headProgram = this;
+
+	printf("Program %s initializing!\n", name.data());
 }
 
 Program *Program::next() {
@@ -96,14 +98,12 @@ program_exit_t Program::run(const CommandChunk &cmd) {
 }
 
 void Program::wait_for_button(TickType_t timeout) {
-	uint32_t notifyVal = 0;
-
 	TickType_t endTime = timeout;
 	if(endTime != portMAX_DELAY)
 		endTime += xTaskGetTickCount();
 
-	while((1 & notifyVal) == 0 && (xTaskGetTickCount() < endTime))
-		xTaskNotifyWait(1, 1, &notifyVal, endTime - xTaskGetTickCount());
+	while((DSKY::BTN::last_btn_event.typed_char == '\0') && (xTaskGetTickCount() < endTime))
+		xTaskNotifyWait(1, 1, nullptr, endTime - xTaskGetTickCount());
 }
 
 void Program::wait_for_esc() {

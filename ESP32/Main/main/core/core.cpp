@@ -32,6 +32,8 @@ Xasin::MQTT::Handler mqtt = Xasin::MQTT::Handler();
 void housekeep_thread(void *_) {
 	while(true) {
 		ADC::tick();
+		Graphics::tick();
+
 		vTaskDelay(100);
 	}
 }
