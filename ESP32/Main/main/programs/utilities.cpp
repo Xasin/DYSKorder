@@ -8,6 +8,8 @@
 #include "../program/Program.h"
 #include "../core/core.h"
 
+#include "../core/segments.h"
+
 using namespace DSKY;
 using namespace DSKY::Prog;
 
@@ -42,8 +44,28 @@ program_exit_t volumeFunc(const CommandChunk &cmd) {
 	return Prog::OK;
 }
 
+program_exit_t i2c_scanner(const CommandChunk &cmd) {
+	uint8_t i2c_no = cmd.get_arg_flt(0, 0);
+	if(i2c_no > 1)
+		i2c_no = 1;
+
+	console.printf("Scanning I2C no. %d\n", i2c_no);
+
+	DSKY::Seg::seg_b.param_type = DSKY::Seg::DisplayParam::HEX;
+	for(uint8_t i=0; i<127; i++) {
+		DSKY::Seg::seg_b.value = i;
+		if(XaI2C::MasterAction::poke(i) == ESP_OK)
+			console.printf("%d, ", i);
+
+		vTaskDelay(10);
+	}
+
+	return Prog::OK;
+}
+
 void util_init() {
 	new Program("wifi", wifiFunc, false);
 	new Program("vol", volumeFunc, false);
+	new Program("i2c", i2c_scanner, true);
 }
 }

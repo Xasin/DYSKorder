@@ -29,6 +29,8 @@
 #include "program/Program.h"
 #include "programs/programs.h"
 
+#include "xasin/BME680.h"
+
 esp_err_t event_handler(void *ctx, system_event_t *event)
 {
 	Xasin::MQTT::Handler::try_wifi_reconnect(event);
@@ -147,6 +149,32 @@ auto flauschProg = DSKY::Prog::Program("greet", [](const DSKY::Prog::CommandChun
 	return DSKY::Prog::OK;
 }, false);
 
+auto bme_test = DSKY::Prog::Program("bme", [](const DSKY::Prog::CommandChunk &cmd) {
+	DSKY::console.printf_style("Poking BME680...\n");
+
+	auto testSensor = Xasin::I2C::BME680(0b1110111);
+	auto ret = testSensor.init_quickstart();
+	if(ret != ESP_OK) {
+		DSKY::console.printf_style("BME not available!\n");
+		return DSKY::Prog::FAIL;
+	}
+
+	testSensor.force_measurement();
+
+	vTaskDelay(1000);
+	auto data = testSensor.fetch_data();
+
+	while(!DSKY::BTN::last_btn_event.escape) {
+		DSKY::console.printf("Got data: %5d %5d %5d %5d\r",
+				data.raw_temp, data.raw_humidity,
+				data.raw_pressure, data.raw_voc);
+
+		vTaskDelay(500);
+	}
+
+	return DSKY::Prog::OK;
+});
+
 extern "C" void app_main(void)
 {
     nvs_flash_init();
@@ -168,8 +196,6 @@ extern "C" void app_main(void)
     bulbs[11].mode = DFLASH;
     bulbs[11].target = Material::RED;
     bulbs[11].flash_fill = 8;
-    bulbs[13].mode = VAL_RISING;
-    bulbs[13].target = Material::GREEN;
 
     seg_a.param_type = DisplayParam::LOADING;
     seg_b.param_type = DisplayParam::INT;
@@ -178,6 +204,8 @@ extern "C" void app_main(void)
     	vTaskDelay(13);
 
     }
+
+    bulbs[11].mode = OFF;
 
     Programs::lzr_init();
     Programs::util_init();
