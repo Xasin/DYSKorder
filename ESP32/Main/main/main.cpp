@@ -159,17 +159,15 @@ auto bme_test = DSKY::Prog::Program("bme", [](const DSKY::Prog::CommandChunk &cm
 		return DSKY::Prog::FAIL;
 	}
 
-	testSensor.force_measurement();
-
-	vTaskDelay(1000);
-	auto data = testSensor.fetch_data();
-
 	while(!DSKY::BTN::last_btn_event.escape) {
-		DSKY::console.printf("Got data: %5d %5d %5d %5d\r",
-				data.raw_temp, data.raw_humidity,
-				data.raw_pressure, data.raw_voc);
+		testSensor.force_measurement();
 
-		vTaskDelay(500);
+		vTaskDelay(3000);
+		auto data = testSensor.fetch_data();
+
+		DSKY::console.printf("Got data: %5f %5d %5d %5d\r",
+				testSensor.get_temp(), data.raw_humidity,
+				data.raw_pressure, data.raw_voc);
 	}
 
 	return DSKY::Prog::OK;
