@@ -26,7 +26,7 @@ program_exit_t wifiFunc(const CommandChunk &cmd) {
 		console.printf("Home WiFi starting!");
 	}
 	else if(cmd.get_arg_str(0) == "uni") {
-		Xasin::MQTT::Handler::start_wifi_enterprise("eduroam\0", "\0", "FQP-EQP-W1@uni-hannover.de\0", "FQP-EQP-W1@uni-hannover.de\0", "UniWlan1819\0");
+		Xasin::MQTT::Handler::start_wifi_enterprise("eduroam\0", "\0", "FQP-EQP\0", "eduroam@uni-hannover.de\0", "Wrong\0");
 		mqtt.start("mqtt://test.mosquitto.org");
 	}
 
