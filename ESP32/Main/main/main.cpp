@@ -161,17 +161,27 @@ auto bme_test = DSKY::Prog::Program("bme", [](const DSKY::Prog::CommandChunk &cm
 
 	while(!DSKY::BTN::last_btn_event.escape) {
 		testSensor.force_measurement();
+		DSKY::Prog::Program::wait_for_button(3000);
+		testSensor.fetch_data();
 
-		vTaskDelay(3000);
-		auto data = testSensor.fetch_data();
+		DSKY::console.printf("Got data: %2.2f %2.3f %2.3f %2.3f\r",
+				testSensor.get_temp(), testSensor.get_humidity(),
+				testSensor.get_pressure(), testSensor.get_gas_res());
 
-		DSKY::console.printf("Got data: %5f %5d %5d %5d\r",
-				testSensor.get_temp(), data.raw_humidity,
-				data.raw_pressure, data.raw_voc);
+
+#define MQ_PUB(name, mName) sprintf(buff, "%.3f", testSensor.get_ ## name ()); DSKY::mqtt.publish_to(std::string("Xasin/BME680/") + mName, buff, strlen(buff))
+		if(DSKY::mqtt.is_disconnected() == 0) {
+			char buff[20] = {0};
+
+			MQ_PUB(temp, "Temperature");
+			MQ_PUB(humidity, "Humidity");
+			MQ_PUB(pressure, "Pressure");
+			MQ_PUB(gas_res, "VOC Resistance");
+		}
 	}
 
 	return DSKY::Prog::OK;
-});
+}, false);
 
 extern "C" void app_main(void)
 {
