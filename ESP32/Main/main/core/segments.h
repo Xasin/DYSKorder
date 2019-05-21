@@ -17,7 +17,7 @@
 namespace DSKY {
 namespace Seg {
 
-extern std::array<IndicatorBulb, 14> bulbs;
+extern std::array<IndicatorBulb, 17> bulbs;
 
 extern DisplayParam seg_a;
 extern DisplayParam seg_b;

@@ -22,7 +22,7 @@ std::array<uint8_t, 8> current_segments = {};
 
 TaskHandle_t update_handle = nullptr;
 
-std::array<IndicatorBulb, 14> bulbs = {};
+std::array<IndicatorBulb, 17> bulbs = {};
 
 DisplayParam seg_a;
 DisplayParam seg_b;

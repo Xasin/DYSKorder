@@ -20,7 +20,7 @@ Xasin::Peripheral::AudioHandler audio(44100);
 
 
 Xasin::I2C::AS1115 			segmentCTRL = Xasin::I2C::AS1115();
-Peripheral::NeoController	RGBCTRL(PIN_WS2812, RMT_CHANNEL_0, 14);
+Peripheral::NeoController	RGBCTRL(PIN_WS2812, RMT_CHANNEL_0, 17);
 
 Xasin::I2C::MAX11613	adc = Xasin::I2C::MAX11613();
 Housekeeping::BatteryManager battery = Housekeeping::BatteryManager();

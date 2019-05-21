@@ -60,8 +60,17 @@ void reset_interfaces() {
 	seg_a.param_type = DisplayParam::IDLE;
 	seg_b.param_type = DisplayParam::NONE;
 
-	for(uint8_t i=0; i<10; i++) {
+	for(uint8_t i=0; i<17; i++) {
+		if((i < 14) && (i>9))
+			continue;
+
 		bulbs[i].mode = OFF;
+
+		if(i > 13) {
+			bulbs[i].mode = HFLASH;
+			bulbs[i].flash_fill = 2;
+			bulbs[i].target = Material::PURPLE;
+		}
 	}
 }
 
@@ -154,10 +163,17 @@ auto bme_test = DSKY::Prog::Program("bme", [](const DSKY::Prog::CommandChunk &cm
 
 	auto testSensor = Xasin::I2C::BME680(0b1110111);
 	auto ret = testSensor.init_quickstart();
+
+	auto &bulb = bulbs[14];
+
 	if(ret != ESP_OK) {
 		DSKY::console.printf_style("BME not available!\n");
 		return DSKY::Prog::FAIL;
 	}
+
+	bulb.mode = HFLASH;
+	bulb.flash_fill = 8;
+	bulb.target = Material::GREEN;
 
 	while(!DSKY::BTN::last_btn_event.escape) {
 		testSensor.force_measurement();
