@@ -167,7 +167,7 @@ auto bme_test = DSKY::Prog::Program("bme", [](const DSKY::Prog::CommandChunk &cm
 	auto &bulb = bulbs[14];
 
 	if(ret != ESP_OK) {
-		DSKY::console.printf_style("BME not available!\n");
+		DSKY::console.printf("BME not available!\n");
 		return DSKY::Prog::FAIL;
 	}
 
@@ -184,6 +184,7 @@ auto bme_test = DSKY::Prog::Program("bme", [](const DSKY::Prog::CommandChunk &cm
 				testSensor.get_temp(), testSensor.get_humidity(),
 				testSensor.get_pressure(), testSensor.get_gas_res());
 
+		bulb.target = Peripheral::Color::HSV(testSensor.get_air_quality()*120);
 
 #define MQ_PUB(name, mName) sprintf(buff, "%.3f", testSensor.get_ ## name ()); DSKY::mqtt.publish_to(std::string("Xasin/BME680/") + mName, buff, strlen(buff))
 		if(DSKY::mqtt.is_disconnected() == 0) {
