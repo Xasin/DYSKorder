@@ -9,8 +9,12 @@
 #define MAIN_PROGRAMS_PROGRAMS_H_
 
 namespace Programs {
+
 void lzr_init();
 void util_init();
+
+void init_externals();
+
 }
 
 

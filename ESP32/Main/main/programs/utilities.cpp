@@ -14,6 +14,7 @@ using namespace DSKY;
 using namespace DSKY::Prog;
 
 namespace Programs {
+
 program_exit_t wifiFunc(const CommandChunk &cmd) {
 	if(cmd.get_arg_str(0) == "lzr") {
 		Xasin::MQTT::Handler::start_wifi("Lasertag\0", "\0");

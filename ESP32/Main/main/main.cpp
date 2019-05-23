@@ -158,48 +158,6 @@ auto flauschProg = DSKY::Prog::Program("greet", [](const DSKY::Prog::CommandChun
 	return DSKY::Prog::OK;
 }, false);
 
-auto bme_test = DSKY::Prog::Program("bme", [](const DSKY::Prog::CommandChunk &cmd) {
-	DSKY::console.printf_style("Poking BME680...\n");
-
-	auto testSensor = Xasin::I2C::BME680(0b1110111);
-	auto ret = testSensor.init_quickstart();
-
-	auto &bulb = bulbs[14];
-
-	if(ret != ESP_OK) {
-		DSKY::console.printf("BME not available!\n");
-		return DSKY::Prog::FAIL;
-	}
-
-	bulb.mode = HFLASH;
-	bulb.flash_fill = 8;
-	bulb.target = Material::GREEN;
-
-	while(!DSKY::BTN::last_btn_event.escape) {
-		testSensor.force_measurement();
-		DSKY::Prog::Program::wait_for_button(3000);
-		testSensor.fetch_data();
-
-		DSKY::console.printf("Got data: %2.2f %2.3f %2.3f %2.3f\r",
-				testSensor.get_temp(), testSensor.get_humidity(),
-				testSensor.get_pressure(), testSensor.get_gas_res());
-
-		bulb.target = Peripheral::Color::HSV(testSensor.get_air_quality()*120);
-
-#define MQ_PUB(name, mName) sprintf(buff, "%.3f", testSensor.get_ ## name ()); DSKY::mqtt.publish_to(std::string("Xasin/BME680/") + mName, buff, strlen(buff))
-		if(DSKY::mqtt.is_disconnected() == 0) {
-			char buff[20] = {0};
-
-			MQ_PUB(temp, "Temperature");
-			MQ_PUB(humidity, "Humidity");
-			MQ_PUB(pressure, "Pressure");
-			MQ_PUB(gas_res, "VOC Resistance");
-		}
-	}
-
-	return DSKY::Prog::OK;
-}, false);
-
 extern "C" void app_main(void)
 {
     nvs_flash_init();
@@ -234,6 +192,7 @@ extern "C" void app_main(void)
 
     Programs::lzr_init();
     Programs::util_init();
+    Programs::init_externals();
 
     main_thread = xTaskGetCurrentTaskHandle();
     DSKY::BTN::on_event = [](DSKY::BTN::btn_event_t event) {
