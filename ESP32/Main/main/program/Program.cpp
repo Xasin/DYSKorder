@@ -102,6 +102,7 @@ void Program::wait_for_button(TickType_t timeout) {
 	if(endTime != portMAX_DELAY)
 		endTime += xTaskGetTickCount();
 
+	DSKY::BTN::last_btn_event.typed_char = {};
 	while((DSKY::BTN::last_btn_event.typed_char == '\0') && (xTaskGetTickCount() < endTime))
 		xTaskNotifyWait(1, 1, nullptr, endTime - xTaskGetTickCount());
 }

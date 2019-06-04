@@ -12,6 +12,8 @@
 
 #include "xasin/BME680.h"
 
+#include "xasin/xirr/Transmitter.h"
+
 using namespace DSKY;
 using namespace DSKY::Prog;
 
@@ -102,9 +104,27 @@ program_exit_t bme_print_func(const DSKY::Prog::CommandChunk &cmd) {
 	return DSKY::Prog::OK;
 }
 
+program_exit_t ir_test_func(const DSKY::Prog::CommandChunk &cmd) {
+
+	uint8_t mode_cntr = 0;
+
+	auto ir_tx = Xasin::XIRR::Transmitter(GPIO_NUM_16, RMT_CHANNEL_4);
+	ir_tx.init();
+
+	do {
+		ir_tx.send<uint8_t>(mode_cntr, 0);
+		mode_cntr++;
+
+		Program::wait_for_button(2000);
+	} while((!DSKY::BTN::last_btn_event.enter));
+
+	return DSKY::Prog::OK;
+}
+
 void init_externals() {
 
 	new Program("bme", bme_print_func, false);
+	new Program("ir", ir_test_func, true);
 
 	xTaskCreate(background_monitor_task, "DSKY:EXT", 4096, nullptr, 1, &monitor_task);
 }
