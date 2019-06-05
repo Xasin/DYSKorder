@@ -98,6 +98,8 @@ program_exit_t Program::run(const CommandChunk &cmd) {
 }
 
 void Program::wait_for_button(TickType_t timeout) {
+	DSKY::BTN::last_btn_event = {};
+
 	TickType_t endTime = timeout;
 	if(endTime != portMAX_DELAY)
 		endTime += xTaskGetTickCount();

@@ -207,17 +207,6 @@ extern "C" void app_main(void)
     DSKY::Prog::Program::inputPrimitive = &DSKY::inputArea;
     DSKY::Prog::Program::statusBulb 	= &bulbs[10];
 
-    while(true) {
-    	break;
-
-    	vTaskDelay(2000);
-
-    	do {
-    		auto testBox = Peripheral::OLED::ValueBox(64, 12, &DSKY::display);
-    		vTaskDelay(2000);
-    	} while(false);
-    }
-
     while (true) {
     	reset_interfaces();
     	auto chunk = DSKY::Prog::CommandChunk(DSKY::Prog::Program::get_input(">"));

@@ -40,6 +40,8 @@ void background_monitor_task(void *arg) {
 			DSKY::console.printf("BME connected\n");
 			Xasin::Trek::play(Xasin::Trek::INPUT_OK);
 
+
+			TickType_t lastMQTTPush = 0;
 			while(true) {
 				if(ESP_OK != XaI2C::MasterAction::poke(0b1110111)) {
 					bulb.mode = DSKY::Seg::HFLASH;
@@ -57,23 +59,26 @@ void background_monitor_task(void *arg) {
 				bulb.mode = DSKY::Seg::DFLASH;
 
 				BME.force_measurement();
-				vTaskDelay(200);
+				vTaskDelay(130);
 				BME.fetch_data();
 
 				bulb.mode = DSKY::Seg::IDLE;
 				bulb.target = Peripheral::Color::HSV(BME.get_air_quality()*120);
 
 #define MQ_PUB(name, mName) sprintf(buff, "%.3f", BME.get_ ## name ()); DSKY::mqtt.publish_to(std::string("Xasin/BME680/") + mName, buff, strlen(buff))
-				if(DSKY::mqtt.is_disconnected() == 0) {
+				if((DSKY::mqtt.is_disconnected() == 0) && (lastMQTTPush + 30000 < xTaskGetTickCount())) {
 					char buff[20] = {0};
 
 					MQ_PUB(temp, "Temperature");
 					MQ_PUB(humidity, "Humidity");
 					MQ_PUB(pressure, "Pressure");
 					MQ_PUB(gas_res, "VOC Resistance");
+					MQ_PUB(air_quality, "AirQ Rating");
+
+					lastMQTTPush = xTaskGetTickCount();
 				}
 
-				vTaskDelay(9900);
+				vTaskDelay(2870);
 			}
 		}
 	}
@@ -81,7 +86,7 @@ void background_monitor_task(void *arg) {
 
 
 program_exit_t bme_print_func(const DSKY::Prog::CommandChunk &cmd) {
-	DSKY::console.printf_style("Poking BME680...\n");
+	DSKY::console.printf("Poking BME680...\n");
 
 	if(bme_ptr == nullptr) {
 		DSKY::console.printf("BME not available!\n");
@@ -90,7 +95,8 @@ program_exit_t bme_print_func(const DSKY::Prog::CommandChunk &cmd) {
 
 	Xasin::Trek::play(Xasin::Trek::PROG_BUSY);
 
-	while(!DSKY::BTN::last_btn_event.enter) {
+	DSKY::BTN::last_btn_event = {};
+	do {
 		if(bme_ptr == nullptr)
 			return DSKY::Prog::FAIL;
 
@@ -98,8 +104,8 @@ program_exit_t bme_print_func(const DSKY::Prog::CommandChunk &cmd) {
 				bme_ptr->get_temp(), bme_ptr->get_humidity(),
 				bme_ptr->get_pressure(), bme_ptr->get_gas_res());
 
-		Program::wait_for_button(3000);
-	}
+		Program::wait_for_button(1000);
+	} while(!DSKY::BTN::last_btn_event.enter);
 
 	return DSKY::Prog::OK;
 }
