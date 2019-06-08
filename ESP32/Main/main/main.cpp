@@ -31,6 +31,8 @@
 
 #include "xasin/BME680.h"
 
+#include "xasin/xirr/Receiver.h"
+
 esp_err_t event_handler(void *ctx, system_event_t *event)
 {
 	Xasin::MQTT::Handler::try_wifi_reconnect(event);
@@ -207,6 +209,13 @@ extern "C" void app_main(void)
     DSKY::Prog::Program::inputPrimitive = &DSKY::inputArea;
     DSKY::Prog::Program::statusBulb 	= &bulbs[10];
 
+    auto testRX = Xasin::XIRR::Receiver(PINS_PIO[1], RMT_CHANNEL_4);
+    testRX.init();
+
+    testRX.on_rx = [](const uint8_t *data, uint8_t len, uint8_t channel) {
+    	printf("Got channel: %d\n", channel);
+    };
+
     while (true) {
     	reset_interfaces();
     	auto chunk = DSKY::Prog::CommandChunk(DSKY::Prog::Program::get_input(">"));
@@ -231,25 +240,6 @@ extern "C" void app_main(void)
     		seg_b.value 	 = progRes;
 
     		DSKY::Prog::Program::wait_for_enter();
-    	}
-
-    	if(lastButtonPress.typed == "adc") {
-    		while(!lastButtonPress.escape) {
-    			DSKY::adc.update();
-    			DSKY::inputArea.printf("Reads: %1.3f %1.3f",
-    					DSKY::adc.get_reading(2), DSKY::adc.get_reading(3));
-
-    			xTaskNotifyWait(0, 0, nullptr, 500);
-    		}
-    	}
-    	else if(lastButtonPress.typed == "whos a good boi") {
-    		DSKY::inputArea.printf("Duh: Yubutt >~<");
-
-    		while(!lastButtonPress.escape) {
-    			DSKY::inputArea.set_invert((DSKY::get_flashcycle_ticks() & 7) < 4);
-
-    			xTaskNotifyWait(0, 0, nullptr, 40);
-    		}
     	}
     }
 }
