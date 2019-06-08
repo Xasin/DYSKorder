@@ -110,19 +110,35 @@ program_exit_t bme_print_func(const DSKY::Prog::CommandChunk &cmd) {
 	return DSKY::Prog::OK;
 }
 
+
+#pragma pack(1)
+struct bacn_mode_t {
+	uint8_t ID:4;
+	uint8_t func:4;
+};
+#pragma pack(0)
+
 program_exit_t ir_test_func(const DSKY::Prog::CommandChunk &cmd) {
-
-	uint8_t mode_cntr = 0;
-
 	auto ir_tx = Xasin::XIRR::Transmitter(GPIO_NUM_16, RMT_CHANNEL_4);
 	ir_tx.init();
 
+	bacn_mode_t out = {};
+
 	do {
-		ir_tx.send<uint8_t>(mode_cntr, 0);
-		mode_cntr++;
+		for(uint8_t i=0; i<3; i++) {
+			ir_tx.send<bacn_mode_t>(out, 128);
+			vTaskDelay(50);
+		}
+		printf("Booping out!\n");
 
 		Program::wait_for_button(2000);
-	} while((!DSKY::BTN::last_btn_event.enter));
+
+		char tChar = DSKY::BTN::last_btn_event.typed_char;
+		if(tChar >= '0' && tChar <= '9') {
+			out.ID   = 0;
+			out.func = tChar - '0';
+		}
+	} while((!DSKY::BTN::last_btn_event.escape));
 
 	return DSKY::Prog::OK;
 }
