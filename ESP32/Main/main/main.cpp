@@ -42,21 +42,7 @@ esp_err_t event_handler(void *ctx, system_event_t *event)
 }
 
 using namespace DSKY::Seg;
-
-void display_accell(int axisA, int axisB) {
-	DSKY::gyro.update();
-
-	seg_a.value = DSKY::gyro[axisA];
-	seg_a.blink = fabs(seg_a.value) > 0.5;
-	seg_b.value = DSKY::gyro[axisB];
-	seg_b.blink = fabs(seg_b.value) > 0.5;
-}
-
-DSKY::BTN::btn_event_t lastButtonPress = {};
-TaskHandle_t main_thread = nullptr;
-
 void reset_interfaces() {
-	lastButtonPress = {};
 	seg_a.clear();
 	seg_b.clear();
 	seg_a.param_type = DisplayParam::IDLE;
@@ -75,90 +61,6 @@ void reset_interfaces() {
 		}
 	}
 }
-
-auto gyroProg = DSKY::Prog::Program("gyro", [](const DSKY::Prog::CommandChunk &cmd) {
-	seg_a.param_type = DisplayParam::INT;
-	seg_a.fixComma = 2;
-	seg_b.param_type = DisplayParam::INT;
-	seg_b.fixComma = 2;
-
-	if(cmd.get_arg_str(0) == "spin") {
-
-		seg_a.fixComma = 0;
-
-		float rotCount = 0;
-		while(!lastButtonPress.escape) {
-			DSKY::gyro.update();
-			rotCount += DSKY::gyro[3] * 0.02;
-
-			seg_a.value = rotCount;
-
-			vTaskDelay(20);
-		}
-
-		return DSKY::Prog::OK;
-	}
-
-	while(!lastButtonPress.escape) {
-		display_accell(cmd.get_arg_flt(0, 0), cmd.get_arg_flt(1, 1));
-		vTaskDelay(30 / portTICK_PERIOD_MS);
-	}
-
-	return DSKY::Prog::OK;
-});
-
-auto cuteProg = DSKY::Prog::Program("cute", [](const DSKY::Prog::CommandChunk &cmd) {
-	DSKY::inputArea.set("Reading cuteness...");
-	bulbs[12].mode = DFLASH;
-	bulbs[12].target = Material::PURPLE;
-
-	seg_b.param_type = DisplayParam::INT;
-
-	for(uint8_t i = 0; i<100; i++) {
-		vTaskDelay(50);
-		seg_b.value = i;
-	}
-
-	bulbs[12].target = 0;
-
-	bulbs[7].mode = FLASH;
-	bulbs[7].flash_fill = 6;
-	bulbs[6].mode = HFLASH;
-	bulbs[7].target = Material::AMBER;
-	bulbs[6].target = Material::GREEN;
-
-	seg_a.param_type = DisplayParam::DONE;
-
-	Xasin::Trek::play(Xasin::Trek::INPUT_REQ);
-
-	DSKY::inputArea.set("Hugs needed!");
-	while(!lastButtonPress.escape) {
-		DSKY::inputArea.set_invert((DSKY::get_flashcycle_ticks() & 7) < 4);
-
-		xTaskNotifyWait(0, 0, nullptr, 40);
-	}
-
-	return DSKY::Prog::MAJOR_FAIL;
-});
-
-auto flauschProg = DSKY::Prog::Program("greet", [](const DSKY::Prog::CommandChunk &cmd) {
-	DSKY::console.printf_style("New person found...\n");
-	vTaskDelay(300);
-
-	DSKY::console.printf_style("Assessing... ");
-	seg_b.param_type = DisplayParam::INT;
-	for(uint8_t i=0; i<=100; i++) {
-		seg_b.value = i;
-		vTaskDelay(30);
-	}
-	seg_a.param_type = DisplayParam::DONE;
-
-	DSKY::console.printf_style("Done!\n");
-	DSKY::console.printf_style("Output: \n");
-	DSKY::console.printf_style("Hewoooo!!!\n");
-
-	return DSKY::Prog::OK;
-}, false);
 
 extern "C" void app_main(void)
 {
@@ -196,10 +98,9 @@ extern "C" void app_main(void)
     Programs::util_init();
     Programs::init_externals();
 
-    main_thread = xTaskGetCurrentTaskHandle();
+    DSKY::Prog::Program::programTask = xTaskGetCurrentTaskHandle();
     DSKY::BTN::on_event = [](DSKY::BTN::btn_event_t event) {
-    	lastButtonPress = event;
-    	xTaskNotify(main_thread, 1, eSetBits);
+    	xTaskNotify(DSKY::Prog::Program::programTask, 1, eSetBits);
     };
 
     bulbs[12].mode = IDLE;
@@ -211,10 +112,12 @@ extern "C" void app_main(void)
 
     auto testRX = Xasin::XIRR::Receiver(PINS_PIO[1], RMT_CHANNEL_4);
     testRX.init();
-
     testRX.on_rx = [](const uint8_t *data, uint8_t len, uint8_t channel) {
     	printf("Got channel: %d\n", channel);
     };
+
+    auto wifiEnableChunk = DSKY::Prog::CommandChunk("consoleRelay");
+    DSKY::Prog::Program::find(wifiEnableChunk)->run(wifiEnableChunk);
 
     while (true) {
     	reset_interfaces();

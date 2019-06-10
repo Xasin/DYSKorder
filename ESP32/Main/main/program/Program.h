@@ -43,6 +43,8 @@ public:
 	static Peripheral::OLED::StringPrimitive *inputPrimitive;
 	static Seg::IndicatorBulb	*statusBulb;
 
+	static TaskHandle_t programTask;
+
 	const std::string progName;
 	const bool 		  longRunning;
 

@@ -18,6 +18,8 @@ Program *Program::headProgram = nullptr;
 Peripheral::OLED::StringPrimitive *Program::inputPrimitive = nullptr;
 Seg::IndicatorBulb * Program::statusBulb = nullptr;
 
+TaskHandle_t Program::programTask = nullptr;
+
 using namespace Xasin;
 
 Program::Program(std::string name, program_function_t prog, bool longRunning)

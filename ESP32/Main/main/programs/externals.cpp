@@ -14,8 +14,11 @@
 
 #include "xasin/xirr/Transmitter.h"
 
+#include <cmath>
+
 using namespace DSKY;
 using namespace DSKY::Prog;
+using namespace DSKY::Seg;
 
 namespace Programs {
 
@@ -122,31 +125,86 @@ program_exit_t ir_test_func(const DSKY::Prog::CommandChunk &cmd) {
 	auto ir_tx = Xasin::XIRR::Transmitter(GPIO_NUM_16, RMT_CHANNEL_4);
 	ir_tx.init();
 
+	auto ir_sub = Xasin::MQTT::Subscription(DSKY::mqtt, "DSKorder/BACN/Set", 1);
+
+	uint8_t targetMode = 0;
+	ir_sub.on_received = [&targetMode](const Xasin::MQTT::MQTT_Packet data) {
+		targetMode = atoi(data.data.data());
+	};
+
 	bacn_mode_t out = {};
 
+	TickType_t nextUpdate = 0;
+	uint8_t currentMode = 0;
+
 	do {
-		for(uint8_t i=0; i<3; i++) {
-			ir_tx.send<bacn_mode_t>(out, 128);
-			vTaskDelay(50);
+		if(nextUpdate < xTaskGetTickCount() || currentMode != targetMode) {
+			out = {
+					0,
+					targetMode,
+			};
+			for(uint8_t i=0; i<3; i++) {
+				ir_tx.send<bacn_mode_t>(out, 128);
+				vTaskDelay(50);
+			}
+			nextUpdate = xTaskGetTickCount() + 3000;
+			currentMode = targetMode;
 		}
-		printf("Booping out!\n");
 
-		Program::wait_for_button(2000);
-
+		DSKY::Prog::Program::wait_for_button(100);
 		char tChar = DSKY::BTN::last_btn_event.typed_char;
 		if(tChar >= '0' && tChar <= '9') {
-			out.ID   = 0;
-			out.func = tChar - '0';
+			targetMode = tChar - '0';
 		}
+
 	} while((!DSKY::BTN::last_btn_event.escape));
 
 	return DSKY::Prog::OK;
 }
 
-void init_externals() {
+void display_accell(int axisA, int axisB) {
+	DSKY::gyro.update();
 
+	seg_a.value = DSKY::gyro[axisA];
+	seg_a.blink = fabs(seg_a.value) > 1;
+	seg_b.value = DSKY::gyro[axisB];
+	seg_b.blink = fabs(seg_b.value) > 1;
+}
+program_exit_t gyro_test_func(const DSKY::Prog::CommandChunk &cmd) {
+	seg_a.param_type = DisplayParam::INT;
+	seg_a.fixComma = 2;
+	seg_b.param_type = DisplayParam::INT;
+	seg_b.fixComma = 2;
+
+	if(cmd.get_arg_str(0) == "spin") {
+
+		seg_a.fixComma = 0;
+
+		float rotCount = 0;
+		while(!DSKY::BTN::last_btn_event.escape) {
+			DSKY::gyro.update();
+			rotCount += DSKY::gyro[3] * 0.02;
+
+			seg_a.value = rotCount;
+
+			vTaskDelay(20);
+		}
+
+		return DSKY::Prog::OK;
+	}
+
+	while(!DSKY::BTN::last_btn_event.escape) {
+		display_accell(cmd.get_arg_flt(0, 0), cmd.get_arg_flt(1, 1));
+		vTaskDelay(30 / portTICK_PERIOD_MS);
+	}
+
+	return DSKY::Prog::OK;
+}
+
+void init_externals() {
 	new Program("bme", bme_print_func, false);
 	new Program("ir", ir_test_func, true);
+	new Program("gyro", gyro_test_func, true);
 
 	xTaskCreate(background_monitor_task, "DSKY:EXT", 4096, nullptr, 1, &monitor_task);
 }

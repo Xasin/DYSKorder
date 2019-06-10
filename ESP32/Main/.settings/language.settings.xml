@@ -150,9 +150,6 @@
 						<entry kind="includePath" name="/${ProjName}/ESP32/MQTT_SubHandler/include">
 							<flag value="VALUE_WORKSPACE_PATH"/>
 						</entry>
-						<entry kind="includePath" name="/${ProjName}/ESP32/MorseHandler/include">
-							<flag value="VALUE_WORKSPACE_PATH"/>
-						</entry>
 						<entry kind="includePath" name="/${ProjName}/ESP32/NeoController/include">
 							<flag value="VALUE_WORKSPACE_PATH"/>
 						</entry>
@@ -181,8 +178,6 @@
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/coap/libcoap/include/coap"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/console"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/driver/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/efuse/esp32/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/efuse/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp-tls"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp32/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_adc_cal/include"/>
@@ -190,9 +185,7 @@
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_http_client/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_http_server/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_https_ota/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_https_server/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_ringbuf/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/espcoredump/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/ethernet/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/expat/expat/expat/lib"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/expat/port/include"/>
@@ -240,8 +233,6 @@
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/tcp_transport/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/tcpip_adapter/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/ulp/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/unity/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/unity/unity/src"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/vfs/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/wear_levelling/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/wifi_provisioning/include"/>
@@ -257,9 +248,8 @@
 						<entry kind="macro" name="ESP_PLATFORM" value="1"/>
 						<entry kind="macro" name="GCC_NOT_5_2_0" value="0"/>
 						<entry kind="macro" name="HAVE_CONFIG_H" value="1"/>
-						<entry kind="macro" name="IDF_VER" value="&quot;v3.3-beta2-202-g56afb3bd1-dirty&quot;"/>
+						<entry kind="macro" name="IDF_VER" value="&quot;v3.2-dirty&quot;"/>
 						<entry kind="macro" name="MBEDTLS_CONFIG_FILE" value="&quot;mbedtls/esp_config.h&quot;"/>
-						<entry kind="macro" name="UNITY_INCLUDE_CONFIG_H" value="1"/>
 						<entry kind="macro" name="WITH_POSIX" value="1"/>
 					</resource>
 					<resource project-relative-path="ESP32/MorseHandler/MorseHandle.cpp">
@@ -542,9 +532,6 @@
 						<entry kind="includePath" name="/${ProjName}/ESP32/MQTT_SubHandler/include">
 							<flag value="VALUE_WORKSPACE_PATH"/>
 						</entry>
-						<entry kind="includePath" name="/${ProjName}/ESP32/MorseHandler/include">
-							<flag value="VALUE_WORKSPACE_PATH"/>
-						</entry>
 						<entry kind="includePath" name="/${ProjName}/ESP32/Touchy/include">
 							<flag value="VALUE_WORKSPACE_PATH"/>
 						</entry>
@@ -570,8 +557,6 @@
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/coap/libcoap/include/coap"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/console"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/driver/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/efuse/esp32/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/efuse/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp-tls"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp32/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_adc_cal/include"/>
@@ -579,9 +564,7 @@
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_http_client/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_http_server/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_https_ota/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_https_server/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_ringbuf/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/espcoredump/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/ethernet/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/expat/expat/expat/lib"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/expat/port/include"/>
@@ -629,8 +612,6 @@
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/tcp_transport/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/tcpip_adapter/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/ulp/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/unity/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/unity/unity/src"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/vfs/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/wear_levelling/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/wifi_provisioning/include"/>
@@ -646,9 +627,8 @@
 						<entry kind="macro" name="ESP_PLATFORM" value="1"/>
 						<entry kind="macro" name="GCC_NOT_5_2_0" value="0"/>
 						<entry kind="macro" name="HAVE_CONFIG_H" value="1"/>
-						<entry kind="macro" name="IDF_VER" value="&quot;v3.3-beta2-202-g56afb3bd1-dirty&quot;"/>
+						<entry kind="macro" name="IDF_VER" value="&quot;v3.2-dirty&quot;"/>
 						<entry kind="macro" name="MBEDTLS_CONFIG_FILE" value="&quot;mbedtls/esp_config.h&quot;"/>
-						<entry kind="macro" name="UNITY_INCLUDE_CONFIG_H" value="1"/>
 						<entry kind="macro" name="WITH_POSIX" value="1"/>
 					</resource>
 					<resource project-relative-path="ESP32/BT_BLE/Services/BatteryService.cpp">
@@ -924,9 +904,6 @@
 						<entry kind="includePath" name="/${ProjName}/ESP32/MQTT_SubHandler/include">
 							<flag value="VALUE_WORKSPACE_PATH"/>
 						</entry>
-						<entry kind="includePath" name="/${ProjName}/ESP32/MorseHandler/include">
-							<flag value="VALUE_WORKSPACE_PATH"/>
-						</entry>
 						<entry kind="includePath" name="/${ProjName}/ESP32/NeoController/include">
 							<flag value="VALUE_WORKSPACE_PATH"/>
 						</entry>
@@ -952,8 +929,6 @@
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/coap/libcoap/include/coap"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/console"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/driver/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/efuse/esp32/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/efuse/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp-tls"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp32/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_adc_cal/include"/>
@@ -961,9 +936,7 @@
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_http_client/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_http_server/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_https_ota/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_https_server/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_ringbuf/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/espcoredump/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/ethernet/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/expat/expat/expat/lib"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/expat/port/include"/>
@@ -1011,8 +984,6 @@
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/tcp_transport/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/tcpip_adapter/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/ulp/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/unity/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/unity/unity/src"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/vfs/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/wear_levelling/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/wifi_provisioning/include"/>
@@ -1028,9 +999,8 @@
 						<entry kind="macro" name="ESP_PLATFORM" value="1"/>
 						<entry kind="macro" name="GCC_NOT_5_2_0" value="0"/>
 						<entry kind="macro" name="HAVE_CONFIG_H" value="1"/>
-						<entry kind="macro" name="IDF_VER" value="&quot;v3.3-beta2-202-g56afb3bd1-dirty&quot;"/>
+						<entry kind="macro" name="IDF_VER" value="&quot;v3.2-dirty&quot;"/>
 						<entry kind="macro" name="MBEDTLS_CONFIG_FILE" value="&quot;mbedtls/esp_config.h&quot;"/>
-						<entry kind="macro" name="UNITY_INCLUDE_CONFIG_H" value="1"/>
 						<entry kind="macro" name="WITH_POSIX" value="1"/>
 					</resource>
 					<resource project-relative-path="ESP32/ID_Coms/RegiserBlock.cpp">
@@ -1053,9 +1023,6 @@
 							<flag value="VALUE_WORKSPACE_PATH"/>
 						</entry>
 						<entry kind="includePath" name="/${ProjName}/ESP32/MQTT_SubHandler/include">
-							<flag value="VALUE_WORKSPACE_PATH"/>
-						</entry>
-						<entry kind="includePath" name="/${ProjName}/ESP32/MorseHandler/include">
 							<flag value="VALUE_WORKSPACE_PATH"/>
 						</entry>
 						<entry kind="includePath" name="/${ProjName}/ESP32/NeoController/include">
@@ -1086,8 +1053,6 @@
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/coap/libcoap/include/coap"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/console"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/driver/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/efuse/esp32/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/efuse/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp-tls"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp32/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_adc_cal/include"/>
@@ -1095,9 +1060,7 @@
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_http_client/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_http_server/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_https_ota/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_https_server/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_ringbuf/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/espcoredump/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/ethernet/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/expat/expat/expat/lib"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/expat/port/include"/>
@@ -1145,8 +1108,6 @@
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/tcp_transport/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/tcpip_adapter/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/ulp/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/unity/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/unity/unity/src"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/vfs/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/wear_levelling/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/wifi_provisioning/include"/>
@@ -1162,9 +1123,8 @@
 						<entry kind="macro" name="ESP_PLATFORM" value="1"/>
 						<entry kind="macro" name="GCC_NOT_5_2_0" value="0"/>
 						<entry kind="macro" name="HAVE_CONFIG_H" value="1"/>
-						<entry kind="macro" name="IDF_VER" value="&quot;v3.3-beta2-202-g56afb3bd1-dirty&quot;"/>
+						<entry kind="macro" name="IDF_VER" value="&quot;v3.2-dirty&quot;"/>
 						<entry kind="macro" name="MBEDTLS_CONFIG_FILE" value="&quot;mbedtls/esp_config.h&quot;"/>
-						<entry kind="macro" name="UNITY_INCLUDE_CONFIG_H" value="1"/>
 						<entry kind="macro" name="WITH_POSIX" value="1"/>
 					</resource>
 					<resource project-relative-path="main/core/core_adc.cpp">
@@ -1192,9 +1152,6 @@
 						<entry kind="includePath" name="/${ProjName}/ESP32/MQTT_SubHandler/include">
 							<flag value="VALUE_WORKSPACE_PATH"/>
 						</entry>
-						<entry kind="includePath" name="/${ProjName}/ESP32/MorseHandler/include">
-							<flag value="VALUE_WORKSPACE_PATH"/>
-						</entry>
 						<entry kind="includePath" name="/${ProjName}/ESP32/NeoController/include">
 							<flag value="VALUE_WORKSPACE_PATH"/>
 						</entry>
@@ -1223,8 +1180,6 @@
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/coap/libcoap/include/coap"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/console"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/driver/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/efuse/esp32/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/efuse/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp-tls"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp32/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_adc_cal/include"/>
@@ -1232,9 +1187,7 @@
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_http_client/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_http_server/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_https_ota/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_https_server/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_ringbuf/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/espcoredump/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/ethernet/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/expat/expat/expat/lib"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/expat/port/include"/>
@@ -1279,8 +1232,6 @@
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/tcp_transport/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/tcpip_adapter/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/ulp/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/unity/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/unity/unity/src"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/vfs/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/wear_levelling/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/wifi_provisioning/include"/>
@@ -1296,9 +1247,8 @@
 						<entry kind="macro" name="ESP_PLATFORM" value="1"/>
 						<entry kind="macro" name="GCC_NOT_5_2_0" value="0"/>
 						<entry kind="macro" name="HAVE_CONFIG_H" value="1"/>
-						<entry kind="macro" name="IDF_VER" value="&quot;v3.3-beta2-202-g56afb3bd1-dirty&quot;"/>
+						<entry kind="macro" name="IDF_VER" value="&quot;v3.2-dirty&quot;"/>
 						<entry kind="macro" name="MBEDTLS_CONFIG_FILE" value="&quot;mbedtls/esp_config.h&quot;"/>
-						<entry kind="macro" name="UNITY_INCLUDE_CONFIG_H" value="1"/>
 						<entry kind="macro" name="WITH_POSIX" value="1"/>
 					</resource>
 					<resource project-relative-path="main/programs/utilities.cpp">
@@ -1326,9 +1276,6 @@
 						<entry kind="includePath" name="/${ProjName}/ESP32/MQTT_SubHandler/include">
 							<flag value="VALUE_WORKSPACE_PATH"/>
 						</entry>
-						<entry kind="includePath" name="/${ProjName}/ESP32/MorseHandler/include">
-							<flag value="VALUE_WORKSPACE_PATH"/>
-						</entry>
 						<entry kind="includePath" name="/${ProjName}/ESP32/NeoController/include">
 							<flag value="VALUE_WORKSPACE_PATH"/>
 						</entry>
@@ -1357,8 +1304,6 @@
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/coap/libcoap/include/coap"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/console"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/driver/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/efuse/esp32/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/efuse/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp-tls"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp32/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_adc_cal/include"/>
@@ -1366,9 +1311,7 @@
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_http_client/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_http_server/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_https_ota/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_https_server/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_ringbuf/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/espcoredump/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/ethernet/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/expat/expat/expat/lib"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/expat/port/include"/>
@@ -1413,8 +1356,6 @@
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/tcp_transport/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/tcpip_adapter/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/ulp/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/unity/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/unity/unity/src"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/vfs/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/wear_levelling/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/wifi_provisioning/include"/>
@@ -1430,9 +1371,8 @@
 						<entry kind="macro" name="ESP_PLATFORM" value="1"/>
 						<entry kind="macro" name="GCC_NOT_5_2_0" value="0"/>
 						<entry kind="macro" name="HAVE_CONFIG_H" value="1"/>
-						<entry kind="macro" name="IDF_VER" value="&quot;v3.3-beta2-202-g56afb3bd1-dirty&quot;"/>
+						<entry kind="macro" name="IDF_VER" value="&quot;v3.2-dirty&quot;"/>
 						<entry kind="macro" name="MBEDTLS_CONFIG_FILE" value="&quot;mbedtls/esp_config.h&quot;"/>
-						<entry kind="macro" name="UNITY_INCLUDE_CONFIG_H" value="1"/>
 						<entry kind="macro" name="WITH_POSIX" value="1"/>
 					</resource>
 					<resource project-relative-path="ESP32/BT_BLE/BLESlaveChannel.cpp">
@@ -1581,9 +1521,6 @@
 						<entry kind="includePath" name="/${ProjName}/ESP32/LittleOLED/include">
 							<flag value="VALUE_WORKSPACE_PATH"/>
 						</entry>
-						<entry kind="includePath" name="/${ProjName}/ESP32/MorseHandler/include">
-							<flag value="VALUE_WORKSPACE_PATH"/>
-						</entry>
 						<entry kind="includePath" name="/${ProjName}/ESP32/NeoController/include">
 							<flag value="VALUE_WORKSPACE_PATH"/>
 						</entry>
@@ -1612,8 +1549,6 @@
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/coap/libcoap/include/coap"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/console"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/driver/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/efuse/esp32/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/efuse/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp-tls"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp32/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_adc_cal/include"/>
@@ -1621,9 +1556,7 @@
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_http_client/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_http_server/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_https_ota/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_https_server/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_ringbuf/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/espcoredump/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/ethernet/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/expat/expat/expat/lib"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/expat/port/include"/>
@@ -1671,8 +1604,6 @@
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/tcp_transport/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/tcpip_adapter/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/ulp/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/unity/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/unity/unity/src"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/vfs/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/wear_levelling/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/wifi_provisioning/include"/>
@@ -1688,9 +1619,8 @@
 						<entry kind="macro" name="ESP_PLATFORM" value="1"/>
 						<entry kind="macro" name="GCC_NOT_5_2_0" value="0"/>
 						<entry kind="macro" name="HAVE_CONFIG_H" value="1"/>
-						<entry kind="macro" name="IDF_VER" value="&quot;v3.3-beta2-202-g56afb3bd1-dirty&quot;"/>
+						<entry kind="macro" name="IDF_VER" value="&quot;v3.2-dirty&quot;"/>
 						<entry kind="macro" name="MBEDTLS_CONFIG_FILE" value="&quot;mbedtls/esp_config.h&quot;"/>
-						<entry kind="macro" name="UNITY_INCLUDE_CONFIG_H" value="1"/>
 						<entry kind="macro" name="WITH_POSIX" value="1"/>
 					</resource>
 					<resource project-relative-path="ESP32/LittleOLED/StringPrimitive.cpp">
@@ -1836,9 +1766,6 @@
 						<entry kind="includePath" name="/${ProjName}/ESP32/MQTT_SubHandler/include">
 							<flag value="VALUE_WORKSPACE_PATH"/>
 						</entry>
-						<entry kind="includePath" name="/${ProjName}/ESP32/MorseHandler/include">
-							<flag value="VALUE_WORKSPACE_PATH"/>
-						</entry>
 						<entry kind="includePath" name="/${ProjName}/ESP32/NeoController/include">
 							<flag value="VALUE_WORKSPACE_PATH"/>
 						</entry>
@@ -1867,8 +1794,6 @@
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/coap/libcoap/include/coap"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/console"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/driver/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/efuse/esp32/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/efuse/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp-tls"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp32/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_adc_cal/include"/>
@@ -1876,9 +1801,7 @@
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_http_client/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_http_server/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_https_ota/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_https_server/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_ringbuf/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/espcoredump/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/ethernet/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/expat/expat/expat/lib"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/expat/port/include"/>
@@ -1926,8 +1849,6 @@
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/tcp_transport/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/tcpip_adapter/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/ulp/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/unity/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/unity/unity/src"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/vfs/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/wear_levelling/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/wifi_provisioning/include"/>
@@ -1943,9 +1864,8 @@
 						<entry kind="macro" name="ESP_PLATFORM" value="1"/>
 						<entry kind="macro" name="GCC_NOT_5_2_0" value="0"/>
 						<entry kind="macro" name="HAVE_CONFIG_H" value="1"/>
-						<entry kind="macro" name="IDF_VER" value="&quot;v3.3-beta2-202-g56afb3bd1-dirty&quot;"/>
+						<entry kind="macro" name="IDF_VER" value="&quot;v3.2-dirty&quot;"/>
 						<entry kind="macro" name="MBEDTLS_CONFIG_FILE" value="&quot;mbedtls/esp_config.h&quot;"/>
-						<entry kind="macro" name="UNITY_INCLUDE_CONFIG_H" value="1"/>
 						<entry kind="macro" name="WITH_POSIX" value="1"/>
 					</resource>
 					<resource project-relative-path="main/core/core.cpp">
@@ -1973,9 +1893,6 @@
 						<entry kind="includePath" name="/${ProjName}/ESP32/MQTT_SubHandler/include">
 							<flag value="VALUE_WORKSPACE_PATH"/>
 						</entry>
-						<entry kind="includePath" name="/${ProjName}/ESP32/MorseHandler/include">
-							<flag value="VALUE_WORKSPACE_PATH"/>
-						</entry>
 						<entry kind="includePath" name="/${ProjName}/ESP32/NeoController/include">
 							<flag value="VALUE_WORKSPACE_PATH"/>
 						</entry>
@@ -2004,8 +1921,6 @@
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/coap/libcoap/include/coap"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/console"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/driver/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/efuse/esp32/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/efuse/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp-tls"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp32/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_adc_cal/include"/>
@@ -2013,9 +1928,7 @@
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_http_client/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_http_server/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_https_ota/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_https_server/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_ringbuf/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/espcoredump/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/ethernet/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/expat/expat/expat/lib"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/expat/port/include"/>
@@ -2060,8 +1973,6 @@
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/tcp_transport/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/tcpip_adapter/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/ulp/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/unity/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/unity/unity/src"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/vfs/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/wear_levelling/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/wifi_provisioning/include"/>
@@ -2077,9 +1988,8 @@
 						<entry kind="macro" name="ESP_PLATFORM" value="1"/>
 						<entry kind="macro" name="GCC_NOT_5_2_0" value="0"/>
 						<entry kind="macro" name="HAVE_CONFIG_H" value="1"/>
-						<entry kind="macro" name="IDF_VER" value="&quot;v3.3-beta2-202-g56afb3bd1-dirty&quot;"/>
+						<entry kind="macro" name="IDF_VER" value="&quot;v3.2-dirty&quot;"/>
 						<entry kind="macro" name="MBEDTLS_CONFIG_FILE" value="&quot;mbedtls/esp_config.h&quot;"/>
-						<entry kind="macro" name="UNITY_INCLUDE_CONFIG_H" value="1"/>
 						<entry kind="macro" name="WITH_POSIX" value="1"/>
 					</resource>
 					<resource project-relative-path="main/programs/lzrtag.cpp">
@@ -2107,9 +2017,6 @@
 						<entry kind="includePath" name="/${ProjName}/ESP32/MQTT_SubHandler/include">
 							<flag value="VALUE_WORKSPACE_PATH"/>
 						</entry>
-						<entry kind="includePath" name="/${ProjName}/ESP32/MorseHandler/include">
-							<flag value="VALUE_WORKSPACE_PATH"/>
-						</entry>
 						<entry kind="includePath" name="/${ProjName}/ESP32/NeoController/include">
 							<flag value="VALUE_WORKSPACE_PATH"/>
 						</entry>
@@ -2138,8 +2045,6 @@
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/coap/libcoap/include/coap"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/console"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/driver/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/efuse/esp32/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/efuse/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp-tls"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp32/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_adc_cal/include"/>
@@ -2147,9 +2052,7 @@
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_http_client/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_http_server/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_https_ota/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_https_server/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_ringbuf/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/espcoredump/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/ethernet/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/expat/expat/expat/lib"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/expat/port/include"/>
@@ -2194,8 +2097,6 @@
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/tcp_transport/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/tcpip_adapter/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/ulp/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/unity/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/unity/unity/src"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/vfs/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/wear_levelling/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/wifi_provisioning/include"/>
@@ -2211,9 +2112,8 @@
 						<entry kind="macro" name="ESP_PLATFORM" value="1"/>
 						<entry kind="macro" name="GCC_NOT_5_2_0" value="0"/>
 						<entry kind="macro" name="HAVE_CONFIG_H" value="1"/>
-						<entry kind="macro" name="IDF_VER" value="&quot;v3.3-beta2-202-g56afb3bd1-dirty&quot;"/>
+						<entry kind="macro" name="IDF_VER" value="&quot;v3.2-dirty&quot;"/>
 						<entry kind="macro" name="MBEDTLS_CONFIG_FILE" value="&quot;mbedtls/esp_config.h&quot;"/>
-						<entry kind="macro" name="UNITY_INCLUDE_CONFIG_H" value="1"/>
 						<entry kind="macro" name="WITH_POSIX" value="1"/>
 					</resource>
 					<resource project-relative-path="ESP32/Touchy/Control.cpp">
@@ -2241,9 +2141,6 @@
 						<entry kind="includePath" name="/${ProjName}/ESP32/MQTT_SubHandler/include">
 							<flag value="VALUE_WORKSPACE_PATH"/>
 						</entry>
-						<entry kind="includePath" name="/${ProjName}/ESP32/MorseHandler/include">
-							<flag value="VALUE_WORKSPACE_PATH"/>
-						</entry>
 						<entry kind="includePath" name="/${ProjName}/ESP32/NeoController/include">
 							<flag value="VALUE_WORKSPACE_PATH"/>
 						</entry>
@@ -2269,8 +2166,6 @@
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/coap/libcoap/include/coap"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/console"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/driver/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/efuse/esp32/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/efuse/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp-tls"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp32/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_adc_cal/include"/>
@@ -2278,9 +2173,7 @@
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_http_client/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_http_server/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_https_ota/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_https_server/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_ringbuf/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/espcoredump/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/ethernet/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/expat/expat/expat/lib"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/expat/port/include"/>
@@ -2328,8 +2221,6 @@
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/tcp_transport/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/tcpip_adapter/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/ulp/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/unity/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/unity/unity/src"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/vfs/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/wear_levelling/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/wifi_provisioning/include"/>
@@ -2345,9 +2236,8 @@
 						<entry kind="macro" name="ESP_PLATFORM" value="1"/>
 						<entry kind="macro" name="GCC_NOT_5_2_0" value="0"/>
 						<entry kind="macro" name="HAVE_CONFIG_H" value="1"/>
-						<entry kind="macro" name="IDF_VER" value="&quot;v3.3-beta2-202-g56afb3bd1-dirty&quot;"/>
+						<entry kind="macro" name="IDF_VER" value="&quot;v3.2-dirty&quot;"/>
 						<entry kind="macro" name="MBEDTLS_CONFIG_FILE" value="&quot;mbedtls/esp_config.h&quot;"/>
-						<entry kind="macro" name="UNITY_INCLUDE_CONFIG_H" value="1"/>
 						<entry kind="macro" name="WITH_POSIX" value="1"/>
 					</resource>
 					<resource project-relative-path="ESP32/XaI2C/AS1115.cpp">
@@ -2375,9 +2265,6 @@
 						<entry kind="includePath" name="/${ProjName}/ESP32/MQTT_SubHandler/include">
 							<flag value="VALUE_WORKSPACE_PATH"/>
 						</entry>
-						<entry kind="includePath" name="/${ProjName}/ESP32/MorseHandler/include">
-							<flag value="VALUE_WORKSPACE_PATH"/>
-						</entry>
 						<entry kind="includePath" name="/${ProjName}/ESP32/NeoController/include">
 							<flag value="VALUE_WORKSPACE_PATH"/>
 						</entry>
@@ -2403,8 +2290,6 @@
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/coap/libcoap/include/coap"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/console"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/driver/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/efuse/esp32/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/efuse/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp-tls"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp32/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_adc_cal/include"/>
@@ -2412,9 +2297,7 @@
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_http_client/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_http_server/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_https_ota/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_https_server/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_ringbuf/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/espcoredump/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/ethernet/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/expat/expat/expat/lib"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/expat/port/include"/>
@@ -2462,8 +2345,6 @@
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/tcp_transport/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/tcpip_adapter/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/ulp/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/unity/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/unity/unity/src"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/vfs/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/wear_levelling/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/wifi_provisioning/include"/>
@@ -2479,9 +2360,8 @@
 						<entry kind="macro" name="ESP_PLATFORM" value="1"/>
 						<entry kind="macro" name="GCC_NOT_5_2_0" value="0"/>
 						<entry kind="macro" name="HAVE_CONFIG_H" value="1"/>
-						<entry kind="macro" name="IDF_VER" value="&quot;v3.3-beta2-202-g56afb3bd1-dirty&quot;"/>
+						<entry kind="macro" name="IDF_VER" value="&quot;v3.2-dirty&quot;"/>
 						<entry kind="macro" name="MBEDTLS_CONFIG_FILE" value="&quot;mbedtls/esp_config.h&quot;"/>
-						<entry kind="macro" name="UNITY_INCLUDE_CONFIG_H" value="1"/>
 						<entry kind="macro" name="WITH_POSIX" value="1"/>
 					</resource>
 					<resource project-relative-path="ESP32/XaI2C/MasterAction.cpp">
@@ -2509,9 +2389,6 @@
 						<entry kind="includePath" name="/${ProjName}/ESP32/MQTT_SubHandler/include">
 							<flag value="VALUE_WORKSPACE_PATH"/>
 						</entry>
-						<entry kind="includePath" name="/${ProjName}/ESP32/MorseHandler/include">
-							<flag value="VALUE_WORKSPACE_PATH"/>
-						</entry>
 						<entry kind="includePath" name="/${ProjName}/ESP32/NeoController/include">
 							<flag value="VALUE_WORKSPACE_PATH"/>
 						</entry>
@@ -2537,8 +2414,6 @@
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/coap/libcoap/include/coap"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/console"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/driver/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/efuse/esp32/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/efuse/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp-tls"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp32/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_adc_cal/include"/>
@@ -2546,9 +2421,7 @@
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_http_client/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_http_server/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_https_ota/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_https_server/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_ringbuf/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/espcoredump/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/ethernet/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/expat/expat/expat/lib"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/expat/port/include"/>
@@ -2596,8 +2469,6 @@
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/tcp_transport/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/tcpip_adapter/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/ulp/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/unity/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/unity/unity/src"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/vfs/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/wear_levelling/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/wifi_provisioning/include"/>
@@ -2613,9 +2484,8 @@
 						<entry kind="macro" name="ESP_PLATFORM" value="1"/>
 						<entry kind="macro" name="GCC_NOT_5_2_0" value="0"/>
 						<entry kind="macro" name="HAVE_CONFIG_H" value="1"/>
-						<entry kind="macro" name="IDF_VER" value="&quot;v3.3-beta2-202-g56afb3bd1-dirty&quot;"/>
+						<entry kind="macro" name="IDF_VER" value="&quot;v3.2-dirty&quot;"/>
 						<entry kind="macro" name="MBEDTLS_CONFIG_FILE" value="&quot;mbedtls/esp_config.h&quot;"/>
-						<entry kind="macro" name="UNITY_INCLUDE_CONFIG_H" value="1"/>
 						<entry kind="macro" name="WITH_POSIX" value="1"/>
 					</resource>
 					<resource project-relative-path="ESP32/XIRR/Transmitter.cpp">
@@ -2643,9 +2513,6 @@
 						<entry kind="includePath" name="/${ProjName}/ESP32/MQTT_SubHandler/include">
 							<flag value="VALUE_WORKSPACE_PATH"/>
 						</entry>
-						<entry kind="includePath" name="/${ProjName}/ESP32/MorseHandler/include">
-							<flag value="VALUE_WORKSPACE_PATH"/>
-						</entry>
 						<entry kind="includePath" name="/${ProjName}/ESP32/NeoController/include">
 							<flag value="VALUE_WORKSPACE_PATH"/>
 						</entry>
@@ -2671,8 +2538,6 @@
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/coap/libcoap/include/coap"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/console"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/driver/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/efuse/esp32/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/efuse/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp-tls"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp32/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_adc_cal/include"/>
@@ -2680,9 +2545,7 @@
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_http_client/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_http_server/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_https_ota/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_https_server/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_ringbuf/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/espcoredump/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/ethernet/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/expat/expat/expat/lib"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/expat/port/include"/>
@@ -2730,8 +2593,6 @@
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/tcp_transport/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/tcpip_adapter/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/ulp/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/unity/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/unity/unity/src"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/vfs/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/wear_levelling/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/wifi_provisioning/include"/>
@@ -2747,9 +2608,8 @@
 						<entry kind="macro" name="ESP_PLATFORM" value="1"/>
 						<entry kind="macro" name="GCC_NOT_5_2_0" value="0"/>
 						<entry kind="macro" name="HAVE_CONFIG_H" value="1"/>
-						<entry kind="macro" name="IDF_VER" value="&quot;v3.3-beta2-202-g56afb3bd1-dirty&quot;"/>
+						<entry kind="macro" name="IDF_VER" value="&quot;v3.2-dirty&quot;"/>
 						<entry kind="macro" name="MBEDTLS_CONFIG_FILE" value="&quot;mbedtls/esp_config.h&quot;"/>
-						<entry kind="macro" name="UNITY_INCLUDE_CONFIG_H" value="1"/>
 						<entry kind="macro" name="WITH_POSIX" value="1"/>
 					</resource>
 					<resource project-relative-path="ESP32/MQTT_SubHandler/Subscription.cpp">
@@ -2772,9 +2632,6 @@
 							<flag value="VALUE_WORKSPACE_PATH"/>
 						</entry>
 						<entry kind="includePath" name="/${ProjName}/ESP32/LittleOLED/include">
-							<flag value="VALUE_WORKSPACE_PATH"/>
-						</entry>
-						<entry kind="includePath" name="/${ProjName}/ESP32/MorseHandler/include">
 							<flag value="VALUE_WORKSPACE_PATH"/>
 						</entry>
 						<entry kind="includePath" name="/${ProjName}/ESP32/NeoController/include">
@@ -2805,8 +2662,6 @@
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/coap/libcoap/include/coap"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/console"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/driver/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/efuse/esp32/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/efuse/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp-tls"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp32/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_adc_cal/include"/>
@@ -2814,9 +2669,7 @@
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_http_client/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_http_server/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_https_ota/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_https_server/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_ringbuf/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/espcoredump/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/ethernet/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/expat/expat/expat/lib"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/expat/port/include"/>
@@ -2864,8 +2717,6 @@
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/tcp_transport/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/tcpip_adapter/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/ulp/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/unity/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/unity/unity/src"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/vfs/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/wear_levelling/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/wifi_provisioning/include"/>
@@ -2881,9 +2732,8 @@
 						<entry kind="macro" name="ESP_PLATFORM" value="1"/>
 						<entry kind="macro" name="GCC_NOT_5_2_0" value="0"/>
 						<entry kind="macro" name="HAVE_CONFIG_H" value="1"/>
-						<entry kind="macro" name="IDF_VER" value="&quot;v3.3-beta2-202-g56afb3bd1-dirty&quot;"/>
+						<entry kind="macro" name="IDF_VER" value="&quot;v3.2-dirty&quot;"/>
 						<entry kind="macro" name="MBEDTLS_CONFIG_FILE" value="&quot;mbedtls/esp_config.h&quot;"/>
-						<entry kind="macro" name="UNITY_INCLUDE_CONFIG_H" value="1"/>
 						<entry kind="macro" name="WITH_POSIX" value="1"/>
 					</resource>
 					<resource project-relative-path="main/core/IndicatorBulb.cpp">
@@ -2911,9 +2761,6 @@
 						<entry kind="includePath" name="/${ProjName}/ESP32/MQTT_SubHandler/include">
 							<flag value="VALUE_WORKSPACE_PATH"/>
 						</entry>
-						<entry kind="includePath" name="/${ProjName}/ESP32/MorseHandler/include">
-							<flag value="VALUE_WORKSPACE_PATH"/>
-						</entry>
 						<entry kind="includePath" name="/${ProjName}/ESP32/NeoController/include">
 							<flag value="VALUE_WORKSPACE_PATH"/>
 						</entry>
@@ -2942,8 +2789,6 @@
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/coap/libcoap/include/coap"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/console"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/driver/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/efuse/esp32/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/efuse/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp-tls"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp32/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_adc_cal/include"/>
@@ -2951,9 +2796,7 @@
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_http_client/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_http_server/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_https_ota/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_https_server/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_ringbuf/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/espcoredump/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/ethernet/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/expat/expat/expat/lib"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/expat/port/include"/>
@@ -2998,8 +2841,6 @@
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/tcp_transport/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/tcpip_adapter/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/ulp/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/unity/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/unity/unity/src"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/vfs/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/wear_levelling/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/wifi_provisioning/include"/>
@@ -3015,9 +2856,8 @@
 						<entry kind="macro" name="ESP_PLATFORM" value="1"/>
 						<entry kind="macro" name="GCC_NOT_5_2_0" value="0"/>
 						<entry kind="macro" name="HAVE_CONFIG_H" value="1"/>
-						<entry kind="macro" name="IDF_VER" value="&quot;v3.3-beta2-202-g56afb3bd1-dirty&quot;"/>
+						<entry kind="macro" name="IDF_VER" value="&quot;v3.2-dirty&quot;"/>
 						<entry kind="macro" name="MBEDTLS_CONFIG_FILE" value="&quot;mbedtls/esp_config.h&quot;"/>
-						<entry kind="macro" name="UNITY_INCLUDE_CONFIG_H" value="1"/>
 						<entry kind="macro" name="WITH_POSIX" value="1"/>
 					</resource>
 					<resource project-relative-path="main/program/Program.cpp">
@@ -3045,9 +2885,6 @@
 						<entry kind="includePath" name="/${ProjName}/ESP32/MQTT_SubHandler/include">
 							<flag value="VALUE_WORKSPACE_PATH"/>
 						</entry>
-						<entry kind="includePath" name="/${ProjName}/ESP32/MorseHandler/include">
-							<flag value="VALUE_WORKSPACE_PATH"/>
-						</entry>
 						<entry kind="includePath" name="/${ProjName}/ESP32/NeoController/include">
 							<flag value="VALUE_WORKSPACE_PATH"/>
 						</entry>
@@ -3076,8 +2913,6 @@
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/coap/libcoap/include/coap"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/console"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/driver/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/efuse/esp32/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/efuse/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp-tls"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp32/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_adc_cal/include"/>
@@ -3085,9 +2920,7 @@
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_http_client/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_http_server/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_https_ota/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_https_server/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_ringbuf/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/espcoredump/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/ethernet/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/expat/expat/expat/lib"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/expat/port/include"/>
@@ -3132,8 +2965,6 @@
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/tcp_transport/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/tcpip_adapter/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/ulp/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/unity/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/unity/unity/src"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/vfs/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/wear_levelling/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/wifi_provisioning/include"/>
@@ -3149,9 +2980,8 @@
 						<entry kind="macro" name="ESP_PLATFORM" value="1"/>
 						<entry kind="macro" name="GCC_NOT_5_2_0" value="0"/>
 						<entry kind="macro" name="HAVE_CONFIG_H" value="1"/>
-						<entry kind="macro" name="IDF_VER" value="&quot;v3.3-beta2-202-g56afb3bd1-dirty&quot;"/>
+						<entry kind="macro" name="IDF_VER" value="&quot;v3.2-dirty&quot;"/>
 						<entry kind="macro" name="MBEDTLS_CONFIG_FILE" value="&quot;mbedtls/esp_config.h&quot;"/>
-						<entry kind="macro" name="UNITY_INCLUDE_CONFIG_H" value="1"/>
 						<entry kind="macro" name="WITH_POSIX" value="1"/>
 					</resource>
 					<resource project-relative-path="main/core/core_graphics.cpp">
@@ -3179,9 +3009,6 @@
 						<entry kind="includePath" name="/${ProjName}/ESP32/MQTT_SubHandler/include">
 							<flag value="VALUE_WORKSPACE_PATH"/>
 						</entry>
-						<entry kind="includePath" name="/${ProjName}/ESP32/MorseHandler/include">
-							<flag value="VALUE_WORKSPACE_PATH"/>
-						</entry>
 						<entry kind="includePath" name="/${ProjName}/ESP32/NeoController/include">
 							<flag value="VALUE_WORKSPACE_PATH"/>
 						</entry>
@@ -3210,8 +3037,6 @@
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/coap/libcoap/include/coap"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/console"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/driver/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/efuse/esp32/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/efuse/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp-tls"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp32/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_adc_cal/include"/>
@@ -3219,9 +3044,7 @@
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_http_client/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_http_server/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_https_ota/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_https_server/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_ringbuf/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/espcoredump/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/ethernet/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/expat/expat/expat/lib"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/expat/port/include"/>
@@ -3266,8 +3089,6 @@
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/tcp_transport/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/tcpip_adapter/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/ulp/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/unity/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/unity/unity/src"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/vfs/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/wear_levelling/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/wifi_provisioning/include"/>
@@ -3283,9 +3104,8 @@
 						<entry kind="macro" name="ESP_PLATFORM" value="1"/>
 						<entry kind="macro" name="GCC_NOT_5_2_0" value="0"/>
 						<entry kind="macro" name="HAVE_CONFIG_H" value="1"/>
-						<entry kind="macro" name="IDF_VER" value="&quot;v3.3-beta2-202-g56afb3bd1-dirty&quot;"/>
+						<entry kind="macro" name="IDF_VER" value="&quot;v3.2-dirty&quot;"/>
 						<entry kind="macro" name="MBEDTLS_CONFIG_FILE" value="&quot;mbedtls/esp_config.h&quot;"/>
-						<entry kind="macro" name="UNITY_INCLUDE_CONFIG_H" value="1"/>
 						<entry kind="macro" name="WITH_POSIX" value="1"/>
 					</resource>
 					<resource project-relative-path="ESP32/LittleOLED/SSD1327.cpp">
@@ -3308,9 +3128,6 @@
 							<flag value="VALUE_WORKSPACE_PATH"/>
 						</entry>
 						<entry kind="includePath" name="/${ProjName}/ESP32/MQTT_SubHandler/include">
-							<flag value="VALUE_WORKSPACE_PATH"/>
-						</entry>
-						<entry kind="includePath" name="/${ProjName}/ESP32/MorseHandler/include">
 							<flag value="VALUE_WORKSPACE_PATH"/>
 						</entry>
 						<entry kind="includePath" name="/${ProjName}/ESP32/NeoController/include">
@@ -3341,8 +3158,6 @@
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/coap/libcoap/include/coap"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/console"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/driver/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/efuse/esp32/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/efuse/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp-tls"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp32/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_adc_cal/include"/>
@@ -3350,9 +3165,7 @@
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_http_client/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_http_server/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_https_ota/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_https_server/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_ringbuf/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/espcoredump/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/ethernet/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/expat/expat/expat/lib"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/expat/port/include"/>
@@ -3400,8 +3213,6 @@
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/tcp_transport/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/tcpip_adapter/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/ulp/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/unity/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/unity/unity/src"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/vfs/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/wear_levelling/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/wifi_provisioning/include"/>
@@ -3417,9 +3228,8 @@
 						<entry kind="macro" name="ESP_PLATFORM" value="1"/>
 						<entry kind="macro" name="GCC_NOT_5_2_0" value="0"/>
 						<entry kind="macro" name="HAVE_CONFIG_H" value="1"/>
-						<entry kind="macro" name="IDF_VER" value="&quot;v3.3-beta2-202-g56afb3bd1-dirty&quot;"/>
+						<entry kind="macro" name="IDF_VER" value="&quot;v3.2-dirty&quot;"/>
 						<entry kind="macro" name="MBEDTLS_CONFIG_FILE" value="&quot;mbedtls/esp_config.h&quot;"/>
-						<entry kind="macro" name="UNITY_INCLUDE_CONFIG_H" value="1"/>
 						<entry kind="macro" name="WITH_POSIX" value="1"/>
 					</resource>
 					<resource project-relative-path="ESP32/XaI2C/MAX11613.cpp">
@@ -3447,9 +3257,6 @@
 						<entry kind="includePath" name="/${ProjName}/ESP32/MQTT_SubHandler/include">
 							<flag value="VALUE_WORKSPACE_PATH"/>
 						</entry>
-						<entry kind="includePath" name="/${ProjName}/ESP32/MorseHandler/include">
-							<flag value="VALUE_WORKSPACE_PATH"/>
-						</entry>
 						<entry kind="includePath" name="/${ProjName}/ESP32/NeoController/include">
 							<flag value="VALUE_WORKSPACE_PATH"/>
 						</entry>
@@ -3475,8 +3282,6 @@
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/coap/libcoap/include/coap"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/console"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/driver/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/efuse/esp32/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/efuse/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp-tls"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp32/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_adc_cal/include"/>
@@ -3484,9 +3289,7 @@
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_http_client/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_http_server/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_https_ota/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_https_server/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_ringbuf/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/espcoredump/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/ethernet/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/expat/expat/expat/lib"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/expat/port/include"/>
@@ -3534,8 +3337,6 @@
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/tcp_transport/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/tcpip_adapter/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/ulp/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/unity/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/unity/unity/src"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/vfs/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/wear_levelling/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/wifi_provisioning/include"/>
@@ -3551,9 +3352,8 @@
 						<entry kind="macro" name="ESP_PLATFORM" value="1"/>
 						<entry kind="macro" name="GCC_NOT_5_2_0" value="0"/>
 						<entry kind="macro" name="HAVE_CONFIG_H" value="1"/>
-						<entry kind="macro" name="IDF_VER" value="&quot;v3.3-beta2-202-g56afb3bd1-dirty&quot;"/>
+						<entry kind="macro" name="IDF_VER" value="&quot;v3.2-dirty&quot;"/>
 						<entry kind="macro" name="MBEDTLS_CONFIG_FILE" value="&quot;mbedtls/esp_config.h&quot;"/>
-						<entry kind="macro" name="UNITY_INCLUDE_CONFIG_H" value="1"/>
 						<entry kind="macro" name="WITH_POSIX" value="1"/>
 					</resource>
 					<resource project-relative-path="main/core/buttons.cpp">
@@ -3579,9 +3379,6 @@
 							<flag value="VALUE_WORKSPACE_PATH"/>
 						</entry>
 						<entry kind="includePath" name="/${ProjName}/ESP32/MQTT_SubHandler/include">
-							<flag value="VALUE_WORKSPACE_PATH"/>
-						</entry>
-						<entry kind="includePath" name="/${ProjName}/ESP32/MorseHandler/include">
 							<flag value="VALUE_WORKSPACE_PATH"/>
 						</entry>
 						<entry kind="includePath" name="/${ProjName}/ESP32/NeoController/include">
@@ -3612,8 +3409,6 @@
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/coap/libcoap/include/coap"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/console"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/driver/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/efuse/esp32/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/efuse/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp-tls"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp32/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_adc_cal/include"/>
@@ -3621,9 +3416,7 @@
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_http_client/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_http_server/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_https_ota/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_https_server/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_ringbuf/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/espcoredump/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/ethernet/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/expat/expat/expat/lib"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/expat/port/include"/>
@@ -3668,8 +3461,6 @@
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/tcp_transport/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/tcpip_adapter/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/ulp/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/unity/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/unity/unity/src"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/vfs/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/wear_levelling/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/wifi_provisioning/include"/>
@@ -3685,9 +3476,8 @@
 						<entry kind="macro" name="ESP_PLATFORM" value="1"/>
 						<entry kind="macro" name="GCC_NOT_5_2_0" value="0"/>
 						<entry kind="macro" name="HAVE_CONFIG_H" value="1"/>
-						<entry kind="macro" name="IDF_VER" value="&quot;v3.3-beta2-202-g56afb3bd1-dirty&quot;"/>
+						<entry kind="macro" name="IDF_VER" value="&quot;v3.2-dirty&quot;"/>
 						<entry kind="macro" name="MBEDTLS_CONFIG_FILE" value="&quot;mbedtls/esp_config.h&quot;"/>
-						<entry kind="macro" name="UNITY_INCLUDE_CONFIG_H" value="1"/>
 						<entry kind="macro" name="WITH_POSIX" value="1"/>
 					</resource>
 					<resource project-relative-path="main/program/CommandChunk.cpp">
@@ -3836,9 +3626,6 @@
 						<entry kind="includePath" name="/${ProjName}/ESP32/MQTT_SubHandler/include">
 							<flag value="VALUE_WORKSPACE_PATH"/>
 						</entry>
-						<entry kind="includePath" name="/${ProjName}/ESP32/MorseHandler/include">
-							<flag value="VALUE_WORKSPACE_PATH"/>
-						</entry>
 						<entry kind="includePath" name="/${ProjName}/ESP32/NeoController/include">
 							<flag value="VALUE_WORKSPACE_PATH"/>
 						</entry>
@@ -3867,8 +3654,6 @@
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/coap/libcoap/include/coap"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/console"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/driver/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/efuse/esp32/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/efuse/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp-tls"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp32/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_adc_cal/include"/>
@@ -3876,9 +3661,7 @@
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_http_client/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_http_server/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_https_ota/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_https_server/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_ringbuf/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/espcoredump/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/ethernet/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/expat/expat/expat/lib"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/expat/port/include"/>
@@ -3923,8 +3706,6 @@
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/tcp_transport/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/tcpip_adapter/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/ulp/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/unity/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/unity/unity/src"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/vfs/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/wear_levelling/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/wifi_provisioning/include"/>
@@ -3940,9 +3721,8 @@
 						<entry kind="macro" name="ESP_PLATFORM" value="1"/>
 						<entry kind="macro" name="GCC_NOT_5_2_0" value="0"/>
 						<entry kind="macro" name="HAVE_CONFIG_H" value="1"/>
-						<entry kind="macro" name="IDF_VER" value="&quot;v3.3-beta2-202-g56afb3bd1-dirty&quot;"/>
+						<entry kind="macro" name="IDF_VER" value="&quot;v3.2-dirty&quot;"/>
 						<entry kind="macro" name="MBEDTLS_CONFIG_FILE" value="&quot;mbedtls/esp_config.h&quot;"/>
-						<entry kind="macro" name="UNITY_INCLUDE_CONFIG_H" value="1"/>
 						<entry kind="macro" name="WITH_POSIX" value="1"/>
 					</resource>
 					<resource project-relative-path="ESP32/AudioHandler/AudioHandler.cpp">
@@ -3965,9 +3745,6 @@
 							<flag value="VALUE_WORKSPACE_PATH"/>
 						</entry>
 						<entry kind="includePath" name="/${ProjName}/ESP32/MQTT_SubHandler/include">
-							<flag value="VALUE_WORKSPACE_PATH"/>
-						</entry>
-						<entry kind="includePath" name="/${ProjName}/ESP32/MorseHandler/include">
 							<flag value="VALUE_WORKSPACE_PATH"/>
 						</entry>
 						<entry kind="includePath" name="/${ProjName}/ESP32/NeoController/include">
@@ -3998,8 +3775,6 @@
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/coap/libcoap/include/coap"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/console"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/driver/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/efuse/esp32/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/efuse/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp-tls"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp32/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_adc_cal/include"/>
@@ -4007,9 +3782,7 @@
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_http_client/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_http_server/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_https_ota/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_https_server/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_ringbuf/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/espcoredump/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/ethernet/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/expat/expat/expat/lib"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/expat/port/include"/>
@@ -4057,8 +3830,6 @@
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/tcp_transport/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/tcpip_adapter/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/ulp/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/unity/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/unity/unity/src"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/vfs/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/wear_levelling/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/wifi_provisioning/include"/>
@@ -4074,9 +3845,8 @@
 						<entry kind="macro" name="ESP_PLATFORM" value="1"/>
 						<entry kind="macro" name="GCC_NOT_5_2_0" value="0"/>
 						<entry kind="macro" name="HAVE_CONFIG_H" value="1"/>
-						<entry kind="macro" name="IDF_VER" value="&quot;v3.3-beta2-202-g56afb3bd1-dirty&quot;"/>
+						<entry kind="macro" name="IDF_VER" value="&quot;v3.2-dirty&quot;"/>
 						<entry kind="macro" name="MBEDTLS_CONFIG_FILE" value="&quot;mbedtls/esp_config.h&quot;"/>
-						<entry kind="macro" name="UNITY_INCLUDE_CONFIG_H" value="1"/>
 						<entry kind="macro" name="WITH_POSIX" value="1"/>
 					</resource>
 					<resource project-relative-path="ESP32/LittleOLED/DrawBox.cpp">
@@ -4235,9 +4005,6 @@
 						<entry kind="includePath" name="/${ProjName}/ESP32/MQTT_SubHandler/include">
 							<flag value="VALUE_WORKSPACE_PATH"/>
 						</entry>
-						<entry kind="includePath" name="/${ProjName}/ESP32/MorseHandler/include">
-							<flag value="VALUE_WORKSPACE_PATH"/>
-						</entry>
 						<entry kind="includePath" name="/${ProjName}/ESP32/NeoController/include">
 							<flag value="VALUE_WORKSPACE_PATH"/>
 						</entry>
@@ -4266,8 +4033,6 @@
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/coap/libcoap/include/coap"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/console"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/driver/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/efuse/esp32/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/efuse/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp-tls"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp32/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_adc_cal/include"/>
@@ -4275,9 +4040,7 @@
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_http_client/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_http_server/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_https_ota/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_https_server/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_ringbuf/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/espcoredump/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/ethernet/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/expat/expat/expat/lib"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/expat/port/include"/>
@@ -4322,8 +4085,6 @@
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/tcp_transport/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/tcpip_adapter/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/ulp/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/unity/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/unity/unity/src"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/vfs/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/wear_levelling/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/wifi_provisioning/include"/>
@@ -4339,9 +4100,8 @@
 						<entry kind="macro" name="ESP_PLATFORM" value="1"/>
 						<entry kind="macro" name="GCC_NOT_5_2_0" value="0"/>
 						<entry kind="macro" name="HAVE_CONFIG_H" value="1"/>
-						<entry kind="macro" name="IDF_VER" value="&quot;v3.3-beta2-202-g56afb3bd1-dirty&quot;"/>
+						<entry kind="macro" name="IDF_VER" value="&quot;v3.2-dirty&quot;"/>
 						<entry kind="macro" name="MBEDTLS_CONFIG_FILE" value="&quot;mbedtls/esp_config.h&quot;"/>
-						<entry kind="macro" name="UNITY_INCLUDE_CONFIG_H" value="1"/>
 						<entry kind="macro" name="WITH_POSIX" value="1"/>
 					</resource>
 					<resource project-relative-path="ESP32/BT_BLE/Service.cpp">
@@ -4624,9 +4384,6 @@
 						<entry kind="includePath" name="/${ProjName}/ESP32/MQTT_SubHandler/include">
 							<flag value="VALUE_WORKSPACE_PATH"/>
 						</entry>
-						<entry kind="includePath" name="/${ProjName}/ESP32/MorseHandler/include">
-							<flag value="VALUE_WORKSPACE_PATH"/>
-						</entry>
 						<entry kind="includePath" name="/${ProjName}/ESP32/Touchy/include">
 							<flag value="VALUE_WORKSPACE_PATH"/>
 						</entry>
@@ -4652,8 +4409,6 @@
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/coap/libcoap/include/coap"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/console"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/driver/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/efuse/esp32/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/efuse/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp-tls"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp32/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_adc_cal/include"/>
@@ -4661,9 +4416,7 @@
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_http_client/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_http_server/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_https_ota/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_https_server/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_ringbuf/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/espcoredump/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/ethernet/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/expat/expat/expat/lib"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/expat/port/include"/>
@@ -4711,8 +4464,6 @@
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/tcp_transport/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/tcpip_adapter/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/ulp/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/unity/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/unity/unity/src"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/vfs/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/wear_levelling/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/wifi_provisioning/include"/>
@@ -4728,9 +4479,8 @@
 						<entry kind="macro" name="ESP_PLATFORM" value="1"/>
 						<entry kind="macro" name="GCC_NOT_5_2_0" value="0"/>
 						<entry kind="macro" name="HAVE_CONFIG_H" value="1"/>
-						<entry kind="macro" name="IDF_VER" value="&quot;v3.3-beta2-202-g56afb3bd1-dirty&quot;"/>
+						<entry kind="macro" name="IDF_VER" value="&quot;v3.2-dirty&quot;"/>
 						<entry kind="macro" name="MBEDTLS_CONFIG_FILE" value="&quot;mbedtls/esp_config.h&quot;"/>
-						<entry kind="macro" name="UNITY_INCLUDE_CONFIG_H" value="1"/>
 						<entry kind="macro" name="WITH_POSIX" value="1"/>
 					</resource>
 					<resource project-relative-path="main/core/DisplayParam.cpp">
@@ -4758,9 +4508,6 @@
 						<entry kind="includePath" name="/${ProjName}/ESP32/MQTT_SubHandler/include">
 							<flag value="VALUE_WORKSPACE_PATH"/>
 						</entry>
-						<entry kind="includePath" name="/${ProjName}/ESP32/MorseHandler/include">
-							<flag value="VALUE_WORKSPACE_PATH"/>
-						</entry>
 						<entry kind="includePath" name="/${ProjName}/ESP32/NeoController/include">
 							<flag value="VALUE_WORKSPACE_PATH"/>
 						</entry>
@@ -4789,8 +4536,6 @@
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/coap/libcoap/include/coap"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/console"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/driver/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/efuse/esp32/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/efuse/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp-tls"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp32/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_adc_cal/include"/>
@@ -4798,9 +4543,7 @@
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_http_client/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_http_server/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_https_ota/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_https_server/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_ringbuf/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/espcoredump/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/ethernet/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/expat/expat/expat/lib"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/expat/port/include"/>
@@ -4845,8 +4588,6 @@
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/tcp_transport/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/tcpip_adapter/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/ulp/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/unity/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/unity/unity/src"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/vfs/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/wear_levelling/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/wifi_provisioning/include"/>
@@ -4862,9 +4603,8 @@
 						<entry kind="macro" name="ESP_PLATFORM" value="1"/>
 						<entry kind="macro" name="GCC_NOT_5_2_0" value="0"/>
 						<entry kind="macro" name="HAVE_CONFIG_H" value="1"/>
-						<entry kind="macro" name="IDF_VER" value="&quot;v3.3-beta2-202-g56afb3bd1-dirty&quot;"/>
+						<entry kind="macro" name="IDF_VER" value="&quot;v3.2-dirty&quot;"/>
 						<entry kind="macro" name="MBEDTLS_CONFIG_FILE" value="&quot;mbedtls/esp_config.h&quot;"/>
-						<entry kind="macro" name="UNITY_INCLUDE_CONFIG_H" value="1"/>
 						<entry kind="macro" name="WITH_POSIX" value="1"/>
 					</resource>
 					<resource project-relative-path="ESP32/TrekCore/TrekAudio.cpp">
@@ -4892,9 +4632,6 @@
 						<entry kind="includePath" name="/${ProjName}/ESP32/MQTT_SubHandler/include">
 							<flag value="VALUE_WORKSPACE_PATH"/>
 						</entry>
-						<entry kind="includePath" name="/${ProjName}/ESP32/MorseHandler/include">
-							<flag value="VALUE_WORKSPACE_PATH"/>
-						</entry>
 						<entry kind="includePath" name="/${ProjName}/ESP32/NeoController/include">
 							<flag value="VALUE_WORKSPACE_PATH"/>
 						</entry>
@@ -4920,8 +4657,6 @@
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/coap/libcoap/include/coap"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/console"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/driver/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/efuse/esp32/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/efuse/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp-tls"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp32/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_adc_cal/include"/>
@@ -4929,9 +4664,7 @@
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_http_client/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_http_server/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_https_ota/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_https_server/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_ringbuf/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/espcoredump/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/ethernet/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/expat/expat/expat/lib"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/expat/port/include"/>
@@ -4979,8 +4712,6 @@
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/tcp_transport/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/tcpip_adapter/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/ulp/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/unity/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/unity/unity/src"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/vfs/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/wear_levelling/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/wifi_provisioning/include"/>
@@ -4996,9 +4727,8 @@
 						<entry kind="macro" name="ESP_PLATFORM" value="1"/>
 						<entry kind="macro" name="GCC_NOT_5_2_0" value="0"/>
 						<entry kind="macro" name="HAVE_CONFIG_H" value="1"/>
-						<entry kind="macro" name="IDF_VER" value="&quot;v3.3-beta2-202-g56afb3bd1-dirty&quot;"/>
+						<entry kind="macro" name="IDF_VER" value="&quot;v3.2-dirty&quot;"/>
 						<entry kind="macro" name="MBEDTLS_CONFIG_FILE" value="&quot;mbedtls/esp_config.h&quot;"/>
-						<entry kind="macro" name="UNITY_INCLUDE_CONFIG_H" value="1"/>
 						<entry kind="macro" name="WITH_POSIX" value="1"/>
 					</resource>
 					<resource project-relative-path="ESP32/BT_BLE/BLEHandler.cpp">
@@ -5147,9 +4877,6 @@
 						<entry kind="includePath" name="/${ProjName}/ESP32/LittleOLED/include">
 							<flag value="VALUE_WORKSPACE_PATH"/>
 						</entry>
-						<entry kind="includePath" name="/${ProjName}/ESP32/MorseHandler/include">
-							<flag value="VALUE_WORKSPACE_PATH"/>
-						</entry>
 						<entry kind="includePath" name="/${ProjName}/ESP32/NeoController/include">
 							<flag value="VALUE_WORKSPACE_PATH"/>
 						</entry>
@@ -5178,8 +4905,6 @@
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/coap/libcoap/include/coap"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/console"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/driver/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/efuse/esp32/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/efuse/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp-tls"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp32/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_adc_cal/include"/>
@@ -5187,9 +4912,7 @@
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_http_client/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_http_server/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_https_ota/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_https_server/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_ringbuf/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/espcoredump/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/ethernet/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/expat/expat/expat/lib"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/expat/port/include"/>
@@ -5237,8 +4960,6 @@
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/tcp_transport/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/tcpip_adapter/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/ulp/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/unity/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/unity/unity/src"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/vfs/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/wear_levelling/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/wifi_provisioning/include"/>
@@ -5254,9 +4975,8 @@
 						<entry kind="macro" name="ESP_PLATFORM" value="1"/>
 						<entry kind="macro" name="GCC_NOT_5_2_0" value="0"/>
 						<entry kind="macro" name="HAVE_CONFIG_H" value="1"/>
-						<entry kind="macro" name="IDF_VER" value="&quot;v3.3-beta2-202-g56afb3bd1-dirty&quot;"/>
+						<entry kind="macro" name="IDF_VER" value="&quot;v3.2-dirty&quot;"/>
 						<entry kind="macro" name="MBEDTLS_CONFIG_FILE" value="&quot;mbedtls/esp_config.h&quot;"/>
-						<entry kind="macro" name="UNITY_INCLUDE_CONFIG_H" value="1"/>
 						<entry kind="macro" name="WITH_POSIX" value="1"/>
 					</resource>
 					<resource project-relative-path="ESP32/BatteryManager/BatteryManager.cpp">
@@ -5405,9 +5125,6 @@
 						<entry kind="includePath" name="/${ProjName}/ESP32/MQTT_SubHandler/include">
 							<flag value="VALUE_WORKSPACE_PATH"/>
 						</entry>
-						<entry kind="includePath" name="/${ProjName}/ESP32/MorseHandler/include">
-							<flag value="VALUE_WORKSPACE_PATH"/>
-						</entry>
 						<entry kind="includePath" name="/${ProjName}/ESP32/Touchy/include">
 							<flag value="VALUE_WORKSPACE_PATH"/>
 						</entry>
@@ -5433,8 +5150,6 @@
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/coap/libcoap/include/coap"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/console"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/driver/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/efuse/esp32/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/efuse/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp-tls"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp32/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_adc_cal/include"/>
@@ -5442,9 +5157,7 @@
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_http_client/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_http_server/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_https_ota/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_https_server/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_ringbuf/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/espcoredump/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/ethernet/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/expat/expat/expat/lib"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/expat/port/include"/>
@@ -5492,8 +5205,6 @@
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/tcp_transport/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/tcpip_adapter/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/ulp/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/unity/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/unity/unity/src"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/vfs/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/wear_levelling/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/wifi_provisioning/include"/>
@@ -5509,9 +5220,8 @@
 						<entry kind="macro" name="ESP_PLATFORM" value="1"/>
 						<entry kind="macro" name="GCC_NOT_5_2_0" value="0"/>
 						<entry kind="macro" name="HAVE_CONFIG_H" value="1"/>
-						<entry kind="macro" name="IDF_VER" value="&quot;v3.3-beta2-202-g56afb3bd1-dirty&quot;"/>
+						<entry kind="macro" name="IDF_VER" value="&quot;v3.2-dirty&quot;"/>
 						<entry kind="macro" name="MBEDTLS_CONFIG_FILE" value="&quot;mbedtls/esp_config.h&quot;"/>
-						<entry kind="macro" name="UNITY_INCLUDE_CONFIG_H" value="1"/>
 						<entry kind="macro" name="WITH_POSIX" value="1"/>
 					</resource>
 					<resource project-relative-path="ESP32/XaI2C/LSM6DS3.cpp">
@@ -5539,9 +5249,6 @@
 						<entry kind="includePath" name="/${ProjName}/ESP32/MQTT_SubHandler/include">
 							<flag value="VALUE_WORKSPACE_PATH"/>
 						</entry>
-						<entry kind="includePath" name="/${ProjName}/ESP32/MorseHandler/include">
-							<flag value="VALUE_WORKSPACE_PATH"/>
-						</entry>
 						<entry kind="includePath" name="/${ProjName}/ESP32/NeoController/include">
 							<flag value="VALUE_WORKSPACE_PATH"/>
 						</entry>
@@ -5567,8 +5274,6 @@
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/coap/libcoap/include/coap"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/console"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/driver/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/efuse/esp32/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/efuse/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp-tls"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp32/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_adc_cal/include"/>
@@ -5576,9 +5281,7 @@
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_http_client/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_http_server/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_https_ota/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_https_server/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_ringbuf/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/espcoredump/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/ethernet/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/expat/expat/expat/lib"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/expat/port/include"/>
@@ -5626,8 +5329,6 @@
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/tcp_transport/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/tcpip_adapter/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/ulp/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/unity/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/unity/unity/src"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/vfs/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/wear_levelling/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/wifi_provisioning/include"/>
@@ -5643,9 +5344,8 @@
 						<entry kind="macro" name="ESP_PLATFORM" value="1"/>
 						<entry kind="macro" name="GCC_NOT_5_2_0" value="0"/>
 						<entry kind="macro" name="HAVE_CONFIG_H" value="1"/>
-						<entry kind="macro" name="IDF_VER" value="&quot;v3.3-beta2-202-g56afb3bd1-dirty&quot;"/>
+						<entry kind="macro" name="IDF_VER" value="&quot;v3.2-dirty&quot;"/>
 						<entry kind="macro" name="MBEDTLS_CONFIG_FILE" value="&quot;mbedtls/esp_config.h&quot;"/>
-						<entry kind="macro" name="UNITY_INCLUDE_CONFIG_H" value="1"/>
 						<entry kind="macro" name="WITH_POSIX" value="1"/>
 					</resource>
 					<resource project-relative-path="main/core/segments.cpp">
@@ -5673,9 +5373,6 @@
 						<entry kind="includePath" name="/${ProjName}/ESP32/MQTT_SubHandler/include">
 							<flag value="VALUE_WORKSPACE_PATH"/>
 						</entry>
-						<entry kind="includePath" name="/${ProjName}/ESP32/MorseHandler/include">
-							<flag value="VALUE_WORKSPACE_PATH"/>
-						</entry>
 						<entry kind="includePath" name="/${ProjName}/ESP32/NeoController/include">
 							<flag value="VALUE_WORKSPACE_PATH"/>
 						</entry>
@@ -5704,8 +5401,6 @@
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/coap/libcoap/include/coap"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/console"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/driver/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/efuse/esp32/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/efuse/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp-tls"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp32/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_adc_cal/include"/>
@@ -5713,9 +5408,7 @@
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_http_client/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_http_server/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_https_ota/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_https_server/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_ringbuf/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/espcoredump/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/ethernet/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/expat/expat/expat/lib"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/expat/port/include"/>
@@ -5760,8 +5453,6 @@
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/tcp_transport/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/tcpip_adapter/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/ulp/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/unity/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/unity/unity/src"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/vfs/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/wear_levelling/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/wifi_provisioning/include"/>
@@ -5777,9 +5468,8 @@
 						<entry kind="macro" name="ESP_PLATFORM" value="1"/>
 						<entry kind="macro" name="GCC_NOT_5_2_0" value="0"/>
 						<entry kind="macro" name="HAVE_CONFIG_H" value="1"/>
-						<entry kind="macro" name="IDF_VER" value="&quot;v3.3-beta2-202-g56afb3bd1-dirty&quot;"/>
+						<entry kind="macro" name="IDF_VER" value="&quot;v3.2-dirty&quot;"/>
 						<entry kind="macro" name="MBEDTLS_CONFIG_FILE" value="&quot;mbedtls/esp_config.h&quot;"/>
-						<entry kind="macro" name="UNITY_INCLUDE_CONFIG_H" value="1"/>
 						<entry kind="macro" name="WITH_POSIX" value="1"/>
 					</resource>
 					<resource project-relative-path="ESP32/XIRR/Receiver.cpp">
@@ -5807,9 +5497,6 @@
 						<entry kind="includePath" name="/${ProjName}/ESP32/MQTT_SubHandler/include">
 							<flag value="VALUE_WORKSPACE_PATH"/>
 						</entry>
-						<entry kind="includePath" name="/${ProjName}/ESP32/MorseHandler/include">
-							<flag value="VALUE_WORKSPACE_PATH"/>
-						</entry>
 						<entry kind="includePath" name="/${ProjName}/ESP32/NeoController/include">
 							<flag value="VALUE_WORKSPACE_PATH"/>
 						</entry>
@@ -5835,8 +5522,6 @@
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/coap/libcoap/include/coap"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/console"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/driver/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/efuse/esp32/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/efuse/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp-tls"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp32/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_adc_cal/include"/>
@@ -5844,9 +5529,7 @@
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_http_client/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_http_server/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_https_ota/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_https_server/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/esp_ringbuf/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/espcoredump/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/ethernet/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/expat/expat/expat/lib"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/expat/port/include"/>
@@ -5894,8 +5577,6 @@
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/tcp_transport/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/tcpip_adapter/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/ulp/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/unity/include"/>
-						<entry kind="includePath" name="/opt/ESP/esp-idf/components/unity/unity/src"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/vfs/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/wear_levelling/include"/>
 						<entry kind="includePath" name="/opt/ESP/esp-idf/components/wifi_provisioning/include"/>
@@ -5911,14 +5592,13 @@
 						<entry kind="macro" name="ESP_PLATFORM" value="1"/>
 						<entry kind="macro" name="GCC_NOT_5_2_0" value="0"/>
 						<entry kind="macro" name="HAVE_CONFIG_H" value="1"/>
-						<entry kind="macro" name="IDF_VER" value="&quot;v3.3-beta2-202-g56afb3bd1-dirty&quot;"/>
+						<entry kind="macro" name="IDF_VER" value="&quot;v3.2-dirty&quot;"/>
 						<entry kind="macro" name="MBEDTLS_CONFIG_FILE" value="&quot;mbedtls/esp_config.h&quot;"/>
-						<entry kind="macro" name="UNITY_INCLUDE_CONFIG_H" value="1"/>
 						<entry kind="macro" name="WITH_POSIX" value="1"/>
 					</resource>
 				</language>
 			</provider>
-			<provider class="org.eclipse.cdt.internal.build.crossgcc.CrossGCCBuiltinSpecsDetector" console="false" env-hash="1180539662658247343" id="org.eclipse.cdt.build.crossgcc.CrossGCCBuiltinSpecsDetector" keep-relative-paths="false" name="CDT Cross GCC Built-in Compiler Settings" parameter="xtensa-esp32-elf-gcc ${FLAGS} -std=c++11 -E -P -v -dD &quot;${INPUTS}&quot;" prefer-non-shared="true" store-entries-with-project="true">
+			<provider class="org.eclipse.cdt.internal.build.crossgcc.CrossGCCBuiltinSpecsDetector" console="false" env-hash="1258205010382145071" id="org.eclipse.cdt.build.crossgcc.CrossGCCBuiltinSpecsDetector" keep-relative-paths="false" name="CDT Cross GCC Built-in Compiler Settings" parameter="xtensa-esp32-elf-gcc ${FLAGS} -std=c++11 -E -P -v -dD &quot;${INPUTS}&quot;" prefer-non-shared="true" store-entries-with-project="true">
 				<language-scope id="org.eclipse.cdt.core.gcc"/>
 				<language-scope id="org.eclipse.cdt.core.g++"/>
 				<language id="org.eclipse.cdt.core.gcc">
