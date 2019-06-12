@@ -213,7 +213,7 @@ program_exit_t ir_test_func(const DSKY::Prog::CommandChunk &cmd) {
 }
 
 program_exit_t simon_says(const DSKY::Prog::CommandChunk &cmd) {
-	int pressed_button = 0;
+	volatile int pressed_button = 0;
 	std::vector<uint8_t> buttons;
 
 	auto ir_tx = Xasin::XIRR::Transmitter(GPIO_NUM_16, RMT_CHANNEL_4);
@@ -234,11 +234,31 @@ program_exit_t simon_says(const DSKY::Prog::CommandChunk &cmd) {
     	buttons.push_back(esp_random() & 3);
 
     	for(auto c : buttons) {
-    		ir_tx.send<uint8_t>(c, 128);
+    		for(uint8_t i=0; i<3; i++) {
+    			ir_tx.send<uint8_t>(c, 128);
+    			vTaskDelay(20);
+    		}
     		vTaskDelay(800);
     	}
 
-    	Program::wait_for_notify();
+    	for(auto c : buttons) {
+
+    		pressed_button = -1;
+    		while(pressed_button == -1)
+    			Program::wait_for_notify(200);
+
+    		if(pressed_button != c) {
+    			buttons.clear();
+    			Xasin::Trek::play(Xasin::Trek::ERROR_MAJOR);
+
+    			break;
+    		}
+    		else
+    			Xasin::Trek::play(Xasin::Trek::KEYPRESS);
+    	}
+
+		Xasin::Trek::play(Xasin::Trek::INPUT_OK);
+    	vTaskDelay(2000);
     }
 
 	return Prog::OK;
