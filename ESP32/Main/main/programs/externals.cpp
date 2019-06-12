@@ -13,6 +13,7 @@
 #include "xasin/BME680.h"
 
 #include "xasin/xirr/Transmitter.h"
+#include "xasin/xirr/Receiver.h"
 
 #include <cmath>
 
@@ -121,45 +122,126 @@ struct bacn_mode_t {
 };
 #pragma pack(0)
 
+TickType_t stateTimeout = 0;
+uint8_t    winnerID;
+enum bacn_state_t {
+	NORMAL,
+	ATTENTION,
+	STOP,
+
+	BTN_GAME_PREP,
+	BTN_GAME_GO,
+	BTN_GAME_WINNER,
+};
+bacn_state_t current_bacn_mode = NORMAL;
+bacn_state_t old_bacn_mode = NORMAL;
+
 program_exit_t ir_test_func(const DSKY::Prog::CommandChunk &cmd) {
 	auto ir_tx = Xasin::XIRR::Transmitter(GPIO_NUM_16, RMT_CHANNEL_4);
 	ir_tx.init();
 
+    auto testRX = Xasin::XIRR::Receiver(GPIO_NUM_17, RMT_CHANNEL_5);
+
+    testRX.init();
+    testRX.on_rx = [](const uint8_t *data, uint8_t len, uint8_t channel) {
+    	if(channel != 128)
+    		return;
+
+    	const bacn_mode_t *bacnData = reinterpret_cast<const bacn_mode_t *>(data);
+
+    	for(uint8_t i=0; i<len; i++) {
+    		if(current_bacn_mode == BTN_GAME_GO) {
+    			if(bacnData[i].func == 10) {
+    				winnerID = bacnData[i].ID;
+    				current_bacn_mode = BTN_GAME_WINNER;
+    				Program::send_notify();
+    			}
+    		}
+    	}
+    };
+
 	auto ir_sub = Xasin::MQTT::Subscription(DSKY::mqtt, "DSKorder/BACN/Set", 1);
 
-	uint8_t targetMode = 0;
-	ir_sub.on_received = [&targetMode](const Xasin::MQTT::MQTT_Packet data) {
-		targetMode = atoi(data.data.data());
+	ir_sub.on_received = [](const Xasin::MQTT::MQTT_Packet data) {
+		current_bacn_mode = static_cast<bacn_state_t>(atoi(data.data.data()));
+
+		if(current_bacn_mode == BTN_GAME_PREP)
+			stateTimeout = xTaskGetTickCount() + 2000;
+
+		Program::send_notify();
 	};
 
-	bacn_mode_t out = {};
 
 	TickType_t nextUpdate = 0;
-	uint8_t currentMode = 0;
-
 	do {
-		if(nextUpdate < xTaskGetTickCount() || currentMode != targetMode) {
-			out = {
-					0,
-					targetMode,
-			};
+		if(nextUpdate < xTaskGetTickCount() || current_bacn_mode != old_bacn_mode) {
+			bacn_mode_t out[2] = {};
+			nextUpdate = xTaskGetTickCount() + 3000;
+
+			switch(current_bacn_mode) {
+			default:
+				out[0].ID = 0;
+				out[0].func = static_cast<uint8_t>(current_bacn_mode)+2;
+				out[1] = out[0];
+			break;
+
+			case BTN_GAME_WINNER:
+				out[0].ID = 0;
+				out[0].func = 8;
+				out[1].ID = winnerID;
+				out[1].func = 7;
+			break;
+			}
+
 			for(uint8_t i=0; i<3; i++) {
-				ir_tx.send<bacn_mode_t>(out, 128);
+				ir_tx.send(out, sizeof(out), 128);
 				vTaskDelay(50);
 			}
-			nextUpdate = xTaskGetTickCount() + 3000;
-			currentMode = targetMode;
+
+			old_bacn_mode = current_bacn_mode;
 		}
 
-		DSKY::Prog::Program::wait_for_button(100);
-		char tChar = DSKY::BTN::last_btn_event.typed_char;
-		if(tChar >= '0' && tChar <= '9') {
-			targetMode = tChar - '0';
+		if(current_bacn_mode == BTN_GAME_PREP) {
+			if(stateTimeout < xTaskGetTickCount())
+				current_bacn_mode = BTN_GAME_GO;
 		}
 
+		DSKY::Prog::Program::wait_for_notify(100);
 	} while((!DSKY::BTN::last_btn_event.escape));
 
 	return DSKY::Prog::OK;
+}
+
+program_exit_t simon_says(const DSKY::Prog::CommandChunk &cmd) {
+	int pressed_button = 0;
+	std::vector<uint8_t> buttons;
+
+	auto ir_tx = Xasin::XIRR::Transmitter(GPIO_NUM_16, RMT_CHANNEL_4);
+	ir_tx.init();
+
+    auto testRX = Xasin::XIRR::Receiver(GPIO_NUM_17, RMT_CHANNEL_5);
+    testRX.init();
+    testRX.on_rx = [&pressed_button](const uint8_t *data, uint8_t len, uint8_t channel) {
+    	if(channel != 128)
+    		return;
+
+    	pressed_button = *data;
+    	Program::send_notify();
+    };
+
+
+    while(!DSKY::BTN::last_btn_event.escape) {
+    	buttons.push_back(esp_random() & 3);
+
+    	for(auto c : buttons) {
+    		ir_tx.send<uint8_t>(c, 128);
+    		vTaskDelay(800);
+    	}
+
+    	Program::wait_for_notify();
+    }
+
+	return Prog::OK;
 }
 
 void display_accell(int axisA, int axisB) {
@@ -205,6 +287,8 @@ void init_externals() {
 	new Program("bme", bme_print_func, false);
 	new Program("ir", ir_test_func, true);
 	new Program("gyro", gyro_test_func, true);
+
+	new Program("simon", simon_says, true);
 
 	xTaskCreate(background_monitor_task, "DSKY:EXT", 4096, nullptr, 1, &monitor_task);
 }

@@ -55,6 +55,9 @@ public:
 
 	virtual program_exit_t run(const CommandChunk &cmd);
 
+	static void send_notify();
+	static void wait_for_notify(TickType_t timeout = portMAX_DELAY);
+
 	static void wait_for_button(TickType_t timeout = portMAX_DELAY);
 	static void wait_for_esc();
 	static void wait_for_enter();

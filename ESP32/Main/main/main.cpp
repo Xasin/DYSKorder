@@ -31,8 +31,6 @@
 
 #include "xasin/BME680.h"
 
-#include "xasin/xirr/Receiver.h"
-
 esp_err_t event_handler(void *ctx, system_event_t *event)
 {
 	Xasin::MQTT::Handler::try_wifi_reconnect(event);
@@ -109,12 +107,6 @@ extern "C" void app_main(void)
 
     DSKY::Prog::Program::inputPrimitive = &DSKY::inputArea;
     DSKY::Prog::Program::statusBulb 	= &bulbs[10];
-
-    auto testRX = Xasin::XIRR::Receiver(PINS_PIO[1], RMT_CHANNEL_4);
-    testRX.init();
-    testRX.on_rx = [](const uint8_t *data, uint8_t len, uint8_t channel) {
-    	printf("Got channel: %d\n", channel);
-    };
 
     auto wifiEnableChunk = DSKY::Prog::CommandChunk("consoleRelay");
     DSKY::Prog::Program::find(wifiEnableChunk)->run(wifiEnableChunk);

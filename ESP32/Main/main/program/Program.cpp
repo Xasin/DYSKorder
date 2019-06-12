@@ -99,6 +99,14 @@ program_exit_t Program::run(const CommandChunk &cmd) {
 	return NO_CODE;
 }
 
+void Program::send_notify() {
+	xTaskNotify(programTask, 1, eSetBits);
+}
+
+void Program::wait_for_notify(TickType_t timeout) {
+	xTaskNotifyWait(0, 0, nullptr, timeout);
+}
+
 void Program::wait_for_button(TickType_t timeout) {
 	DSKY::BTN::last_btn_event = {};
 
