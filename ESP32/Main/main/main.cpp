@@ -95,6 +95,7 @@ extern "C" void app_main(void)
     Programs::lzr_init();
     Programs::util_init();
     Programs::init_externals();
+    Programs::init_bullshit();
 
     DSKY::Prog::Program::programTask = xTaskGetCurrentTaskHandle();
     DSKY::BTN::on_event = [](DSKY::BTN::btn_event_t event) {
@@ -110,6 +111,8 @@ extern "C" void app_main(void)
 
     auto wifiEnableChunk = DSKY::Prog::CommandChunk("consoleRelay");
     DSKY::Prog::Program::find(wifiEnableChunk)->run(wifiEnableChunk);
+
+    DSKY::audio.insert_sample(new Xasin::Peripheral::SquareWave(440, 20, 500));
 
     while (true) {
     	reset_interfaces();

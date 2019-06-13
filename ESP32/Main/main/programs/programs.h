@@ -15,6 +15,8 @@ void util_init();
 
 void init_externals();
 
+void init_bullshit();
+
 }
 
 

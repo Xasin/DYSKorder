@@ -231,14 +231,18 @@ program_exit_t simon_says(const DSKY::Prog::CommandChunk &cmd) {
 
 
     while(!DSKY::BTN::last_btn_event.escape) {
-    	buttons.push_back(esp_random() & 3);
+    	pressed_button = -1;
+    	while(pressed_button == -1)
+    		Program::wait_for_notify();
+
+    	buttons.push_back(pressed_button);
 
     	for(auto c : buttons) {
     		for(uint8_t i=0; i<3; i++) {
     			ir_tx.send<uint8_t>(c, 128);
     			vTaskDelay(20);
     		}
-    		vTaskDelay(800);
+    		vTaskDelay(400);
     	}
 
     	for(auto c : buttons) {
@@ -258,7 +262,7 @@ program_exit_t simon_says(const DSKY::Prog::CommandChunk &cmd) {
     	}
 
 		Xasin::Trek::play(Xasin::Trek::INPUT_OK);
-    	vTaskDelay(2000);
+    	vTaskDelay(1500);
     }
 
 	return Prog::OK;
