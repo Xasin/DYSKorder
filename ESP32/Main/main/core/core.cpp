@@ -19,7 +19,7 @@ namespace DSKY {
 Xasin::Peripheral::AudioHandler audio(44100);
 
 
-Xasin::I2C::AS1115 			segmentCTRL = Xasin::I2C::AS1115();
+Xasin::I2C::AS1115 			segmentCTRL = Xasin::I2C::AS1115(0);
 Peripheral::NeoController	RGBCTRL(PIN_WS2812, RMT_CHANNEL_0, 17);
 
 Xasin::I2C::MAX11613	adc = Xasin::I2C::MAX11613();
@@ -48,6 +48,8 @@ void pin_setup() {
 			GPIO_INTR_DISABLE
 	};
     gpio_config(&pinCFG);
+
+
 
     uint64_t newMask = 0;
     for(int p : PINS_MODE)
