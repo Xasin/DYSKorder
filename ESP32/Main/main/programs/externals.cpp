@@ -231,11 +231,7 @@ program_exit_t simon_says(const DSKY::Prog::CommandChunk &cmd) {
 
 
     while(!DSKY::BTN::last_btn_event.escape) {
-    	pressed_button = -1;
-    	while(pressed_button == -1)
-    		Program::wait_for_notify();
-
-    	buttons.push_back(pressed_button);
+    	buttons.push_back(esp_random()&0b11);
 
     	for(auto c : buttons) {
     		for(uint8_t i=0; i<3; i++) {
