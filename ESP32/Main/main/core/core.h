@@ -8,6 +8,8 @@
 #ifndef MAIN_CORE_CORE_H_
 #define MAIN_CORE_CORE_H_
 
+#include "pins.h"
+
 #include "NeoController.h"
 
 #include "AudioHandler.h"
