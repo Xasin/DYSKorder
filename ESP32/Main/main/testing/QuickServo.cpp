@@ -32,7 +32,6 @@ QuickServo::QuickServo(gpio_num_t servo_pin, ledc_timer_t timer, ledc_channel_t 
 	ledc_channel_config(&ledChannel);
 
 	ledc_fade_func_install(0);
-
 }
 
 QuickServo::~QuickServo() {
