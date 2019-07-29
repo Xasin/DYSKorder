@@ -69,14 +69,14 @@ extern "C" void app_main(void)
     esp_timer_init();
 
     esp_pm_config_esp32_t power_config = {};
-    power_config.max_freq_mhz = 80;
-	power_config.min_freq_mhz = 80;
+    power_config.max_freq_mhz = 160;
+	power_config.min_freq_mhz = 160;
 	power_config.light_sleep_enable = false;
     esp_pm_configure(&power_config);
 
     DSKY::setup();
 
-    DSKY::audio.volumeMod = 130;
+    DSKY::audio.volumeMod = 50;
 
     bulbs[11].mode = DFLASH;
     bulbs[11].target = Material::RED;
@@ -108,11 +108,6 @@ extern "C" void app_main(void)
 
     DSKY::Prog::Program::inputPrimitive = &DSKY::inputArea;
     DSKY::Prog::Program::statusBulb 	= &bulbs[10];
-
-    auto wifiEnableChunk = DSKY::Prog::CommandChunk("consoleRelay");
-    DSKY::Prog::Program::find(wifiEnableChunk)->run(wifiEnableChunk);
-
-    DSKY::audio.insert_sample(new Xasin::Peripheral::SquareWave(440, 20, 500));
 
     while (true) {
     	reset_interfaces();

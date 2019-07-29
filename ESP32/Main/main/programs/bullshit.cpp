@@ -11,6 +11,7 @@
 #include "../core/segments.h"
 
 #include "../testing/QuickServo.h"
+#include "xasin/DShot.h"
 
 #include <cmath>
 
@@ -24,10 +25,15 @@ using namespace DSKY::Seg;
 namespace Programs {
 
 program_exit_t test_servo(const CommandChunk &cmd) {
-	QuickServo tServ = QuickServo(PINS_PIO[0]);
+	auto tServ = Xasin::OneShot125::DShot(PINS_PIO[0], RMT_CHANNEL_6);
 
 	vTaskDelay(1000);
 
+	tServ.init();
+
+	tServ.send(0);
+
+	tServ.send_cmd(Xasin::OneShot125::DShot::SPIN_NORMAL);
 
 	float tSpeed = 0;
 	float cSpeed = 0;
@@ -41,13 +47,11 @@ program_exit_t test_servo(const CommandChunk &cmd) {
 		}
 		else if(BTN::last_btn_event.escape)
 			break;
-		else if(pressedChar == '.') {
-			tServ.set_programming();
-			vTaskDelay(3000);
-		}
+		else if(pressedChar == '.')
+			tServ.send_cmd(Xasin::OneShot125::DShot::BEACON4);
 
 		cSpeed = (tSpeed*0.01 + cSpeed*0.99);
-		tServ.set_to(cSpeed);
+		tServ.send(48 + 2000*tSpeed);
 	}
 
 	return DSKY::Prog::OK;

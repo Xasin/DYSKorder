@@ -24,7 +24,7 @@
 #include "LittleConsole.h"
 
 #include "xasin/MAX11613.h"
-#include "BatteryManager.h"
+#include "xasin/BatteryManager.h"
 #include "xasin/LSM6DS3.h"
 
 #include <functional>
