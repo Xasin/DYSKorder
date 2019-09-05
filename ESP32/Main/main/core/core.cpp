@@ -79,6 +79,7 @@ void setup() {
     ADC::setup();
 
     gyro.init();
+    gyro.set_g_max(0);
 
     Graphics::setup();
 

@@ -48,6 +48,16 @@ extern Peripheral::OLED::LittleConsole console;
 extern Peripheral::OLED::StringPrimitive inputArea;
 
 namespace ADC {
+	enum vcc_warn_mode_t {
+		AUTO_OFF,
+		AUTO_33V,
+		AUTO_50V,
+		FIX_OFF,
+		FIX_33V,
+		FIX_50V,
+	};
+	extern vcc_warn_mode_t vcc_warn_mode;
+
 	void setup();
 
 	void tick();

@@ -54,7 +54,7 @@ program_exit_t wifiFunc(const CommandChunk &cmd) {
 		DSKY::console.printf("LZR WiFi starting!\n");
 	}
 	else if(cmd.get_arg_str(0) == "home") {
-		Xasin::MQTT::Handler::start_wifi("TP-LINK_84CDC2\0", "f36eebda48\0");
+		Xasin::MQTT::Handler::start_wifi("TP-LINK_84CDC2\0", "f36eebda48\0", -1);
 		mqtt.start("mqtt://uMFNQh4CursTSbkTb1m8MBqg08CJYuBi56TJcN9w5qdLrntreFpR4DVUznrnGTtz@mqtt.flespi.io");
 		console.printf("Home WiFi starting!\n");
 	}
