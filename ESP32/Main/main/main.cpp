@@ -31,6 +31,11 @@
 
 #include "xasin/BME680.h"
 
+#include "opus.h"
+#include "test_sound.h"
+
+#include "esp_log.h"
+
 esp_err_t event_handler(void *ctx, system_event_t *event)
 {
 	Xasin::MQTT::Handler::try_wifi_reconnect(event);
@@ -69,8 +74,8 @@ extern "C" void app_main(void)
     esp_timer_init();
 
     esp_pm_config_esp32_t power_config = {};
-    power_config.max_freq_mhz = 160;
-	power_config.min_freq_mhz = 160;
+    power_config.max_freq_mhz = 240;
+	power_config.min_freq_mhz = 80;
 	power_config.light_sleep_enable = false;
     esp_pm_configure(&power_config);
 

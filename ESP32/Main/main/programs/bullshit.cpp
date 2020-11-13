@@ -168,12 +168,31 @@ program_exit_t playPortal(const CommandChunk &cmd) {
 	return DSKY::Prog::OK;
 }
 
+program_exit_t voice_control_button(const CommandChunk &cmd) {
+	bool old_state = false;
+
+	while(!DSKY::BTN::last_btn_event.escape) {
+		xTaskNotifyWait(0, 0, nullptr, 500);
+
+		bool new_state = (DSKY::BTN::current_buttons & (1<<7)) != 0;
+
+		if(new_state != old_state)
+			DSKY::mqtt.publish_to("Test/VCTRL", new_state ? "1" : "0", 1);
+
+		old_state = new_state;
+	}
+
+	return DSKY::Prog::OK;
+}
+
 void init_bullshit() {
 	new Program("portal", playPortal, true);
 
 	new Program("servo", test_servo, true);
 
 	new Program("hover", send_hovercraft, true);
+
+	new Program("vctrl", voice_control_button, true);
 }
 
 }
