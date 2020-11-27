@@ -10,9 +10,9 @@
 
 #include "pins.h"
 
-#include "NeoController.h"
+#include "xasin/NeoController.h"
 
-#include "AudioHandler.h"
+#include <xasin/audio.h>
 #include "xasin/TrekAudio.h"
 
 #include "MasterAction.h"
@@ -31,7 +31,7 @@
 
 namespace DSKY {
 
-extern Xasin::Peripheral::AudioHandler audio;
+extern Xasin::Audio::TX audio;
 
 extern Xasin::I2C::AS1115 			segmentCTRL;
 extern Peripheral::NeoController	RGBCTRL;

@@ -16,7 +16,7 @@
 
 namespace DSKY {
 
-Xasin::Peripheral::AudioHandler audio(44100);
+Xasin::Audio::TX audio(I2S_NUM_0);
 
 
 Xasin::I2C::AS1115 			segmentCTRL = Xasin::I2C::AS1115(0);
@@ -28,6 +28,13 @@ Housekeeping::BatteryManager battery = Housekeeping::BatteryManager();
 Xasin::I2C::LSM6DS3		gyro = Xasin::I2C::LSM6DS3();
 
 Xasin::MQTT::Handler mqtt = Xasin::MQTT::Handler();
+
+void largestack_processing_thread(void *_) {
+	while(true) {
+		xTaskNotifyWait(0, 0, nullptr, portMAX_DELAY);
+		audio.largestack_process();
+	}
+}
 
 void housekeep_thread(void *_) {
 	while(true) {
@@ -83,18 +90,22 @@ void setup() {
 
     Graphics::setup();
 
+    xTaskCreate(housekeep_thread, "DSKY::House", 2048, nullptr, 5, nullptr);
+
+    TaskHandle_t large_thread;
+    xTaskCreate(largestack_processing_thread, "LARGE", 32768, nullptr, 10, &large_thread);
+
     i2s_pin_config_t pinCFG = {
     	PIN_AUDIO_BCK,
 		PIN_AUDIO_LRCK,
 		PIN_AUDIO_DATA,
 		I2S_PIN_NO_CHANGE
     };
-    audio.start_thread(pinCFG);
+    audio.init(large_thread, pinCFG);
     Xasin::Trek::init(audio);
 
-    xTaskCreate(housekeep_thread, "DSKY::House", 2048, nullptr, 10, nullptr);
-
     Xasin::Trek::play(Xasin::Trek::PROG_DONE);
+
     BTN::setup();
 }
 

@@ -10,20 +10,18 @@
 
 #include "../core/segments.h"
 
-#include "AudioStream.h"
-
 #include <lwip/sockets.h>
 
 #include "esp_log.h"
-#include "opus.h"
 
-Xasin::Peripheral::AudioStream testStream = Xasin::Peripheral::AudioStream(DSKY::audio, DSKY::mqtt);
-OpusDecoder * test_decoder = nullptr;
+#include "xasin/audio/TXStream.h"
 
 using namespace DSKY;
 using namespace DSKY::Prog;
 
 namespace Programs {
+
+Xasin::Audio::TXStream test_stream = Xasin::Audio::TXStream(DSKY::audio);
 
 program_exit_t consoleRelay(const CommandChunk &cmd) {
 	if(DSKY::mqtt.is_disconnected() == 255) {
@@ -92,40 +90,20 @@ program_exit_t wifiFunc(const CommandChunk &cmd) {
 		mqtt.start("mqtt://192.168.6.64");
 		console.printf("Home WiFi starting!\n");
 	}
-	else if(cmd.get_arg_str(0) == "uni") {
-		Xasin::MQTT::Handler::start_wifi_enterprise("eduroam\0", "\0", "FQP-EQP\0", "eduroam@uni-hannover.de\0", "Wrong\0");
-		mqtt.start("mqtt://test.mosquitto.org");
-	}
 
 	mqtt.subscribe_to("DSKorder/Ping", [](const Xasin::MQTT::MQTT_Packet packet) {
 		mqtt.publish_to("DSKorder/PingAnswer", packet.data.data(), packet.data.size(), false, 0);
 	});
 
-	DSKY::audio.insert_sample(&testStream);
-
-	test_decoder = opus_decoder_create(24000, 1, nullptr);
+	test_stream.start(false);
 
 	mqtt.subscribe_to("DSKorder/Audio", [](const Xasin::MQTT::MQTT_Packet packet) {
-		int16_t audio_data[5760] = {};
-
 		auto sample_ptr = reinterpret_cast<const uint8_t*>(packet.data.data());
 		uint8_t no_samples = *sample_ptr;
 		sample_ptr++;
 
-		uint16_t packet_length = (packet.data.length() - 1) / no_samples;
+		test_stream.feed_packets(sample_ptr, (packet.data.length() - 1) / no_samples, no_samples);
 
-		while(no_samples != 0) {
-			size_t processed = opus_decode(test_decoder, sample_ptr, packet_length, audio_data, 5760, 0);
-
-			sample_ptr += no_samples;
-
-			no_samples--;
-
-			testStream.add_samples(audio_data, processed);
-		}
-
-
-		// ESP_LOGI("OPUS", "Decoded %d input bytes into %d samples", packet.data.size(), processed);
 	});
 
 	return Prog::OK;
@@ -133,12 +111,12 @@ program_exit_t wifiFunc(const CommandChunk &cmd) {
 
 program_exit_t volumeFunc(const CommandChunk &cmd) {
 	if(cmd.get_arg_count() == 0) {
-		console.printf("Volume is: %d\n", audio.volumeMod);
+		console.printf("Volume is: %d\n", audio.volume_mod);
 		return Prog::OK;
 	}
 
-	audio.volumeMod = cmd.get_arg_flt(0, 100);
-	console.printf("Volume set to: %d\n", audio.volumeMod);
+	audio.volume_mod = cmd.get_arg_flt(0, 100);
+	console.printf("Volume set to: %d\n", audio.volume_mod);
 	return Prog::OK;
 }
 

@@ -81,7 +81,7 @@ extern "C" void app_main(void)
 
     DSKY::setup();
 
-    DSKY::audio.volumeMod = 50;
+    DSKY::audio.volume_mod = 200;
 
     bulbs[11].mode = DFLASH;
     bulbs[11].target = Material::RED;

@@ -8,7 +8,7 @@
 #ifndef MAIN_CORE_INDICATORBULB_H_
 #define MAIN_CORE_INDICATORBULB_H_
 
-#include "NeoController.h"
+#include "xasin/NeoController.h"
 
 namespace DSKY {
 namespace Seg {
