@@ -1,3 +1,6 @@
+# Useful PACTL command:
+# pactl load-module module-pipe-sink sink_name=DSKorder rate=48000 channels=1 channel_map=mono file=/tmp/dskorder_audio.out
+
 
 require 'mqtt/sub_handler'
 require 'socket'
@@ -9,7 +12,7 @@ BITRATE    = 24000; # In kBit/Second
 
 FRAME_SIZE = 0.02;  # In Milliseconds
 
-$mqtt = MQTT::SubHandler.new('localhost');
+$mqtt = MQTT::SubHandler.new('mqtt://192.168.178.230');
 
 opus_encoder = Opus::Encoder.new(SAMPLERATE, SAMPLERATE * FRAME_SIZE, 1);
 opus_encoder.vbr_rate = 0;
@@ -27,8 +30,8 @@ dString.force_encoding('ASCII-8BIT');
 next_read_time = Time.now();
 
 loop do
-	out_data = [1].pack "c";
-	1.times do
+	out_data = [3].pack "C";
+	3.times do
 		sleep_tdiff = next_read_time - Time.now();
 		sleep sleep_tdiff if sleep_tdiff > 0
 		next_read_time = Time.now() + FRAME_SIZE;
@@ -37,7 +40,7 @@ loop do
 		out_data += opus_encoder.encode(dString, dString.size);
 	end
 
-	$mqtt.publish_to("DSKorder/Audio", out_data, qos: 0);
+	$mqtt.publish_to("/esp32/dragon-cookie/E0.E2.E6.56.14.D0/audio/play", out_data, qos: 0);
 end
 
 def send_packet(packet_number)
